@@ -109,7 +109,6 @@ export default function VillaPage({ north }: { north: boolean}) {
             <FAQs2 {...faqs2Home} />
             <Contact {...contactHome} />
 
-            <div id="headlessui-portal-root"></div>
         </>
     );
 }

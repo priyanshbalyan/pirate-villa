@@ -22,12 +22,11 @@ export default function Page() {
             <Image
               src={southExterior}
               alt="Scenic mountain landscape with a lake in the foreground"
-              objectFit="cover"
               priority
-              className="h-full"
+              className="h-full object-cover"
             />
           </div>
-          <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
+          <div className="absolute inset-0 bg-black opacity-10 transition-opacity duration-300 ease-in-out group-hover:opacity-5" />
           <div className="absolute inset-0 flex items-center justify-center">
             <Link href="/villa">
               <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
@@ -41,12 +40,11 @@ export default function Page() {
             <Image
               src={northInterior}
               alt="Serene beach scene with waves crashing on the shore"
-              objectFit="cover"
               priority
-              className='h-full'
+              className='h-full object-cover'
             />
           </div>
-          <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
+          <div className="absolute inset-0 bg-black opacity-10 transition-opacity duration-300 ease-in-out group-hover:opacity-5" />
           <div className="absolute inset-0 flex items-center justify-center">
             <Link href="/villa?north=true">
               <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
@@ -56,7 +54,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div id="headlessui-portal-root"></div>
     </>
   );
 }
