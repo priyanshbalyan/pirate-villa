@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className="fixed inset-0 flex flex-col md:flex-row w-full h-full">
+      <div className="fixed inset-0 flex flex-col md:flex-row w-full h-full min-h-full">
         <div className="relative w-full h-1/2 md:w-1/2 md:h-full overflow-hidden group">
           <div className="absolute inset-0 transition-transform duration-300 ease-in-out group-hover:scale-[1.03]">
             <Image
@@ -30,7 +30,7 @@ export default function Page() {
           <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
           <div className="absolute inset-0 flex items-center justify-center">
             <Link href="/villa">
-              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300">
+              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
                 View Pirate Villa South
               </Button>
             </Link>
@@ -49,7 +49,7 @@ export default function Page() {
           <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
           <div className="absolute inset-0 flex items-center justify-center">
             <Link href="/villa?north=true">
-              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300">
+              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
                 View Pirate Villa North
               </Button>
             </Link>
