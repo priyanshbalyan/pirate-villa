@@ -40,10 +40,18 @@ export default function Page({ params, searchParams }: {
 						<div>
 							<h3 className="font-semibold text-base sm:text-lg mb-2">Booking Details:</h3>
 							<ul className="text-sm sm:text-base text-gray-600 space-y-1  dark:text-white">
-								<li>Property: The Pirates Landing {isNorth ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</li>
-								{startDate && <li>Check-in: {startDate}</li>}
-								{endDate && <li>Check-out: {endDate}</li>}
-								{guests && <li>Guests: {guests}</li>}
+								<li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Property:</span><span className="w-8/12 text-left">The Pirates Landing {isNorth ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</span>
+								</li>
+								{startDate && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Check-in:</span><span className="w-8/12 text-left">{startDate}</span>
+								</li>}
+								{endDate && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Check-out:</span><span className="w-8/12 text-left">{endDate}</span>
+								</li>}
+								{guests && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Guests:</span><span className="w-8/12 text-left">{guests}</span>
+								</li>}
 							</ul>
 						</div>
 					</CardContent>
