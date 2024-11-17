@@ -4,32 +4,33 @@ import ical from 'ical';
 import fs from 'fs';
 
 const externalApiUrl =
-    'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative';
+  'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative';
 
 async function getData() {
-  
-    // Fetch data from the external API
-    const response = await fetch(externalApiUrl);
+  // Fetch data from the external API
+  const response = await fetch(externalApiUrl);
 
-    // Check if the response is successful
-    if (!response.ok) {
-      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-    }
+  // Check if the response is successful
+  if (!response.ok) {
+    throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+  }
 
-    // Parse the data (assuming it's text, e.g., an iCal file)
-    const data = await response.text();
-    const parsedData = ical.parseICS(data)
-    return parsedData
+  // Parse the data (assuming it's text, e.g., an iCal file)
+  const data = await response.text();
+  const parsedData = ical.parseICS(data)
+  return parsedData
 }
 
-// API route to fetch data from an external endpoint
+const northICSData = fs.readFileSync(`./public/north-calendar.ics`).toString()
+const southICSData = fs.readFileSync(`./public/south-calendar.ics`).toString()
+
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
   try {
-    const { searchParams } = new URL(request.url);
     const north = searchParams.get('north');
 
-    const data = fs.readFileSync(`./public/${!!north ? 'north' : 'south'}-calendar.ics`).toString()
-    const parsedData = ical.parseICS(data)
+    const icsData = !!north ? northICSData : southICSData
+    const parsedData = ical.parseICS(icsData)
 
     // Return the fetched data as a response
     return new NextResponse(JSON.stringify(parsedData), {

@@ -415,62 +415,7 @@ export const teamHome: TeamProps = {
 };
 
 // Contact data on Home page *******************
-export const contactHome: ContactProps = {
-  hasBackground: true,
-  header: {
-    title: 'Important Information',
-    subtitle: 'You need to know',
-  },
-  content:
-    '',
-  items: [
-    {
-      description: ['Extra-person charges may apply and vary depending on property policy']
-    },
-    {
-      description: ['Government-issued photo identification and a credit card, debit card, or cash deposit may be required at check-in for incidental charges'],
-    },
-    {
-      description: ['Special requests are subject to availability upon check-in and may incur additional charges; special requests cannot be guaranteed'],
-    },
-    {
-      description: ['Onsite parties or group events are strictly prohibited'],
-    },
-    {
-      description: ['Host has indicated there are no carbon monoxide detectors or gas appliances on the property'],
-    },
-    {
-      description: ['Host has indicated there is a smoke detector on the property'],
-    },
-  ],
-  form: {
-    title: 'Amenities',
-    inputs: [
-      {
-        type: 'text',
-        name: 'name',
-        autocomplete: 'off',
-        placeholder: 'Your name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        autocomplete: 'on',
-        placeholder: 'Your email address',
-      },
-    ],
-    textarea: {
-      cols: 30,
-      rows: 5,
-      name: 'textarea',
-      placeholder: 'Write your message...',
-    },
-    btn: {
-      title: 'Send Message',
-      type: 'submit',
-    },
-  },
-};
+
 
 // CallToAction data *******************
 export const callToAction2Home: CallToActionProps = {
