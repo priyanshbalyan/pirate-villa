@@ -35,7 +35,7 @@ export default function Page({ params, searchParams }: {
 					</CardHeader>
 					<CardContent className="text-center space-y-4 sm:space-y-6">
 						<p className="text-sm sm:text-base text-gray-600  dark:text-white">
-							Thank you for your booking. We've sent a confirmation email to your registered email address.
+							Thank you for your booking. We&apos;ve sent a confirmation email to your registered email address.
 						</p>
 						<div>
 							<h3 className="font-semibold text-base sm:text-lg mb-2">Booking Details:</h3>
