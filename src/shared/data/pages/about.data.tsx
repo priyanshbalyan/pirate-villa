@@ -38,6 +38,7 @@ import {
 
 // Hero2 data on About page *******************
 export const hero2About: HeroProps = {
+  north: false,
   title: 'Great companies are made by great people',
   subtitle:
     'Vivamus venenatis, lectus a pellentesque placerat, felis tellus ultrices eros, et aliquam sapien nibh sed sem. Fusce ut ante eget purus viverra malesuada. Morbi eget mi maximus, ultricies urna eget, tristique lorem. Fusce cursus venenatis quam, a blandit lectus vulputate id. Praesent id interdum orci, vitae condimentum dui.',

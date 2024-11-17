@@ -23,6 +23,7 @@ import cameraBackImg from '~/assets/images/camera-back.jpg';
 
 // Hero data on Services page *******************
 export const heroServices: HeroProps = {
+  north: false,
   title: 'Elevate your projects with our stunning templates',
   subtitle:
     'Donec aliquam pharetra nibh quis vestibulum. Praesent hendrerit sem at lacus ullamcorper egestas. Morbi lacinia ipsum in nulla gravida, ac sagittis turpis pretium. ',
@@ -83,7 +84,7 @@ export const contentServicesOne: ContentProps = {
   id: 'contentOne-on-services-one',
   hasBackground: false,
   content:
-    'Ne dicta praesent ocurreret has, diam theophrastus at pro. Eos etiam regione ut, persius eripuit quo id. Sit te euismod tacimates.',
+    <>Ne dicta praesent ocurreret has, diam theophrastus at pro. Eos etiam regione ut, persius eripuit quo id. Sit te euismod tacimates.</>,
   items: [
     {
       title: 'Per ei quaeque sensibus',
@@ -114,7 +115,7 @@ export const contentServicesTwo: ContentProps = {
   id: 'contentOne-on-services-two',
   hasBackground: false,
   content:
-    'Per odio fabellas consulatu cu. Utroque detracto mel ea, quo te latine theophrastus. Ea his tale nib dissentias, mei exerci tamquam euripidis cu.',
+    <>Per odio fabellas consulatu cu. Utroque detracto mel ea, quo te latine theophrastus. Ea his tale nib dissentias, mei exerci tamquam euripidis cu.</>,
   items: [
     {
       title: 'Per ei quaeque sensibus',

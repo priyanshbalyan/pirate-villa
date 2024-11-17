@@ -1,5 +1,3 @@
-'use client';
-
 import Hero from '~/components/widgets/Hero';
 import Features from '~/components/widgets/Features';
 import Content from '~/components/widgets/Content';
@@ -13,20 +11,12 @@ import {
 } from '~/shared/data/pages/home.data';
 import { southPictures } from '~/shared/data/pages/home.data';
 import { ContentProps, FAQsProps, HeroProps } from '~/shared/types';
-import { getQueryParam } from '~/utils/utils';
-import { useEffect, useState } from 'react';
 import southExterior from 'public/south-exterior-1.avif';
 import northTerracePatio2 from 'public/north-terrace-patio-2.avif';
 
 
-export default function VillaPage() {
-    const isNorth = getQueryParam('north')
-    const [isNorthState, setIsNorthState] = useState(isNorth)
-    const villaText = isNorthState ? 'North' : 'South'
-
-    useEffect(() => {
-        setIsNorthState(getQueryParam('north'))
-    }, [])
+export default function VillaPage({ north }: { north: boolean}) {
+    const villaText = north ? 'North' : 'South'
 
     const content = <>
         <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
@@ -48,7 +38,7 @@ export default function VillaPage() {
             text: 'Book Now',
             href: '/book',
         },
-        north: !!isNorthState
+        north: north
     };
 
     const contentHomeOne: ContentProps = {
@@ -107,7 +97,7 @@ export default function VillaPage() {
         <>
             <Hero {...heroHome} />
 
-            {isNorthState ? <>
+            {north ? <>
                 <Content {...contentHomeTwo} />
                 <Features items={northPictures} />
             </> : <>

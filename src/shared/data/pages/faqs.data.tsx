@@ -3,6 +3,7 @@ import { HeroProps } from '~/shared/types';
 
 // Hero data on FAQs page *******************
 export const heroFaqs: HeroProps = {
+  north: false,
   title: 'Frequently Asked Questions',
   subtitle: (
     <>

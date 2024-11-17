@@ -3,6 +3,7 @@ import { HeroProps } from '~/shared/types';
 
 // Hero data on Pricing page *******************
 export const heroPricing: HeroProps = {
+  north: false,
   title: 'Plans and Prices',
   subtitle: (
     <>

@@ -17,14 +17,3 @@ export const getSuffixNumber = (number: number, digits: number = 1): string => {
     .find((item) => number >= item.value);
   return lookupItem ? (number / lookupItem.value).toFixed(digits).replace(rx, '$1') + lookupItem.symbol : '0';
 };
-
-export function getQueryParam(paramName: string) { 
-  // Get the current URL
-  const url = window.location.href;
-
-  // Create a URL object and extract the search params
-  const params = new URLSearchParams(new URL(url).search);
-
-  // Return the value of the specified query parameter
-  return params.get(paramName);
-}

@@ -3,7 +3,6 @@ import { HeroProps } from '~/shared/types';
 import CTA from '../common/CTA';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { getQueryParam } from '~/utils/utils';
 
 // Create a client
 const queryClient = new QueryClient()

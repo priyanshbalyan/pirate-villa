@@ -4,6 +4,7 @@ import { HeroProps } from '~/shared/types';
 
 // Hero data on Contact page *******************
 export const heroContact: HeroProps = {
+  north: false,
   title: 'Get in touch with us',
   subtitle: (
     <>
