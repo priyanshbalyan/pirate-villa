@@ -4,7 +4,7 @@ import path from 'path';
 
 export async function GET() {
   // Path to the file you want to serve
-  const filePath = path.resolve('./public/calendar.ics'); // Replace with your file path
+  const filePath = path.resolve('./public/south-calendar.ics'); // Replace with your file path
   
   // Read the file
   try {
@@ -14,7 +14,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type
-        'Content-Disposition': 'attachment; filename="calendar.ics"', // File name for the download
+        'Content-Disposition': 'attachment; filename="south-calendar.ics"', // File name for the download
       },
     });
   } catch (error) {

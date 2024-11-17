@@ -44,22 +44,25 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const handleBook = async () => {
 		setLoading(true)
 		if (startDate && endDate) {
-			await getUpdateCalendar(startDate, endDate)
-
-			toast({
-				title: 'Booking completed!',
-				description: 'For dates to '
-			})
-			const params = new URLSearchParams({
-				guests: guests.toString(),
-				name,
-				email,
-				startDate: format(startDate, 'yyyy-MM-dd'),
-				endDate: format(endDate, 'yyyy-MM-dd')
-			})
-			router.push(`/complete?${params.toString()}`)
+				getUpdateCalendar(startDate, endDate, north ? 'north' : 'south').then(() => {
+					const params = new URLSearchParams({
+						guests: guests.toString(),
+						name,
+						email,
+						startDate: format(startDate, 'yyyy-MM-dd'),
+						endDate: format(endDate, 'yyyy-MM-dd')
+					})
+					router.push(`/complete?${params.toString()}`)
+					queryClient.invalidateQueries({
+						queryKey: ['getICSData' + north.toString()]
+					})
+				}).catch(err => {
+					toast({ title: 'An unknown error occured.' })
+				})
+				.finally(() => {
+					setLoading(false)
+				})
 		}
-		setLoading(false)
 	}
 
 	const bg = north ? "bg-[url('/north-miscellaneous.avif')]" : "bg-[url('/south-beach.avif')]"
@@ -123,7 +126,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 					</div>
 				</div>
 			</Dialog>
-			
+
 		</QueryClientProvider>
 	);
 }

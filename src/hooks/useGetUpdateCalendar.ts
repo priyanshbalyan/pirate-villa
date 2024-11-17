@@ -1,12 +1,16 @@
-import { useQuery } from "@tanstack/react-query"
-
-async function getUpdateCalendar(startDate: Date, endDate: Date) {
+async function getUpdateCalendar(startDate: Date, endDate: Date, calendar: 'north' | 'south') {
     const response = await fetch('/api/update-calendar', {
         method: 'POST',
-        body: JSON.stringify({ startDate, endDate })
+        body: JSON.stringify({ startDate, endDate, calendar })
     })
 
-    return await response.json();
+    const json = await response.json()
+    if (!response.ok) {
+        const errorResponse = await response.json()
+        throw new Error(errorResponse.error || ('Server responded with status ' + response.status))
+    }
+
+    return json;
 }
 
 export default getUpdateCalendar

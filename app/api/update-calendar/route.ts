@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { format, isDate, isValid, parseISO } from 'date-fns';
-
-const calendarFilePath = path.resolve('./public/calendar.ics'); // Path to save the .ics file
+import { format, isValid, parseISO } from 'date-fns';
 
 const generateFormattedDate = (date: Date) => {
     // Format the date as YYYYMMDDTHHmmssZ
@@ -16,15 +14,23 @@ export async function POST(req: NextRequest) {
   try {
     // Parse the request body
     const body = await req.json();
-    const { startDate, endDate } = body;
+    const { startDate, endDate, calendar } = body;
     
     // Validate the request body
-    if (!isValid(parseISO(startDate)) || !isValid(parseISO(endDate))) {
+    if (!['north', 'south'].includes(calendar)) {
       return NextResponse.json(
-        { error: '"Dates must be provided' },
+        { error: 'calendar type should be provided' },
         { status: 400 }
       );
     }
+    if (!isValid(parseISO(startDate)) || !isValid(parseISO(endDate))) {
+      return NextResponse.json(
+        { error: 'Dates must be provided' },
+        { status: 400 }
+      );
+    }
+
+    const calendarFilePath = path.resolve(`./public/${calendar}-calendar.ics`); // Path to save the .ics file
 
     const startDateParam = format(startDate, 'yyyyMMdd')
     const endDateParam = format(endDate, 'yyyyMMdd')
@@ -40,6 +46,7 @@ export async function POST(req: NextRequest) {
         'SUMMARY:Blocked',
         'END:VEVENT',
     ]
+
     array.splice(lastEventIndex + 1, 0, newData.join('\r\n'))
     fs.writeFileSync(calendarFilePath, array.join('\r\n'))
 

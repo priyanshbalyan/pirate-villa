@@ -1,5 +1,5 @@
 {
-  "name": "@onwidget/tailnext",
+  "name": "pirates-villa",
   "description": "A template to make your website using Next.js + Tailwind CSS.",
   "version": "1.0.0-beta.4",
   "private": true,
@@ -37,7 +37,6 @@
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-date-range": "^2.0.1",
-    "react-day-picker": "8.10.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.4",
