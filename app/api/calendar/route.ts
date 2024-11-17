@@ -1,13 +1,13 @@
 // app/api/calendar/route.js
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import ical from 'ical';
+import fs from 'fs';
 
-// API route to fetch data from an external endpoint
-export async function GET() {
-  const externalApiUrl =
+const externalApiUrl =
     'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative';
 
-  try {
+async function getData() {
+  
     // Fetch data from the external API
     const response = await fetch(externalApiUrl);
 
@@ -18,6 +18,17 @@ export async function GET() {
 
     // Parse the data (assuming it's text, e.g., an iCal file)
     const data = await response.text();
+    const parsedData = ical.parseICS(data)
+    return parsedData
+}
+
+// API route to fetch data from an external endpoint
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const north = searchParams.get('north');
+
+    const data = fs.readFileSync(`./public/${!!north ? 'north' : 'south'}-calendar.ics`).toString()
     const parsedData = ical.parseICS(data)
 
     // Return the fetched data as a response

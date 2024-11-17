@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { eachDayOfInterval } from 'date-fns';
 
-const NORTH_VILLA_ICS = '/api/calendar'
+const NORTH_VILLA_ICS = '/api/calendar?north=true'
 
-const SOUTH_VILLA_ICS = ''
+const SOUTH_VILLA_ICS = '/api/calendar'
 
 type CalendarICSData = {
     [key: string]: {
