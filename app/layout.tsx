@@ -17,7 +17,7 @@ export interface LayoutProps {
 
 export const metadata: Metadata = {
   title: {
-    template: `%s — ${SITE.name}`,
+    template: ``,
     default: SITE.title,
   },
   description: SITE.description,
@@ -33,7 +33,8 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className="tracking-tight antialiased text-gray-900 dark:text-slate-300 dark:bg-slate-900">
         <Providers>
           <Header />
-          <main>{children}</main>
+          <main>{children}
+          </main>
           <Footer2 />
         </Providers>
       </body>

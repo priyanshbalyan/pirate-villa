@@ -1,23 +1,26 @@
 'use client'
 import { Card, CardContent, CardTitle } from '~/components/ui/card'
 import { Checkbox } from '~/components/ui/checkbox'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { Input } from '~/components/ui/input'
 import { useState } from 'react';
-import { Button } from '../ui/button'
+import { Button } from '~/components/ui/button'
 import DateRangePicker from './DateRangePicker'
 import { RangeKeyDict } from 'react-date-range'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { CloseButton, Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import TermsAndConditions from './TermsAndConditions'
 import getUpdateCalendar from '~/hooks/useGetUpdateCalendar';
+import { LoaderCircle, X } from 'lucide-react'
+import { useToast } from '~/hooks/use-toast';
+import { Toaster } from '~/components/ui/toaster';
+import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 type Villa = 'north-villa' | 'south-villa';
 
 const queryClient = new QueryClient()
 
-export default function BookingPage() {
-	const [property, setPropertyValue] = useState<Villa | ''>('')
+export default function BookingPage({ north }: { north: boolean }) {
 	const [modalOpen, setModalOpen] = useState(false)
 	const [startDate, setStartDate] = useState<Date | null>(null)
 	const [endDate, setEndDate] = useState<Date | null>(null)
@@ -29,6 +32,9 @@ export default function BookingPage() {
 	const [email, setEmail] = useState('')
 	const [guests, setGuests] = useState(1)
 
+	const { toast } = useToast()
+	const router = useRouter()
+
 	const handleDateSelect = (value: RangeKeyDict) => {
 		const { startDate, endDate } = value.selection
 		setStartDate(startDate ? startDate : null)
@@ -38,37 +44,40 @@ export default function BookingPage() {
 	const handleBook = async () => {
 		setLoading(true)
 		if (startDate && endDate) {
-			await getUpdateCalendar(startDate, endDate)
+			// await getUpdateCalendar(startDate, endDate)
+
+			toast({
+				title: 'Booking completed!',
+				description: 'For dates to '
+			})
+			const params = new URLSearchParams({
+				guests: guests.toString(),
+				name,
+				email,
+				startDate: format(startDate, 'yyyy-MM-dd'),
+				endDate: format(endDate, 'yyyy-MM-dd')
+			})
+			router.push(`/complete?${params.toString()}`)
 		}
 		setLoading(false)
 	}
 
+	const bg = north ? "bg-[url('/north-miscellaneous.avif')]" : "bg-[url('/south-beach.avif')]"
+
 	return (
 		<QueryClientProvider client={queryClient}>
-			<div className="bg-gray-300 flex justify-center bg-[url('/south-beach.avif')] bg-cover bg-center">
-				<Card className="max-w-[700px] w-full my-36 md:mx-36">
-					<CardTitle className="p-8 text-3xl">Book Private Villas</CardTitle>
+			<div className={`flex justify-center  bg-cover bg-center ${bg}`}>
+				<Card className="max-w-[700px] w-full my-36 md:mx-36 bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80">
+					<CardTitle className="p-8 text-3xl">Book The Pirates Landing {north ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</CardTitle>
 					<CardContent className="p-8 flex flex-col">
-						<div className="mb-2">Select property:</div>
 						<div className='mb-4'>
-							<Select value={property} onValueChange={(value: Villa) => setPropertyValue(value)} >
-								<SelectTrigger className="">
-									<SelectValue placeholder="North/South Villa" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectItem className='cursor-pointer' value='north-villa'>North Villa</SelectItem>
-										<SelectItem className="cursor-pointer" value="south-villa">South Villa</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-							<div className='mt-4'>Select booking date:</div>
-							<div className="mt-4">
+							<div className='mt-0'>Select booking date:</div>
+							<div className="mt-4 rounded-md">
 								<DateRangePicker
 									handleSelect={handleDateSelect}
 									startDate={startDate}
 									endDate={endDate}
-									northVilla={property === 'north-villa'}
+									northVilla={north}
 								/>
 							</div>
 							<div className="mb-2 mt-4">Name:</div>
@@ -89,7 +98,15 @@ export default function BookingPage() {
 							<Checkbox checked={termsRead} />
 							<div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
 						</div>
-						<Button className="bg-black text-white" disabled={!termsRead}>Book!</Button>
+						<Button
+							className="bg-black text-white"
+							disabled={!termsRead || loading}
+							onClick={handleBook}
+						>
+							{loading ? <LoaderCircle className='animate-spin' /> : 'Book!'}
+						</Button>
+						<Toaster />
+
 					</CardContent>
 				</Card>
 			</div>
@@ -106,6 +123,7 @@ export default function BookingPage() {
 					</div>
 				</div>
 			</Dialog>
+			
 		</QueryClientProvider>
 	);
 }

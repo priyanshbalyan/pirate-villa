@@ -36,7 +36,7 @@ export default function VillaPage({ north }: { north: boolean}) {
         ),
         callToAction2: {
             text: 'Book Now',
-            href: '/book',
+            href: '/book' + (north ? '?north=true' : ''),
         },
         north: north
     };

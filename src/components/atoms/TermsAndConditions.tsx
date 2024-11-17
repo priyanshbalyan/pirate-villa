@@ -9,14 +9,14 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 
 	return (
 		<div className="container mx-auto px-4 pb-8 pt-6 max-h-[90%] overflow-y-scroll">
-			<h1 className="text-3xl font-bold mb-6">Rental Agreement and Policies</h1>
+			<h1 className="text-3xl font-bold mb-6 dark:text-black">Rental Agreement and Policies</h1>
 			<p className="text-gray-600 mb-6">
 				Please read through our rental agreement and policies carefully. By agreeing to these terms,
 				you acknowledge that you have read, understood, and agree to abide by all the conditions set forth.
 			</p>
 
 			<ScrollArea className=" border rounded-md p-4 mb-6">
-				<Accordion type="single" collapsible className="w-full">
+				<Accordion type="single" collapsible className="w-full dark:text-black">
 					<AccordionItem value="booking">
 						<AccordionTrigger>Booking and Payment</AccordionTrigger>
 						<AccordionContent>
@@ -102,7 +102,7 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 				</Accordion>
 			</ScrollArea>
 
-			<div className="flex items-center space-x-2 mb-6">
+			<div className="flex items-center space-x-2 mb-6 dark:text-black">
 				<Checkbox id="agree" checked={agreed} onCheckedChange={(checked) => setAgreed(checked as boolean)} />
 				<label
 					htmlFor="agree"
@@ -112,7 +112,7 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 				</label>
 			</div>
 
-			<Button disabled={!agreed} onClick={onAcceptClick}>Accept and Continue</Button>
+			<Button className="dark:text-black" disabled={!agreed} onClick={onAcceptClick}>Accept and Continue</Button>
 		</div>
 	)
 }

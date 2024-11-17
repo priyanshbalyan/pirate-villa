@@ -7,11 +7,15 @@ export const metadata: Metadata = {
   title: SITE.title,
 };
 
-export default function Page() {
+export default function Page({ params, searchParams} : {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
 
-  return (
+	const isNorth = !!searchParams && !!searchParams['north']
+	return (
     <>
-        <BookingPage />
+        <BookingPage north={isNorth} />
     </>
   );
 }
