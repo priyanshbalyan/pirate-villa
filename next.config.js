@@ -20,11 +20,5 @@ module.exports = {
         hostname: 'source.unsplash.com',
       },
     ],
-  },
-  rewrites: [
-    {
-      source: "/api/graphql", // Replace `/api/:path*` with your API route
-      destination: "https://www.vrbo.com/graphql", // Your backend API
-    },
-  ]
+  }
 };
