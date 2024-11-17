@@ -4,6 +4,7 @@ import { SITE } from '~/config.js';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '~/components/ui/button';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
 	title: SITE.title,
@@ -47,7 +48,9 @@ export default function Page({ params, searchParams }: {
 						</div>
 					</CardContent>
 					<CardFooter className="flex flex-col space-y-2 sm:space-y-3">
-						<Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3 text-white bg-black dark:text-white dark:bg-[#0f172a]/80">Return to Home</Button>
+						<Link href="/" className='w-full'>
+							<Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3 text-white bg-black dark:text-white dark:bg-[#0f172a]/80">Return to Home</Button>
+						</Link>
 					</CardFooter>
 				</Card>
 			</div>

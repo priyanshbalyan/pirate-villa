@@ -44,7 +44,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const handleBook = async () => {
 		setLoading(true)
 		if (startDate && endDate) {
-			// await getUpdateCalendar(startDate, endDate)
+			await getUpdateCalendar(startDate, endDate)
 
 			toast({
 				title: 'Booking completed!',

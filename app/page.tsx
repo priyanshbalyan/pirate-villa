@@ -22,9 +22,9 @@ export default function Page() {
             <Image
               src={southExterior}
               alt="Scenic mountain landscape with a lake in the foreground"
-              layout="fill"
               objectFit="cover"
               priority
+              className="h-full"
             />
           </div>
           <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
@@ -41,9 +41,9 @@ export default function Page() {
             <Image
               src={northInterior}
               alt="Serene beach scene with waves crashing on the shore"
-              layout="fill"
               objectFit="cover"
               priority
+              className='h-full'
             />
           </div>
           <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />

@@ -120,17 +120,7 @@ type Item = {
 };
 
 type ItemGrid = {
-  id?: string;
   items?: Array<Item>;
-  columns?: number;
-  defaultColumns?: number;
-  defaultIcon?: Icon;
-  containerClass?: string;
-  panelClass?: string;
-  iconClass?: string;
-  titleClass?: string;
-  descriptionClass?: string;
-  actionClass?: string;
 };
 
 type Timeline = {
