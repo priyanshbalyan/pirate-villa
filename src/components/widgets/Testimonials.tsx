@@ -14,7 +14,7 @@ const Testimonials = ({
   hasBackground = false,
 }: TestimonialsProps) => (
   <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="">
-    {header && <Headline header={header} titleClass="text-2xl sm:text-3xl" />}
+    {header && <Headline header={header} titleClass="text-2xl sm:text-2xl" />}
     <div className="flex items-stretch justify-center">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {testimonials.map(
@@ -39,7 +39,7 @@ const Testimonials = ({
                       endSlice={150}
                       image={image}
                       containerClass="h-full"
-                      panelClass="justify-between items-stretch w-full h-full"
+                      panelClass="justify-between items-stretch w-full h-full text-sm"
                       nameJobClass="text-left rtl:text-right"
                       jobClass="text-sm"
                       imageClass="mr-4 rtl:mr-0 rtl:ml-4 h-10 w-10 rounded-full"

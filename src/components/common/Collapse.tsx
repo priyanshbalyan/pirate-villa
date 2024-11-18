@@ -19,7 +19,7 @@ const Collapse = ({ items, classCollapseItem, iconUp, iconDown }: CollapseProps)
           <div className={classCollapseItem}>
 
           <div
-            className="align-center flex justify-between"
+            className="align-center flex justify-between "
             id={`accordion__heading-${index}`}
             aria-disabled="false"
             aria-expanded="false"
@@ -28,8 +28,8 @@ const Collapse = ({ items, classCollapseItem, iconUp, iconDown }: CollapseProps)
           >
             <Accordion type="single" collapsible className="w-full dark:text-black">
               <AccordionItem value="booking" className="border-0">
-                <AccordionTrigger>
-                  <h2 className="w-full pr-2 text-lg font-medium leading-6 text-gray-900 dark:text-slate-300">{title}</h2>
+                <AccordionTrigger className="my-0 py-0">
+                  <h2 className="w-full pr-2 text-md font-medium leading-6 text-gray-900 dark:text-slate-300">{title}</h2>
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="mt-2 text-gray-600 dark:text-slate-400">{description}</p>

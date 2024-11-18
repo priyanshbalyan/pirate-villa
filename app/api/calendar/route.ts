@@ -27,11 +27,9 @@ export async function GET(request: NextRequest) {
   try {
     const north = searchParams.get('north');
 
-    const northICSData = fs.readFileSync(`./public/north-calendar.ics`).toString()
-    const southICSData = fs.readFileSync(`./public/south-calendar.ics`).toString()
+    const calendarType = !!north ? 'north' : 'south'
+    const icsData = fs.readFileSync(`./public/${calendarType}-calendar.ics`).toString()
 
-
-    const icsData = !!north ? northICSData : southICSData
     const parsedData = ical.parseICS(icsData)
 
     // Return the fetched data as a response

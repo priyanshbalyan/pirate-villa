@@ -21,11 +21,11 @@ const Content = ({
     hasBackground={hasBackground}
     containerClass={`${isAfterContent ? 'py-0 md:py-0 lg:py-0 pb-12 md:pb-16 lg:pb-20' : ''}`}
   >
-    {header && <Headline header={header} titleClass="text-3xl sm:text-5xl" />}
+    {header && <Headline header={header} titleClass="text-2xl sm:text-4xl" />}
     <div className="mx-auto max-w-7xl">
       <div className={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
         <div className="self-center md:basis-1/2">
-          {content && <div className="mb-8 lg:mb-12 text-lg text-gray-600 dark:text-white text-justify">{content}</div>}
+          {content && <div className="mb-8 lg:mb-12 text-md text-gray-600 dark:text-white text-justify">{content}</div>}
           <ItemGrid
             items={items}
           />

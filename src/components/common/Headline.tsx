@@ -24,7 +24,7 @@ const Headline = ({ header, containerClass, titleClass, subtitleClass }: Headlin
           {subtitle && (
             <p
               className={twMerge(
-                `mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400 ${
+                `mx-auto mt-4 max-w-3xl text-lg text-gray-600 dark:text-slate-400 ${
                   position === 'left' ? 'text-left ml-0' : position === 'right' ? 'text-right mr-0' : 'text-center'
                 }`,
                 subtitleClass,

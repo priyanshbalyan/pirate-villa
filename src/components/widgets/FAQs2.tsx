@@ -6,7 +6,7 @@ import WidgetWrapper from '../common/WidgetWrapper';
 
 const FAQs2 = ({ header, items, id, hasBackground = false }: FAQsProps) => (
   <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="max-w-6xl">
-    {header && <Headline header={header} titleClass="text-3xl sm:text-4xl" />}
+    {header && <Headline header={header} titleClass="text-2xl sm:text-2xl" />}
     <Collapse
       items={items as Item[]}
       classCollapseItem="card md:px-6 py-4 px-5 md:py-5 mb-2"

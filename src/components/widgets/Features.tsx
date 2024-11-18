@@ -5,7 +5,7 @@ import ItemGrid from '../common/ItemGrid';
 
 const Features = ({ id, header, columns = 3, items, hasBackground = false }: FeaturesProps) => (
   <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="scroll-mt-16 max-w-6xl">
-    <Headline header={{ title: 'Photo Gallery', subtitle: ''}} titleClass="text-4xl md:text-5xl" />
+    <Headline header={{ title: 'Photo Gallery', subtitle: ''}} titleClass="text-3xl md:text-3xl" />
     <ItemGrid
       items={items}
     />
