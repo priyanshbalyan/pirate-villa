@@ -16,7 +16,7 @@ export async function GET(req: Request) {
       checkInDate: string;
       checkOutDate: string;
       villaType: string;
-    }>('SELECT * FROM bookings');
+    }[]>('SELECT * FROM bookings');
 
     return NextResponse.json(bookings);
   } catch (error) {

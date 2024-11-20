@@ -12,14 +12,12 @@ async function fetchVrboCalendarData(): Promise<string> {
 export async function GET() {
   try {
     const db = await openDb();
+    const bookings = await db.all<{
+      checkInDate: string;
+      checkOutDate: string;
+    }[]>('SELECT checkInDate, checkOutDate FROM bookings');
 
-    const [bookings, vrboData] = await Promise.all([
-      db.all<{
-        checkInDate: string;
-        checkOutDate: string;
-      }[]>("SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = ?", ['north']),
-      fetchVrboCalendarData()
-    ])
+    const vrboData = await fetchVrboCalendarData()
 
     const calendarICS = combineCalendarICS(bookings, vrboData)
 
