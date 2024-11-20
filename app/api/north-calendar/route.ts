@@ -15,13 +15,13 @@ export async function GET() {
     const bookings = await db.all<{
       checkInDate: string;
       checkOutDate: string;
-    }[]>('SELECT checkInDate, checkOutDate FROM bookings');
+    }[]>('SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = ?', ['north']);
 
     const vrboData = await fetchVrboCalendarData()
 
     const calendarICS = combineCalendarICS(bookings, vrboData)
 
-    return new NextResponse(JSON.stringify({ bookings, vrboData, calendarICS}), {
+    return new NextResponse(calendarICS, {
       status: 200,
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type
