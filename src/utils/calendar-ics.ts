@@ -40,7 +40,7 @@ export async function combineCalendarICS(data: { checkInDate: string, checkOutDa
 	if (lastIndexOf === -1) throw new Error('No events found in vrbo ics')
 
 	const events: string[] = []
-	data.map(({ checkInDate, checkOutDate }) => {
+	for (const { checkInDate, checkOutDate} of data) {
 		const startDateParam = format(parseISO(checkInDate), 'yyyyMMdd')
 		const endDateParam = format(parseISO(checkOutDate), 'yyyyMMdd')
 
@@ -55,7 +55,7 @@ export async function combineCalendarICS(data: { checkInDate: string, checkOutDa
 		]
 
 		events.push(newData.join('\r\n'))
-	})
+	}
 
 	array.splice(lastIndexOf + 1, 0, events.join('\r\n'))
 
