@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { openDb } from '~/lib/db';
-import { combineCalendarICS, generateCalendarICS } from '~/utils/calendar-ics';
+import { combineCalendarICS } from '~/utils/calendar-ics';
+
+export const dynamic = 'force-dynamic' 
 
 async function fetchVrboCalendarData() {
   const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'

@@ -1,6 +1,7 @@
 const { open } = require('sqlite')
 const sqlite3 = require('sqlite3')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 async function openDb() {
     return open({
