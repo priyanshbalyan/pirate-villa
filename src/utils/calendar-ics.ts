@@ -33,11 +33,11 @@ export async function generateCalendarICS(data: { checkInDate: string, checkOutD
 	return parsedData
 }
 
-export async function combineCalendarICS(data: { checkInDate: string, checkOutDate: string}[], vrboData: string) {
+export function combineCalendarICS(data: { checkInDate: string, checkOutDate: string}[], vrboData: string) {
 	const array = vrboData.split('\r\n')
-	const lastIndexOf = array.lastIndexOf('END:VEVENT')
+	const lastIndex = array.lastIndexOf('END:VEVENT')
 
-	if (lastIndexOf === -1) throw new Error('No events found in vrbo ics')
+	if (lastIndex === -1) throw new Error('No events found in vrbo ics')
 
 	const events: string[] = []
 	for (const { checkInDate, checkOutDate} of data) {
@@ -57,7 +57,7 @@ export async function combineCalendarICS(data: { checkInDate: string, checkOutDa
 		events.push(newData.join('\r\n'))
 	}
 
-	array.splice(lastIndexOf + 1, 0, events.join('\r\n'))
+	const newArray = [...array.slice(0, lastIndex), events.join('\r\n'), ...array.slice(lastIndex + 1)]
 
-	return array.join('\r\n')
+	return newArray.join('\r\n')
 }

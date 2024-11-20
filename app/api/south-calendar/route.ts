@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import { openDb } from '~/lib/db';
 import { combineCalendarICS, generateCalendarICS } from '~/utils/calendar-ics';
 
-async function fetchVrboCalendarData(): Promise<string> {
+async function fetchVrboCalendarData() {
   const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
   const response = await fetch(url)
-  const text = response.text()
+  const text = await response.text()
   return text
 }
 export async function GET() {
@@ -21,7 +21,7 @@ export async function GET() {
       fetchVrboCalendarData()
     ])
 
-    const calendarICS = await combineCalendarICS(bookings, vrboData)
+    const calendarICS = combineCalendarICS(bookings, vrboData)
 
     return new NextResponse(calendarICS, {
       status: 200,
