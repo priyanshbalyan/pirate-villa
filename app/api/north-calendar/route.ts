@@ -23,7 +23,7 @@ export async function GET() {
 
     const calendarICS = combineCalendarICS(bookings, vrboData)
 
-    return new NextResponse(calendarICS, {
+    return new NextResponse(JSON.stringify({ bookings, vrboData, calendarICS}), {
       status: 200,
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type

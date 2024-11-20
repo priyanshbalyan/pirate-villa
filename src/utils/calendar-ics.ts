@@ -58,10 +58,7 @@ export function combineCalendarICS(data: { checkInDate: string, checkOutDate: st
 		events.push(newData.join('\r\n'))
 	}
 
-	console.log('events', events);
-
 	const newArray = [...array.slice(0, lastIndex), events.join('\r\n'), ...array.slice(lastIndex + 1)]
 
-	console.log('newArray', newArray)
 	return newArray.join('\r\n')
 }
