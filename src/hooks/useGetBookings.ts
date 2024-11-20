@@ -19,6 +19,8 @@ async function getBookings(): Promise<Booking[]> {
 	return data as Booking[]
 }
 
+export const getBookingsQueryKey = ['getBookings']
+
 export const useGetBookings = () => {
-	return useQuery({ queryKey: ['getBookings'], queryFn: () => getBookings() })
+	return useQuery({ queryKey: getBookingsQueryKey, queryFn: () => getBookings() })
 }

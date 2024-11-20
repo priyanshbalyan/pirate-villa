@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Label } from "~/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
-import { Booking, useGetBookings } from '~/hooks/useGetBookings';
+import { Booking, getBookingsQueryKey, useGetBookings } from '~/hooks/useGetBookings';
 import { toStartCase } from '~/utils/utils'
 import { isAfter, isBefore, parseISO } from 'date-fns';
 import { Button } from '~/components/ui/button';
@@ -10,6 +10,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import CardBooking from './CardBooking';
 import { deleteBooking } from '~/hooks/useDeleteBooking';
 import { toast } from '~/hooks/use-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 export default function PropertyBookings({ north }: { north: boolean }) {
@@ -20,6 +21,8 @@ export default function PropertyBookings({ north }: { north: boolean }) {
   const [itemToDelete, setItemToDelete] = useState<Booking | null>(null)
 
   const { data: bookings, } = useGetBookings()
+
+  const queryClient = useQueryClient()
 
 
   useEffect(() => {
@@ -83,6 +86,9 @@ export default function PropertyBookings({ north }: { north: boolean }) {
         console.log(err)
       } finally {
         setItemToDelete(null)
+        queryClient.invalidateQueries({
+          queryKey: getBookingsQueryKey
+        })
       }
   }
 
@@ -130,7 +136,7 @@ export default function PropertyBookings({ north }: { north: boolean }) {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredBookings.map(booking => (
-          <CardBooking booking={booking}>
+          <CardBooking booking={booking} key={booking.id}>
             <Button className="bg-red-400" onClick={handleDelete(booking.id)}>Delete</Button>
           </CardBooking>
         ))}
