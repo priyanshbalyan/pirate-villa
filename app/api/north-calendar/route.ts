@@ -17,7 +17,7 @@ export async function GET() {
       db.all<{
         checkInDate: string;
         checkOutDate: string;
-      }[]>("SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = 'north'"),
+      }[]>("SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = ?", ['north']),
       fetchVrboCalendarData()
     ])
 
