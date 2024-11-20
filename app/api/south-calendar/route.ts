@@ -28,6 +28,7 @@ export async function GET() {
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type
         'Content-Disposition': 'attachment; filename="south-calendar.ics"', // File name for the download
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
       },
     });
   } catch (error) {
