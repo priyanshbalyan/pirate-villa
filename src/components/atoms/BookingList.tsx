@@ -77,8 +77,8 @@ export default function PropertyBookings({ north }: { north: boolean }) {
   const confirmDelete = async () => {
     if (itemToDelete)
       try {
-      await deleteBooking(itemToDelete?.id)
-      } catch(err) {
+        await deleteBooking(itemToDelete?.id)
+      } catch (err) {
         toast({ title: 'An unexpected error occured' })
         console.log(err)
       } finally {
