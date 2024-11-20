@@ -8,8 +8,6 @@ export async function POST(req: Request) {
     { name: string; email: string; checkInDate: string; checkOutDate: string; villaType: string } = await req.json();
 
   try {
-    verifyToken(headers);
-
     const db = await openDb();
     await db.run(
       'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType) VALUES (?, ?, ?, ?, ?)',

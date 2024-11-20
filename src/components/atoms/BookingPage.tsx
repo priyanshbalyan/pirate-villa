@@ -9,7 +9,7 @@ import { RangeKeyDict } from 'react-date-range'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import TermsAndConditions from './TermsAndConditions'
-import getUpdateCalendar from '~/hooks/useGetUpdateCalendar';
+import createBooking from '~/hooks/useCreateBooking';
 import { LoaderCircle, X } from 'lucide-react'
 import { useToast } from '~/hooks/use-toast';
 import { Toaster } from '~/components/ui/toaster';
@@ -25,6 +25,8 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const [startDate, setStartDate] = useState<Date | null>(null)
 	const [endDate, setEndDate] = useState<Date | null>(null)
 	const [termsRead, setTermsRead] = useState(false)
+
+	console.log(north)
 
 	const [loading, setLoading] = useState(false);
 
@@ -44,7 +46,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const handleBook = async () => {
 		setLoading(true)
 		if (startDate && endDate) {
-				getUpdateCalendar(startDate, endDate, north ? 'north' : 'south').then(() => {
+				createBooking(name, email, guests, startDate, endDate, north ? 'north' : 'south').then(() => {
 					const params = new URLSearchParams({
 						guests: guests.toString(),
 						name,

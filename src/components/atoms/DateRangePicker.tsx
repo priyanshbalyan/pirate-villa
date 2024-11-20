@@ -2,7 +2,8 @@
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range';
-import useGetICSData from '~/hooks/useGetICSData';
+import useGetDisabledDates from '~/hooks/useGetDisabledDates';
+import { LoaderCircle } from 'lucide-react';
 
 type Props = {
   handleSelect: (rangesByKey: RangeKeyDict) => void;
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, northVilla }: Props) => {
-  const { data } = useGetICSData(northVilla)
+  const { data, isLoading } = useGetDisabledDates(northVilla)
 
   const selectionRange = {
     startDate: startDate ?? new Date(),
@@ -48,7 +49,11 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       [&>div.rdrMonthAndYearWrapper>span.rdrMonthAndYearPickers>span.rdrMonthPicker>select]:dark:text-white
     `
 
-  return (
+  return isLoading ? (
+    <div className="w-full h-[349px] flex items-center justify-center">
+      <LoaderCircle className="animate-spin" />
+    </div>
+  ) : (
     <DateRangePickerComp
       ranges={[selectionRange]}
       onChange={handleSelect}

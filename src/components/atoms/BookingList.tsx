@@ -6,6 +6,8 @@ import { Label } from "~/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 import { Calendar, User } from 'lucide-react'
 import { Booking, useGetBookings } from '~/hooks/useGetBookings';
+import { toStartCase } from '~/utils/utils'
+import { isAfter, isBefore, parseISO } from 'date-fns';
 
 
 export default function PropertyBookings({ north }: { north: boolean }) {
@@ -34,7 +36,7 @@ export default function PropertyBookings({ north }: { north: boolean }) {
     }
     if (date) {
       filtered = filtered.filter(booking =>
-        booking.checkInDate.startsWith(date) || booking.checkOutDate.startsWith(date)
+        isBefore(parseISO(booking.checkInDate), parseISO(date)) && isAfter(parseISO(date), parseISO(booking.checkOutDate))
       )
     }
     setFilteredBookings(filtered)
@@ -60,19 +62,19 @@ export default function PropertyBookings({ north }: { north: boolean }) {
               <SelectContent>
                 <SelectItem value="all-properties">All Properties</SelectItem>
                 {uniqueProperties.map(property => (
-                  <SelectItem key={property} value={property}>{property}</SelectItem>
+                  <SelectItem key={property} value={property}>{toStartCase(property)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div className="w-full md:w-1/2">
-            <Label htmlFor="date-filter">Filter by Date</Label>
+            {/* <Label htmlFor="date-filter">Filter by Date</Label>
             <Input
               id="date-filter"
               type="date"
               onChange={handleDateFilter}
               value={dateFilter}
-            />
+            /> */}
           </div>
         </div>
 
@@ -80,14 +82,16 @@ export default function PropertyBookings({ north }: { north: boolean }) {
           {filteredBookings.map(booking => (
             <Card key={booking.id}>
               <CardHeader>
-                <CardTitle>{booking.villaType} Villa</CardTitle>
+                <CardTitle>{toStartCase(booking.villaType)} Villa</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="flex items-center">
-                    <User className="h-4 w-4 mr-2" />
-                    <span>{booking.name}</span>
-                    <span>{booking.email}</span>
+                  <div className="flex items-start">
+                    <User className="h-4 w-4 mr-2 mt-1" />
+                    <div>
+                    <div>{booking.name}</div>
+                    <div>{booking.email}</div>
+                    </div>
                   </div>
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-2" />

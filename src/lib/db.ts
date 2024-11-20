@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
 import bcrypt from 'bcrypt';
+import { addDays, startOfDay } from 'date-fns';
 
 export async function openDb(): Promise<Database<sqlite3.Database, sqlite3.Statement>> {
   return open({
@@ -31,17 +32,6 @@ export async function initializeDatabase(): Promise<void> {
       villaType TEXT NOT NULL
     )
   `);
-
-  // await db.exec(`
-  //   INSERT INTO users 
-  //   VALUES ('test@email.com', '${await bcrypt.hash('12345', 10)}')  
-  // `)
-
-  //  await db.exec(`
-  //   INSERT INTO bookings 
-  //   VALUES (1, 'Name', 'email@email.com', '2024-11-19T14:39:28.434Z', '2024-21-19T14:39:28.434Z', 'north')  
-  // `)
-
 
   console.log('Database initialized');
 }

@@ -2,6 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import ical from 'ical';
 import fs from 'fs';
+import { openDb } from '~/lib/db';
+import { eachDayOfInterval, parseISO } from 'date-fns';
 
 const externalApiUrl =
   'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative';
@@ -28,12 +30,24 @@ export async function GET(request: NextRequest) {
     const north = searchParams.get('north');
 
     const calendarType = !!north ? 'north' : 'south'
-    const icsData = fs.readFileSync(`./public/${calendarType}-calendar.ics`).toString()
+    // const icsData = fs.readFileSync(`./public/${calendarType}-calendar.ics`).toString()
 
-    const parsedData = ical.parseICS(icsData)
+    // const parsedData = ical.parseICS(icsData)
+
+    const db = await openDb();
+    const blockedDates = await db.all<{
+      checkInDate: string;
+      checkOutDate: string;
+    }[]>(`SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = '${calendarType}'`);
+
+    const parsedDates = blockedDates.flatMap(dateRange => {
+      const start = parseISO(dateRange.checkInDate)
+      const end = parseISO(dateRange.checkOutDate)
+      return eachDayOfInterval({ start, end })
+    })
 
     // Return the fetched data as a response
-    return new NextResponse(JSON.stringify(parsedData), {
+    return new NextResponse(JSON.stringify(parsedDates), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }, // Adjust as needed
     });
