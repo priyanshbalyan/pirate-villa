@@ -25,11 +25,13 @@ export async function GET() {
 
     const calendarICS = combineCalendarICS(bookings, vrboData)
 
+    const id = crypto.randomUUID().slice(0, 4)
+
     return new NextResponse(calendarICS, {
       status: 200,
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type
-        'Content-Disposition': 'attachment; filename="south-calendar.ics"', // File name for the download
+        'Content-Disposition': `attachment; filename="south-calendar-${id}.ics"`, // File name for the download
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
       },
     });
