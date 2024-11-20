@@ -13,7 +13,8 @@
     "prettier:check": "prettier --check --ignore-unknown .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "knip": "knip"
+    "knip": "knip",
+    "seed": "node src/lib/seed.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",

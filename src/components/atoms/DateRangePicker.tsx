@@ -4,6 +4,8 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range';
 import useGetDisabledDates from '~/hooks/useGetDisabledDates';
 import { LoaderCircle } from 'lucide-react';
+import useGetVrboDisabledDates from '~/hooks/useGetVrboDisabledDates';
+import { useMemo } from 'react';
 
 type Props = {
   handleSelect: (rangesByKey: RangeKeyDict) => void;
@@ -14,12 +16,15 @@ type Props = {
 
 const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, northVilla }: Props) => {
   const { data, isLoading } = useGetDisabledDates(northVilla)
+  const { data: vrboData, isLoading: isVrboLoading } = useGetVrboDisabledDates()
 
   const selectionRange = {
     startDate: startDate ?? new Date(),
     endDate: endDate ?? new Date(),
     key: 'selection',
   }
+
+  const disabledDates = useMemo(() => [...(data ?? []), ...(vrboData ?? [])], [data, vrboData])
 
   const classNames = `
       [&>div]:bg-transparent 
@@ -49,7 +54,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       [&>div.rdrMonthAndYearWrapper>span.rdrMonthAndYearPickers>span.rdrMonthPicker>select]:dark:text-white
     `
 
-  return isLoading ? (
+  return isLoading && isVrboLoading ? (
     <div className="w-full h-[349px] flex items-center justify-center">
       <LoaderCircle className="animate-spin" />
     </div>
@@ -58,7 +63,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       ranges={[selectionRange]}
       onChange={handleSelect}
       minDate={new Date()}
-      disabledDates={data}
+      disabledDates={disabledDates}
       className={classNames}
     />
   )

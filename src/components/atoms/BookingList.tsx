@@ -8,6 +8,7 @@ import { Calendar, User } from 'lucide-react'
 import { Booking, useGetBookings } from '~/hooks/useGetBookings';
 import { toStartCase } from '~/utils/utils'
 import { isAfter, isBefore, parseISO } from 'date-fns';
+import { Button } from '../ui/button';
 
 
 export default function PropertyBookings({ north }: { north: boolean }) {
@@ -48,10 +49,33 @@ export default function PropertyBookings({ north }: { north: boolean }) {
 
   const uniqueProperties = Array.from(['north', 'south'])
 
+  const handleNorthDownload = () => {
+    // Programmatically trigger the download
+    const link = document.createElement('a');
+    link.href = '/api/north-calendar'; // API route for the file
+    link.download = 'north-calendar.ics'; // Suggested file name
+    link.click();
+  }
+
+  const handleSouthDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/api/south-calendar'; // API route for the file
+    link.download = 'south-calendar.ics'; // Suggested file name
+    link.click();
+  }
+
   return (
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Property Bookings</h1>
-
+        <div className="flex items-center mb-6 justify-between">
+        <h1 className="text-3xl font-bold">Property Bookings</h1>
+        <div className='flex gap-4'>
+        <a href="/api/north-calendar" className="hover:underline">Download North Villa ICS</a>
+        <a href="/api/south-calendar" className="hover:underline">Download South Villa ICS</a>
+        </div>
+        </div>
+        <div className="flex flex-col">
+        
+        </div>
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="w-full md:w-1/2">
             <Label htmlFor="property-filter">Filter by Property</Label>

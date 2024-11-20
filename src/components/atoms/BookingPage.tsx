@@ -26,8 +26,6 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const [endDate, setEndDate] = useState<Date | null>(null)
 	const [termsRead, setTermsRead] = useState(false)
 
-	console.log(north)
-
 	const [loading, setLoading] = useState(false);
 
 	const [name, setName] = useState('')
