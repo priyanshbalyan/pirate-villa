@@ -10,6 +10,8 @@ async function openDb() {
 }
 
 async function initializeDatabase() {
+    const db = await openDb();
+
     // Create `users` table
     await db.exec(`
       CREATE TABLE IF NOT EXISTS users (
