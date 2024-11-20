@@ -2,14 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { format, isValid, parseISO } from 'date-fns';
+import { generateFormattedDate } from '~/utils/utils';
 
-const generateFormattedDate = (date: Date) => {
-    // Format the date as YYYYMMDDTHHmmssZ
-    const formattedDate = format(date, "yyyyMMdd'T'HHmmss'Z'");
-    return formattedDate;
-  };
 
-  
 export async function POST(req: NextRequest) {
   try {
     // Parse the request body

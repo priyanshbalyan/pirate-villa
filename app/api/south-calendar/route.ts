@@ -1,16 +1,29 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { openDb } from '~/lib/db';
+import { combineCalendarICS, generateCalendarICS } from '~/utils/calendar-ics';
 
+async function fetchVrboCalendarData(): Promise<string> {
+  const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
+  const response = await fetch(url)
+  const text = response.text()
+  return text
+}
 export async function GET() {
-  // Path to the file you want to serve
-  const filePath = path.resolve('./public/south-calendar.ics'); // Replace with your file path
-  
-  // Read the file
-  try {
-    const fileData = fs.readFileSync(filePath);
 
-    return new NextResponse(fileData, {
+  try {
+    const db = await openDb();
+
+    const [bookings, vrboData] = await Promise.all([
+      db.all<{
+        checkInDate: string;
+        checkOutDate: string;
+      }[]>("SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = 'south'"),
+      fetchVrboCalendarData()
+    ])
+
+    const calendarICS = await combineCalendarICS(bookings, vrboData)
+
+    return new NextResponse(calendarICS, {
       status: 200,
       headers: {
         'Content-Type': 'text/plain', // Adjust based on file type
@@ -18,7 +31,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error reading file:', error);
-    return new NextResponse('File not found', { status: 404 });
+    console.error('Error while generating file:', error);
+    return new NextResponse('Error while generating file', { status: 500 });
   }
 }

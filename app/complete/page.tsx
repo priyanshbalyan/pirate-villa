@@ -57,7 +57,7 @@ export default function Page({ params, searchParams }: {
 					</CardContent>
 					<CardFooter className="flex flex-col space-y-2 sm:space-y-3">
 						<Link href="/" className='w-full'>
-							<Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3 text-white bg-black dark:text-white dark:bg-[#0f172a]/80">Return to Home</Button>
+							<Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3  bg-black text-white ">Return to Home</Button>
 						</Link>
 					</CardFooter>
 				</Card>

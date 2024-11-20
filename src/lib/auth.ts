@@ -17,5 +17,5 @@ export function verifyToken(headers: Headers): TokenPayload {
 }
 
 export function generateToken(payload: TokenPayload): string {
-  return jwt.sign(payload, SECRET, { expiresIn: '1h' });
+  return jwt.sign(payload, SECRET, { expiresIn: '7d' });
 }

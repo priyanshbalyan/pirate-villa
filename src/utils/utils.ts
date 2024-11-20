@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 // Function to format a number in thousands (K) or millions (M) format depending on its value
 export const getSuffixNumber = (number: number, digits: number = 1): string => {
   const lookup = [
@@ -27,3 +29,9 @@ export function toStartCase(str: string) {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
     .join(' '); // Join the words back together
 }
+
+export const generateFormattedDate = (date: Date) => {
+  // Format the date as YYYYMMDDTHHmmssZ
+  const formattedDate = format(date, "yyyyMMdd'T'HHmmss'Z'");
+  return formattedDate;
+};

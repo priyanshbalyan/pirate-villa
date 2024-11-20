@@ -10,7 +10,7 @@ type DateType = {
 	}
 }
 
-async function getDisabledDates(): Promise<Date[]> {
+export async function getVrboDisabledDates(): Promise<Date[]> {
 	const body = [
 		{
 			"operationName": "PropertyAvailabilityQuery",
@@ -62,7 +62,7 @@ async function getDisabledDates(): Promise<Date[]> {
 }
 
 const useGetVrboDisabledDates = () => {
-	return useQuery({ queryKey: ['getDisabledDates'], queryFn: getDisabledDates })
+	return useQuery({ queryKey: ['getDisabledDates'], queryFn: getVrboDisabledDates })
 }
 
 export default useGetVrboDisabledDates
