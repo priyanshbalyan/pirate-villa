@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { openDb } from '~/lib/db';
 import { combineCalendarICS } from '~/utils/calendar-ics';
 
-export const dynamic = 'force-dynamic' 
+export const dynamic = 'force-dynamic'
 
-async function fetchVrboCalendarData(): Promise<string> {
+async function fetchNorthVrboCalendarData(): Promise<string> {
   const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
   const response = await fetch(url)
   const text = await response.text()
@@ -14,12 +14,12 @@ async function fetchVrboCalendarData(): Promise<string> {
 export async function GET() {
   try {
     const db = await openDb();
-    const bookings = await db.all<{
+    const [bookings, vrboData] = await Promise.all([db.all<{
       checkInDate: string;
       checkOutDate: string;
-    }[]>('SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = ?', ['north']);
-
-    const vrboData = await fetchVrboCalendarData()
+    }[]>('SELECT checkInDate, checkOutDate FROM bookings WHERE villaType = ?', ['north']),
+    fetchNorthVrboCalendarData()
+    ])
 
     const calendarICS = combineCalendarICS(bookings, vrboData)
 
