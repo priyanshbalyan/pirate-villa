@@ -8,6 +8,7 @@ import northInterior from 'public/north-terrace-patio-2.avif'
 import Image from 'next/image';
 import { Button } from '~/components/ui/button';
 import Link from 'next/link';
+import CTA from '~/components/common/CTA';
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -28,11 +29,7 @@ export default function Page() {
           </div>
           <div className="absolute inset-0 bg-black opacity-10 transition-opacity duration-300 ease-in-out group-hover:opacity-5" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Link href="/villa">
-              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
-                View Pirate Villa South
-              </Button>
-            </Link>
+            <CTA callToAction={{ text: 'View Pirate Villa South', href: '/villa' }} linkClass="btn bg-white/60 backdrop-blur-lg" />
           </div>
         </div>
         <div className="relative w-full h-1/2 md:w-1/2 md:h-full overflow-hidden group">
@@ -46,11 +43,7 @@ export default function Page() {
           </div>
           <div className="absolute inset-0 bg-black opacity-10 transition-opacity duration-300 ease-in-out group-hover:opacity-5" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Link href="/villa?north=true">
-              <Button variant="outline" size="lg" className="bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 dark:text-white dark:bg-transparent backdrop-blur-md">
-                View Pirate Villa North
-              </Button>
-            </Link>
+            <CTA callToAction={{ text: 'View Pirate Villa North', href: '/villa?north=true' }} linkClass="btn bg-white/60 backdrop-blur-lg" />
           </div>
         </div>
       </div>

@@ -101,8 +101,8 @@ export default function PropertyBookings({ north }: { north: boolean }) {
       <div className="flex items-center mb-6 justify-between">
         <h1 className="text-3xl font-bold">Property Bookings</h1>
         <div className='flex gap-4'>
-          <a href={`/api/north-calendar?ts=${Date.now()}`} className="hover:underline">Download North Villa ICS</a>
-          <a href={`/api/south-calendar?ts=${Date.now()}`} className="hover:underline">Download South Villa ICS</a>
+          <a href={`/api/north-calendar.ics?ts=${Date.now()}`} className="hover:underline">Download North Villa ICS</a>
+          <a href={`/api/south-calendar.ics?ts=${Date.now()}`} className="hover:underline">Download South Villa ICS</a>
         </div>
       </div>
       <div className="flex flex-col">
