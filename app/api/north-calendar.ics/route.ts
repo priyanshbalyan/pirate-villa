@@ -4,9 +4,17 @@ import { combineCalendarICS } from '~/utils/calendar-ics';
 
 export const dynamic = 'force-dynamic'
 
-async function fetchNorthVrboCalendarData(): Promise<string> {
+async function fetchNorthVrboCalendarData(retries = 1): Promise<string> {
+  if (retries >= 5) throw new Error('Error while trying to get vrbo data')
   const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
   const response = await fetch(url, { cache: 'no-store' })
+
+  if (!response.ok) {
+    console.log('Got non 200 response from vrbo, Retrying...')
+    await new Promise((resolve) => setTimeout(() => resolve(0), 3000 * retries))
+    return await fetchNorthVrboCalendarData(retries + 1)
+  }
+
   const text = await response.text()
   return text
 }
