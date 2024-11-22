@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '~/componen
 import { CheckCircle } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import Link from 'next/link';
+import CTA from '~/components/common/CTA';
 
 export const metadata: Metadata = {
 	title: SITE.title,
@@ -56,9 +57,7 @@ export default function Page({ params, searchParams }: {
 						</div>
 					</CardContent>
 					<CardFooter className="flex flex-col space-y-2 sm:space-y-3">
-						<Link href="/" className='w-full'>
-							<Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3  bg-black text-white ">Return to Home</Button>
-						</Link>
+						<CTA callToAction={{ href: '/', text: 'Return to Home' }} linkClass="btn" />
 					</CardFooter>
 				</Card>
 			</div>

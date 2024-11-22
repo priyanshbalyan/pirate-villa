@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 async function fetchNorthVrboCalendarData(): Promise<string> {
   const url = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
-  const response = await fetch(url)
+  const response = await fetch(url, { cache: 'no-store' })
   const text = await response.text()
   return text
 }
