@@ -4,12 +4,7 @@ import { Resend } from 'resend';
 import BookingCompleteEmail from 'emails/booking-complete-email';
 import { parseISO } from 'date-fns';
 import { APIContracts, APIControllers } from 'authorizenet';
-
-function validateEmail(email: string): boolean {
-  // Regular expression for validating email addresses
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+import { validateEmail } from '~/utils/utils';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -91,7 +86,7 @@ export async function POST(req: Request) {
     const { data, error } = await resend.emails.send({
       from: 'Pirate\'s Landing <booking@pirateslandingvi.com>',
       to: [email],
-      subject: 'Hello world',
+      subject: 'Booking complete',
       react: BookingCompleteEmail({
         name,
         email,

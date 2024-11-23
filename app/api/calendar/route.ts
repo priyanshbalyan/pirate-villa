@@ -1,26 +1,29 @@
 // app/api/calendar/route.js
 import { NextRequest, NextResponse } from 'next/server';
 import ical from 'ical';
-import fs from 'fs';
 import { openDb } from '~/lib/db';
 import { eachDayOfInterval, parseISO } from 'date-fns';
+import { SITE } from '~/config';
 
-const externalApiUrl =
-  'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative';
-
-async function getData() {
+async function getVrboCalendarDisabledDates(north: boolean, retries = 1): Promise<Date[]> {
+  if (retries >= 5) throw new Error('Error while trying to get vrbo data')
   // Fetch data from the external API
-  const response = await fetch(externalApiUrl);
+  const response = await fetch(north ? SITE.NORTH_URL : SITE.SOUTH_URL);
 
   // Check if the response is successful
   if (!response.ok) {
-    throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    console.log(`Failed to fetch: ${response.status} ${response.statusText}, Retrying...`);
+    await new Promise((resolve) => setTimeout(() => resolve(0), 3000 * retries))
+    return await getVrboCalendarDisabledDates(north, retries + 1)
   }
 
-  // Parse the data (assuming it's text, e.g., an iCal file)
   const data = await response.text();
-  const parsedData = ical.parseICS(data)
-  return parsedData
+  const parsedData: ical.FullCalendar = ical.parseICS(data)
+  return Object.values(parsedData).flatMap(calendar => {
+    if (calendar.start && calendar.end)
+      return eachDayOfInterval({ start: calendar.start, end: calendar.end })
+    return []
+  })
 }
 
 
@@ -30,9 +33,6 @@ export async function GET(request: NextRequest) {
     const north = searchParams.get('north');
 
     const calendarType = !!north ? 'north' : 'south'
-    // const icsData = fs.readFileSync(`./public/${calendarType}-calendar.ics`).toString()
-
-    // const parsedData = ical.parseICS(icsData)
 
     const db = await openDb();
     const blockedDates = await db.all<{
@@ -46,10 +46,12 @@ export async function GET(request: NextRequest) {
       return eachDayOfInterval({ start, end })
     })
 
-    // Return the fetched data as a response
-    return new NextResponse(JSON.stringify(parsedDates), {
+    const vrboData = await getVrboCalendarDisabledDates(!!north)
+    const combinedDates = [...parsedDates, ...vrboData]
+
+    return new NextResponse(JSON.stringify(combinedDates), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }, // Adjust as needed
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Error fetching calendar data:', error);

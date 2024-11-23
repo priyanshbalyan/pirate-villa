@@ -4,8 +4,6 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range';
 import useGetDisabledDates from '~/hooks/useGetDisabledDates';
 import { LoaderCircle } from 'lucide-react';
-import useGetVrboDisabledDates from '~/hooks/useGetVrboDisabledDates';
-import { useMemo } from 'react';
 
 type Props = {
   handleSelect: (rangesByKey: RangeKeyDict) => void;
@@ -15,16 +13,13 @@ type Props = {
 }
 
 const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, northVilla }: Props) => {
-  const { data, isLoading } = useGetDisabledDates(northVilla)
-  const { data: vrboData, isLoading: isVrboLoading } = useGetVrboDisabledDates()
+  const { data: disabledDates, isLoading, error } = useGetDisabledDates(northVilla)
 
   const selectionRange = {
     startDate: startDate ?? new Date(),
     endDate: endDate ?? new Date(),
     key: 'selection',
   }
-
-  const disabledDates = useMemo(() => [...(data ?? []), ...(vrboData ?? [])], [data, vrboData])
 
   const classNames = `
       [&>div]:bg-transparent 
@@ -54,19 +49,21 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       [&>div.rdrMonthAndYearWrapper>span.rdrMonthAndYearPickers>span.rdrMonthPicker>select]:dark:text-white
     `
 
-  return isLoading && isVrboLoading ? (
-    <div className="w-full h-[349px] flex items-center justify-center">
+  if (error) return <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
+
+  if (isLoading) {
+    return <div className="w-full h-[349px] flex items-center justify-center">
       <LoaderCircle className="animate-spin" />
     </div>
-  ) : (
-    <DateRangePickerComp
-      ranges={[selectionRange]}
-      onChange={handleSelect}
-      minDate={new Date()}
-      disabledDates={disabledDates}
-      className={classNames}
-    />
-  )
+  }
+
+  return <DateRangePickerComp
+    ranges={[selectionRange]}
+    onChange={handleSelect}
+    minDate={new Date()}
+    disabledDates={disabledDates ?? []}
+    className={classNames}
+  />
 }
 
 export default DateRangePicker
