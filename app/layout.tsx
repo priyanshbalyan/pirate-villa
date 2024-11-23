@@ -8,6 +8,8 @@ import Footer2 from '~/components/widgets/Footer2';
 
 import { Inter as CustomFont } from 'next/font/google';
 import '~/assets/styles/base.css';
+import ContactUsWidget from '~/components/widgets/ContactUsWidget';
+import { Toaster } from '~/components/ui/toaster';
 
 const customFont = CustomFont({ subsets: ['latin'], variable: '--font-custom' });
 
@@ -37,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps) {
             {children}
           </main>
           <Footer2 />
+          <ContactUsWidget />
         </Providers>
         <div id="headlessui-portal-root"></div>
       </body>
