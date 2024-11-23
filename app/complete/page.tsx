@@ -21,6 +21,7 @@ export default function Page({ params, searchParams }: {
 	const guests = !!searchParams && !!searchParams['guests'] ? searchParams['guests'] : '';
 	const startDate = !!searchParams && !!searchParams['startDate'] ? searchParams['startDate'] : '';
 	const endDate = !!searchParams && !!searchParams['endDate'] ? searchParams['endDate'] : '';
+	const transactionId = !!searchParams && !!searchParams['transactionId'] ? searchParams['transactionId'] : '';
 
 	const bg = isNorth ? "bg-[url('/north-miscellaneous.avif')]" : "bg-[url('/south-exterior-1.avif')]"
 
@@ -41,6 +42,12 @@ export default function Page({ params, searchParams }: {
 						<div>
 							<h3 className="font-semibold text-base sm:text-lg mb-2">Booking Details:</h3>
 							<ul className="text-sm sm:text-base text-gray-600 space-y-1  dark:text-white">
+								{name && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Name:</span><span className="w-8/12 text-left">{name}</span>
+								</li>}
+								{email && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Email:</span><span className="w-8/12 text-left">{email}</span>
+								</li>}
 								<li className='flex items-start gap-4'>
 									<span className='w-4/12 text-right'>Property:</span><span className="w-8/12 text-left">The Pirates Landing {isNorth ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</span>
 								</li>
@@ -52,6 +59,9 @@ export default function Page({ params, searchParams }: {
 								</li>}
 								{guests && <li className='flex items-start gap-4'>
 									<span className='w-4/12 text-right'>Guests:</span><span className="w-8/12 text-left">{guests}</span>
+								</li>}
+								{transactionId && <li className='flex items-start gap-4'>
+									<span className='w-4/12 text-right'>Txn ID:</span><span className="w-8/12 text-left">{transactionId}</span>
 								</li>}
 							</ul>
 						</div>

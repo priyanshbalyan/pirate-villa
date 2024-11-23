@@ -1,4 +1,5 @@
-import { format } from "date-fns";
+import { format, isSameDay } from "date-fns";
+import { CreditCardData } from "~/components/atoms/CreditCardPaymentForm";
 
 // Function to format a number in thousands (K) or millions (M) format depending on its value
 export const getSuffixNumber = (number: number, digits: number = 1): string => {
@@ -40,4 +41,68 @@ export function validateEmail(email: string): boolean {
   // Regular expression for validating email addresses
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+}
+
+export function validateData(name: string, email: string, startDate: Date | null, endDate: Date | null, creditCardData: CreditCardData) {
+  const newErrors: { [key: string]: string } = {}
+
+  if (!validateEmail(email)) {
+    newErrors.email = 'Email must be a valid email'
+  }
+  if (name.trim() === '') {
+    newErrors.name = 'Name is required'
+  }
+  if (!startDate || !endDate || isSameDay(startDate, endDate)) {
+    newErrors.date = 'Date range needs to be selected'
+  }
+
+  if (!/^\d{16}$/.test(creditCardData.cardNumber)) {
+    newErrors.cardNumber = 'Card number must be 16 digits'
+  }
+  if (creditCardData.cardName.trim() === '') {
+    newErrors.cardName = 'Cardholder name is required'
+  }
+
+  const [expiryMonth, expiryYear] = creditCardData.expiryDate.split('/')
+  if (!expiryMonth) {
+    newErrors.expiryMonth = 'Expiry month is required'
+  }
+  if (!expiryYear) {
+    newErrors.expiryYear = 'Expiry year is required'
+  }
+  if (!/^\d{3,4}$/.test(creditCardData.cvv)) {
+    newErrors.cvv = 'CVV must be 3 or 4 digits'
+  }
+
+  return newErrors;
+}
+
+export const isDevEnv = process.env.NODE_ENV === 'development';
+
+const cardPatterns = {
+  visa: /^4/,
+  mastercard: /^(5[1-5]|2[2-7])/,
+  amex: /^3[47]/,
+  discover: /^6(?:011|5)/,
+  diners: /^3(?:0[0-5]|[68])/,
+  jcb: /^(?:2131|1800|35)/,
+};
+
+const cardLogos = {
+  visa: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg',
+  mastercard: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg',
+  amex: 'https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo_%282018%29.svg',
+  discover: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Discover_Card_logo.svg',
+  diners: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Diners_Club_Logo7.svg',
+  jcb: 'https://upload.wikimedia.org/wikipedia/en/4/40/JCB_logo.svg',
+};
+
+// Function to detect card type
+export function detectCardType(number: string) {
+  for (const [card, pattern] of Object.entries(cardPatterns)) {
+    if (pattern.test(number)) {
+      return cardLogos[card as keyof typeof cardLogos];
+    }
+  }
+  return '';
 }

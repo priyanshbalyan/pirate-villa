@@ -2,19 +2,23 @@
 import { Card, CardContent, CardTitle } from '~/components/ui/card'
 import { Checkbox } from '~/components/ui/checkbox'
 import { Input } from '~/components/ui/input'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '~/components/ui/button'
 import DateRangePicker from './DateRangePicker'
 import { RangeKeyDict } from 'react-date-range'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
-import TermsAndConditions from './TermsAndConditions'
 import createBooking from '~/hooks/useCreateBooking';
-import { LoaderCircle, X } from 'lucide-react'
+import { LoaderCircle, Lock, X } from 'lucide-react'
 import { useToast } from '~/hooks/use-toast';
 import { Toaster } from '~/components/ui/toaster';
-import { format } from 'date-fns';
+import { eachDayOfInterval, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
+import { validateData, validateEmail } from '~/utils/utils';
+import { TermsDialog } from './TermsDialog';
+import CreditCardPaymentForm from './CreditCardPaymentForm';
+import { Label } from '../ui/label';
+import { cn } from '~/lib/utils';
+import { SITE } from '~/config';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -28,9 +32,20 @@ export default function BookingPage({ north }: { north: boolean }) {
 
 	const [loading, setLoading] = useState(false);
 
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [guests, setGuests] = useState(1)
+
+	const [touched, setTouched] = useState(false)
+
+	const [creditCardData, setCreditCardData] = useState({
+		cardNumber: '', expiryDate: '', cvv: '', cardName: ''
+	})
+
+	const noOfDays = startDate && endDate ? eachDayOfInterval({ start: startDate, end: endDate }).length : 0
+	const amount = (noOfDays > 0 ? noOfDays : 0) * SITE.PRICE_PER_DAY
 
 	const { toast } = useToast()
 	const router = useRouter()
@@ -45,13 +60,14 @@ export default function BookingPage({ north }: { north: boolean }) {
 		if (startDate && endDate) {
 			setLoading(true)
 
-			createBooking(name, email, guests, startDate, endDate, north ? 'north' : 'south').then(() => {
+			createBooking(name, email, guests, startDate, endDate, north ? 'north' : 'south', creditCardData).then((data) => {
 				const params = new URLSearchParams({
 					guests: guests.toString(),
 					name,
 					email,
 					startDate: format(startDate, 'yyyy-MM-dd'),
-					endDate: format(endDate, 'yyyy-MM-dd')
+					endDate: format(endDate, 'yyyy-MM-dd'),
+					transactionId: data.transactionId
 				})
 				router.push(`/complete?${params.toString()}`)
 				queryClient.invalidateQueries({
@@ -66,6 +82,24 @@ export default function BookingPage({ north }: { north: boolean }) {
 		}
 	}
 
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		setTouched(true)
+		const errors = validateData(name, email, startDate, endDate, creditCardData)
+		setErrors(errors)
+
+		if (Object.keys(errors).length === 0) {
+			handleBook()
+		}
+	}
+
+	useEffect(() => {
+		if (touched) {
+			const errors = validateData(name, email, startDate, endDate, creditCardData)
+			setErrors(errors)
+		}
+	}, [name, email, creditCardData, guests, startDate, endDate, touched])
+
 	const bg = north ? "bg-[url('/north-miscellaneous.avif')]" : "bg-[url('/south-beach.avif')]"
 
 	return (
@@ -74,8 +108,12 @@ export default function BookingPage({ north }: { north: boolean }) {
 				<Card className="max-w-[700px] w-full my-36 md:mx-36 bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80">
 					<CardTitle className="p-8 text-3xl">Book The Pirates Landing {north ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</CardTitle>
 					<CardContent className="p-8 flex flex-col">
+						<div className='mb-2'>
+							<h2 className='text-md font-bold'>Booking Details</h2>
+							<div className='text-xs'>Enter your information</div>
+						</div>
 						<div className='mb-4'>
-							<div className='mt-0'>Select booking date:</div>
+							<Label className='mt-0'>Select booking date:</Label>
 							<div className="mt-4 rounded-md">
 								<DateRangePicker
 									handleSelect={handleDateSelect}
@@ -84,50 +122,56 @@ export default function BookingPage({ north }: { north: boolean }) {
 									northVilla={north}
 								/>
 							</div>
-							<div className="mb-2 mt-4">Name:</div>
+							{errors.date && <p className="text-xs text-red-500">{errors.date}</p>}
+							<Label className="mb-2 mt-4">Name:</Label>
 							<div className="mb-4">
-								<Input name="name" className='w-full' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)} />
+								<Input name="name" id="name" className='w-full' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)} />
+								{errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
 							</div>
-							<div className="mb-2 mt-4">Email:</div>
+							<Label className="mb-2 mt-4">Email:</Label>
 							<div className="mb-4">
-								<Input name="email" className='' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
+								<Input name="email" id="email" className='' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
+								{errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
 							</div>
-							<div className="mb-2 mt-4">Number of Guests:</div>
+							<Label className="mb-2 mt-4">Number of Guests:</Label>
 							<div className="mb-4">
-								<Input name="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
+								<Input name="guests" id="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
+								{errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
 							</div>
 						</div>
-
-						<div className="flex items-center gap-4 mb-6" onClick={() => setModalOpen(true)}>
+						<CreditCardPaymentForm
+							creditCardData={creditCardData}
+							setCreditCardData={setCreditCardData}
+							errors={errors}
+						/>
+						<div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
 							<Checkbox checked={termsRead} />
 							<div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
 						</div>
-						<Button
-							className="bg-black text-white"
-							disabled={!termsRead || loading}
-							onClick={handleBook}
-						>
-							{loading ? <LoaderCircle className='animate-spin' /> : 'Book!'}
-						</Button>
+						<div className="flex justify-between mt-4">
+							<Button
+								onClick={handleSubmit}
+								className={cn("w-full bg-black text-white", Object.keys(errors).length > 0 && "border-red-500 border")}
+								disabled={!termsRead || loading}
+							>
+								{loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
+								{' '}Pay Now and Book! {amount > 0 ? `$${amount}` : ''}
+							</Button>
+						</div>
 						<Toaster />
-
 					</CardContent>
 				</Card>
 			</div>
-			<Dialog open={modalOpen} onClose={() => setModalOpen(false)}
-				transition
-				className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
-			>
-				<DialogBackdrop className="fixed inset-0 bg-black/30" />
-				<div className="fixed inset-0 w-screen overflow-y-auto p-4">
-					<div className="flex min-h-full items-center justify-center">
-						<DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
-							<TermsAndConditions onAcceptClick={() => { setTermsRead(true); setModalOpen(false) }} />
-						</DialogPanel>
-					</div>
-				</div>
-			</Dialog>
+			<TermsDialog
+				modalOpen={modalOpen}
+				setModalOpen={setModalOpen}
+				setTermsRead={setTermsRead}
+			/>
 
+			{/* <PaymentsDialog
+				modalOpen={paymentsModalOpen}
+				setModalOpen={setModalOpen}
+			/> */}
 		</QueryClientProvider>
 	);
 }
