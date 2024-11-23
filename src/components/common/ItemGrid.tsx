@@ -58,6 +58,8 @@ const ItemGrid = ({
                 src={image as string}
                 alt={title as string}
                 className="h-[312px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
+                placeholder="blur"
+                quality={50}
               />
             </div>
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />

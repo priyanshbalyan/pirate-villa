@@ -74,7 +74,7 @@ export default function ContactUsWidget() {
       const link = document.createElement('a')
       link.href = `mailto:${SITE.NOTIFY_EMAIL}?subject=${subject}&body=${body}`
       link.click()
-     
+
       // // Reset form and close widget
       // setName('')
       setEmail('')
