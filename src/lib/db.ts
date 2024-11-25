@@ -1,7 +1,5 @@
 import sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
-import bcrypt from 'bcrypt';
-import { addDays, startOfDay } from 'date-fns';
 
 export async function openDb(): Promise<Database<sqlite3.Database, sqlite3.Statement>> {
   return open({

@@ -39,7 +39,6 @@ export default function RootLayout({ children }: LayoutProps) {
             {children}
           </main>
           <Footer2 />
-          <ContactUsWidget />
         </Providers>
         <div id="headlessui-portal-root"></div>
       </body>

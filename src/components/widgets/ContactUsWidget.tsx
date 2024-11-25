@@ -10,7 +10,7 @@ import { MessageSquareText, Send, X } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { SITE } from '~/config'
 
-export default function ContactUsWidget() {
+export default function ContactUsWidget({ fixed = true }: { fixed: boolean }) {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -95,7 +95,8 @@ export default function ContactUsWidget() {
     <>
       <Button
         className={cn(
-          'fixed cursor-pointer z-30 bottom-4 right-4 rounded-full w-30 h-12 shadow-lg transition-transform duration-300 ease-in-out bg-white text-black',
+          fixed && 'fixed bottom-4 right-4',
+          'cursor-pointer z-30 rounded-full w-30 h-12 shadow-lg transition-transform duration-300 ease-in-out bg-white text-black',
           isOpen ? 'scale-0' : 'scale-100',
         )}
         onClick={() => setIsOpen(true)}

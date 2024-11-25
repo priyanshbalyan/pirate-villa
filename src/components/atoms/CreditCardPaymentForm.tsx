@@ -105,7 +105,7 @@ export default function CreditCardPaymentForm({ creditCardData, setCreditCardDat
 								<SelectTrigger id="expiryMonth">
 									<SelectValue placeholder="Month" />
 								</SelectTrigger>
-								<SelectContent>
+								<SelectContent className='z-[99]'>
 									{Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
 										<SelectItem key={month} value={month.toString().padStart(2, '0')}>
 											{month.toString().padStart(2, '0')}
@@ -121,7 +121,7 @@ export default function CreditCardPaymentForm({ creditCardData, setCreditCardDat
 								<SelectTrigger id="expiryYear">
 									<SelectValue placeholder="Year" />
 								</SelectTrigger>
-								<SelectContent>
+								<SelectContent className='z-[99]'>
 									{Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i).map((year) => (
 										<SelectItem key={year} value={year.toString().slice(2)}>
 											{year}

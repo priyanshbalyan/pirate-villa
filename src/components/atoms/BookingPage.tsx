@@ -13,12 +13,13 @@ import { useToast } from '~/hooks/use-toast';
 import { Toaster } from '~/components/ui/toaster';
 import { eachDayOfInterval, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { validateData, validateEmail } from '~/utils/utils';
+import { validateBookingData } from '~/utils/utils';
 import { TermsDialog } from './TermsDialog';
 import CreditCardPaymentForm from './CreditCardPaymentForm';
 import { Label } from '../ui/label';
 import { cn } from '~/lib/utils';
 import { SITE } from '~/config';
+import { PaymentDialog } from './PaymentDialog';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -26,6 +27,7 @@ const queryClient = new QueryClient()
 
 export default function BookingPage({ north }: { north: boolean }) {
 	const [modalOpen, setModalOpen] = useState(false)
+	const [paymentsModalOpen, setPaymentsModalOpen] = useState(false)
 	const [startDate, setStartDate] = useState<Date | null>(null)
 	const [endDate, setEndDate] = useState<Date | null>(null)
 	const [termsRead, setTermsRead] = useState(false)
@@ -85,17 +87,17 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		setTouched(true)
-		const errors = validateData(name, email, startDate, endDate, creditCardData)
+		const errors = validateBookingData(name, email, startDate, endDate)
 		setErrors(errors)
 
 		if (Object.keys(errors).length === 0) {
-			handleBook()
+			setPaymentsModalOpen(true)
 		}
 	}
 
 	useEffect(() => {
 		if (touched) {
-			const errors = validateData(name, email, startDate, endDate, creditCardData)
+			const errors = validateBookingData(name, email, startDate, endDate)
 			setErrors(errors)
 		}
 	}, [name, email, creditCardData, guests, startDate, endDate, touched])
@@ -139,11 +141,6 @@ export default function BookingPage({ north }: { north: boolean }) {
 								{errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
 							</div>
 						</div>
-						<CreditCardPaymentForm
-							creditCardData={creditCardData}
-							setCreditCardData={setCreditCardData}
-							errors={errors}
-						/>
 						<div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
 							<Checkbox checked={termsRead} />
 							<div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
@@ -168,10 +165,15 @@ export default function BookingPage({ north }: { north: boolean }) {
 				setTermsRead={setTermsRead}
 			/>
 
-			{/* <PaymentsDialog
+			<PaymentDialog
 				modalOpen={paymentsModalOpen}
-				setModalOpen={setModalOpen}
-			/> */}
+				setModalOpen={setPaymentsModalOpen}
+				creditCardData={creditCardData}
+				setCreditCardData={setCreditCardData}
+				loading={loading}
+				handleBook={handleBook}
+				amount={amount}
+			/>
 		</QueryClientProvider>
 	);
 }

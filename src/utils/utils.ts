@@ -43,7 +43,7 @@ export function validateEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-export function validateData(name: string, email: string, startDate: Date | null, endDate: Date | null, creditCardData: CreditCardData) {
+export function validateBookingData(name: string, email: string, startDate: Date | null, endDate: Date | null) {
   const newErrors: { [key: string]: string } = {}
 
   if (!validateEmail(email)) {
@@ -55,6 +55,12 @@ export function validateData(name: string, email: string, startDate: Date | null
   if (!startDate || !endDate || isSameDay(startDate, endDate)) {
     newErrors.date = 'Date range needs to be selected'
   }
+
+  return newErrors;
+}
+
+export function validateCardData( creditCardData: CreditCardData) {
+  const newErrors: { [key: string]: string } = {}
 
   if (!/^\d{16}$/.test(creditCardData.cardNumber)) {
     newErrors.cardNumber = 'Card number must be 16 digits'
