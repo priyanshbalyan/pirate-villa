@@ -17,8 +17,8 @@ export default function Page() {
   return (
     <div className='mx-auto max-w-[1000px]'>
       <h1 className='text-3xl font-bold'>The Pirate Landing North</h1>
-      <div className='flex mt-2'>
-        <div className='w-6/12'>
+      <div className='sm:flex mt-2'>
+        <div className='sm:w-6/12'>
           <div className="relative">
             <Image
               className="mx-auto w-full rounded-lg shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01]"
@@ -39,7 +39,7 @@ export default function Page() {
             <DateWidget northVilla={true} />
           </div>
         </div>
-        <div className="px-4 w-6/12 text-justify">
+        <div className="px-4 sm:w-6/12 text-justify">
           <h2 className='font-bold text-center mt-2 mb-2'>The Pirate&apos;s Landing North 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
           <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
           <br />
@@ -54,8 +54,8 @@ export default function Page() {
         </div>
       </div>
       <h1 className='mt-10 text-3xl font-bold'>The Pirate Landing South</h1>
-      <div className='flex mt-2'>
-        <div className="pr-4 w-6/12 text-justify mt-2">
+      <div className='sm:flex mt-2'>
+        <div className="pr-4 sm:w-6/12 text-justify mt-2">
           <h2 className="font-bold text-center mt-2 mb-2">The Pirate&apos;s Landing South 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
           <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
           <br />
@@ -68,7 +68,7 @@ export default function Page() {
             <ContactUsWidget fixed={false} />
           </div>
         </div>
-        <div className='w-6/12'>
+        <div className='sm:w-6/12'>
           <div className='relative'>
             <Image
               className="mx-auto w-full rounded-lg shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01]"
