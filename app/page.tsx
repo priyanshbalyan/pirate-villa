@@ -40,7 +40,7 @@ export default function Page() {
           </div>
         </div>
         <div className="px-4 w-6/12 text-justify">
-          <h2 className='font-bold text-center mt-2 mb-2'>The Pirate's Landing North 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
+          <h2 className='font-bold text-center mt-2 mb-2'>The Pirate&apos;s Landing North 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
           <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
           <br />
           <p>Both villas boast private jacuzzi, sleek modern kitchens, and air-conditioned interiors, with each spacious bedroom having its own luxurious en-suite bathroom. The open-concept layout creates a seamless indoor-outdoor living experience, ideal for soaking in the island&apos;s natural beauty.</p>
@@ -56,7 +56,7 @@ export default function Page() {
       <h1 className='mt-10 text-3xl font-bold'>The Pirate Landing South</h1>
       <div className='flex mt-2'>
         <div className="pr-4 w-6/12 text-justify mt-2">
-          <h2 className="font-bold text-center mt-2 mb-2">The Pirate's Landing South 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
+          <h2 className="font-bold text-center mt-2 mb-2">The Pirate&apos;s Landing South 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
           <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
           <br />
           <p>Both villas boast private jacuzzi, sleek modern kitchens, and air-conditioned interiors, with each spacious bedroom having its own luxurious en-suite bathroom. The open-concept layout creates a seamless indoor-outdoor living experience, ideal for soaking in the island&apos;s natural beauty.</p>
