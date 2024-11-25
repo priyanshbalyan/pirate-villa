@@ -44,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps) {
           </main>
           <Footer2 />
         </Providers>
+
         <div id="headlessui-portal-root"></div>
       </body>
     </html>
