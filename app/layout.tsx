@@ -10,6 +10,7 @@ import { Inter as CustomFont } from 'next/font/google';
 import '~/assets/styles/base.css';
 import ContactUsWidget from '~/components/widgets/ContactUsWidget';
 import { Toaster } from '~/components/ui/toaster';
+import { cn } from '~/lib/utils';
 
 const customFont = CustomFont({ subsets: ['latin'], variable: '--font-custom' });
 
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: LayoutProps) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="tracking-tight antialiased text-gray-900 dark:text-slate-300 dark:bg-slate-900">
+      <body className={cn(
+        "tracking-tight antialiased text-gray-900 dark:text-slate-300 dark:bg-gradient-to-r dark:from-slate-800 dark:to-sky-900 backdrop-blur-lg",
+        "bg-gradient-to-r from-gray-100 to-gray-300"
+      )}>
         <Providers>
           <Header />
           <main>

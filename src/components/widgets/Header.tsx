@@ -10,6 +10,7 @@ import ToggleMenu from '../atoms/ToggleMenu';
 import { headerData } from '~/shared/data/global.data';
 import CTA from '../common/CTA';
 import { CallToActionType } from '~/shared/types';
+import { cn } from '~/lib/utils';
 
 const Header = () => {
   const { links, actions, isSticky, showToggleTheme, showRssFeed, position } = headerData;
@@ -57,9 +58,12 @@ const Header = () => {
 
   return (
     <header
-      className={`top-0 z-40 mx-auto w-full flex-none backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80 transition-all duration-100 ease-in md:backdrop-blur-sm dark:md:bg-slate-900/90 ${
-        isSticky ? 'sticky' : 'relative'
-      } ${isToggleMenuOpen ? 'h-screen md:h-auto' : 'h-auto'}`}
+      className={cn(
+        "top-0 z-40 mx-auto w-full flex-none  bg-white/60 dark:bg-[#0f172a]/80 transition-all duration-100 ease-in md:backdrop-blur-sm dark:bg-gradient-to-r dark:from-slate-900/80 dark:to-sky-900/80 backdrop-blur-lg",
+        isSticky ? 'sticky' : 'relative',
+        isToggleMenuOpen ? 'h-screen md:h-auto' : 'h-auto',
+        "bg-gradient-to-r from-gray-100 to-gray-300"
+      )}
       id="header"
     >
       <div className="mx-auto w-full max-w-7xl md:flex md:justify-between md:py-3.5 md:px-4">

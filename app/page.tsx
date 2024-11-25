@@ -8,6 +8,7 @@ import Image from 'next/image';
 import ContactUsWidget from '~/components/widgets/ContactUsWidget';
 import DateWidget from '~/components/widgets/DateWidget';
 import CTA from '~/components/common/CTA';
+import logo from 'public/pirate-villa-logo.png'
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -15,7 +16,13 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className='mx-auto max-w-[1000px]'>
+    <div>
+      {/* <div className="h-[400px] bg-cover bg-center bg-[url('/bgpic.jpeg')]">
+      <div className="backdrop-blur-2xl h-full relative flex items-center justify-center">
+        <Image src={logo} width={250} alt="logo"  />
+      </div>
+      </div> */}
+    <div className='mx-auto max-w-[1000px] mt-8'>
       <h1 className='text-3xl font-bold'>The Pirate Landing North</h1>
       <div className='sm:flex mt-2'>
         <div className='sm:w-6/12'>
@@ -91,6 +98,7 @@ export default function Page() {
         </div>
 
       </div>
+    </div>
     </div>
   );
 }
