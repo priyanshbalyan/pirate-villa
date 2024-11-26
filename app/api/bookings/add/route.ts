@@ -55,12 +55,13 @@ export async function POST(req: NextRequest) {
     const transactionId = await makePayment(data, amount)
     const db = await openDb();
     await db.run(
-      'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType) VALUES (?, ?, ?, ?, ?)',
+      'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType, transactionId) VALUES (?, ?, ?, ?, ?, ?)',
       name,
       email,
       checkInDate,
       checkOutDate,
-      villaType
+      villaType,
+      transactionId
     );
 
     if (!isDevEnv) {

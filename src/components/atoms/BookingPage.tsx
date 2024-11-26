@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { Button } from '~/components/ui/button'
 import DateRangePicker from './DateRangePicker'
 import { RangeKeyDict } from 'react-date-range'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import createBooking from '~/hooks/useCreateBooking';
 import { LoaderCircle, Lock, X } from 'lucide-react'
 import { useToast } from '~/hooks/use-toast';
@@ -15,15 +14,14 @@ import { eachDayOfInterval, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { validateBookingData } from '~/utils/utils';
 import { TermsDialog } from './TermsDialog';
-import CreditCardPaymentForm from './CreditCardPaymentForm';
 import { Label } from '../ui/label';
 import { cn } from '~/lib/utils';
 import { SITE } from '~/config';
 import { PaymentDialog } from './PaymentDialog';
+import { useQueryClient } from '@tanstack/react-query';
 
 type Villa = 'north-villa' | 'south-villa';
 
-const queryClient = new QueryClient()
 
 export default function BookingPage({ north }: { north: boolean }) {
 	const [modalOpen, setModalOpen] = useState(false)
@@ -31,6 +29,8 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const [startDate, setStartDate] = useState<Date | null>(null)
 	const [endDate, setEndDate] = useState<Date | null>(null)
 	const [termsRead, setTermsRead] = useState(false)
+
+	const queryClient = useQueryClient()
 
 	const [loading, setLoading] = useState(false);
 
@@ -105,7 +105,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 	const bg = north ? "bg-[url('/north-miscellaneous.avif')]" : "bg-[url('/south-beach.avif')]"
 
 	return (
-		<QueryClientProvider client={queryClient}>
+		<div>
 			<div className={`flex justify-center  bg-cover bg-center ${bg}`}>
 				<Card className="max-w-[700px] w-full my-36 md:mx-36 bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80">
 					<CardTitle className="p-8 text-3xl">Book The Pirates Landing {north ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</CardTitle>
@@ -174,6 +174,6 @@ export default function BookingPage({ north }: { north: boolean }) {
 				handleBook={handleBook}
 				amount={amount}
 			/>
-		</QueryClientProvider>
+		</div>
 	);
 }

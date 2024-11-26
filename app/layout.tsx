@@ -8,8 +8,6 @@ import Footer2 from '~/components/widgets/Footer2';
 
 import { Inter as CustomFont } from 'next/font/google';
 import '~/assets/styles/base.css';
-import ContactUsWidget from '~/components/widgets/ContactUsWidget';
-import { Toaster } from '~/components/ui/toaster';
 import { cn } from '~/lib/utils';
 
 const customFont = CustomFont({ subsets: ['latin'], variable: '--font-custom' });

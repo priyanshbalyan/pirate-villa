@@ -1,4 +1,4 @@
-import { format, isSameDay } from "date-fns";
+import { areIntervalsOverlapping, format, isAfter, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { CreditCardData } from "~/components/atoms/CreditCardPaymentForm";
 
 // Function to format a number in thousands (K) or millions (M) format depending on its value
@@ -59,7 +59,7 @@ export function validateBookingData(name: string, email: string, startDate: Date
   return newErrors;
 }
 
-export function validateCardData( creditCardData: CreditCardData) {
+export function validateCardData(creditCardData: CreditCardData) {
   const newErrors: { [key: string]: string } = {}
 
   if (!/^\d{16}$/.test(creditCardData.cardNumber)) {
@@ -111,4 +111,36 @@ export function detectCardType(number: string) {
     }
   }
   return '';
+}
+
+export const DATE_FORMAT_STRING = "yyyy-MM-dd";
+
+
+export function isValidDateFormat(dateString: Date | string | undefined): boolean {
+  if (!dateString) return false
+
+  // Parse the date string according to the format
+  const parsedDate = parse(dateString.toString(), DATE_FORMAT_STRING, new Date());
+
+  // Ensure the parsed date is valid and matches the original input
+  return isValid(parsedDate) && format(parsedDate, DATE_FORMAT_STRING) === dateString;
+}
+
+export function isDateRangeOverlappingStrings(
+  startDateStr: string,
+  endDateStr: string,
+  dateRanges: { startDate: string; endDate: string }[]
+): boolean {
+  const startDate = parse(startDateStr, DATE_FORMAT_STRING, new Date());
+  const endDate = parse(endDateStr, DATE_FORMAT_STRING, new Date());
+
+  return dateRanges.some((range) => {
+    const rangeStart = parse(range.startDate, DATE_FORMAT_STRING, new Date());
+    const rangeEnd = parse(range.endDate, DATE_FORMAT_STRING, new Date());
+
+    return areIntervalsOverlapping(
+      { start: startDate, end: endDate },
+      { start: rangeStart, end: rangeEnd }
+    )
+  });
 }

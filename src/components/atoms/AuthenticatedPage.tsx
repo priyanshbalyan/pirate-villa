@@ -3,24 +3,23 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoaderCircle } from 'lucide-react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const queryClient = new QueryClient()
 
 export default function DashboardPage({ children }: { children: ReactElement }) {
 	const [data, setData] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState(true)
+
+
 	const router = useRouter();
 
 	useEffect(() => {
 		const token = localStorage.getItem('token');
-
 		if (!token) {
 			router.push('/login'); // Redirect to login if no token
 			return;
 		}
 
-		fetch('/api/secure-data', {
+		fetch('/api/bookings', {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
@@ -32,15 +31,18 @@ export default function DashboardPage({ children }: { children: ReactElement }) 
 				console.error(err);
 				setError('Unauthorized');
 				router.push('/login');
+			})
+			.finally(() => {
+				setLoading(false)
 			});
 	}, [router]);
 
 	if (error) return <p>{error}</p>;
-	if (!data) return <div className="w-screen h-screen flex items-center justify-center"><LoaderCircle className="animate-spin" /></div>;
+	if (loading) return <div className="w-screen h-screen flex items-center justify-center"><LoaderCircle className="animate-spin" /></div>;
 
 	return (
-    <QueryClientProvider client={queryClient}>
+		<div>
 			{children}
-		</QueryClientProvider>
+		</div>
 	);
 }

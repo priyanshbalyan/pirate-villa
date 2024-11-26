@@ -11,6 +11,7 @@ import CardBooking from './CardBooking';
 import { deleteBooking } from '~/hooks/useDeleteBooking';
 import { toast } from '~/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
+import PricingTable from './PricingTable';
 
 
 export default function PropertyBookings({ north }: { north: boolean }) {
@@ -18,12 +19,11 @@ export default function PropertyBookings({ north }: { north: boolean }) {
   const [propertyFilter, setPropertyFilter] = useState("")
   const [dateFilter, setDateFilter] = useState("")
 
+
   const [itemToDelete, setItemToDelete] = useState<Booking | null>(null)
 
-  const { data: bookings, } = useGetBookings()
-
   const queryClient = useQueryClient()
-
+  const { data: bookings, } = useGetBookings()
 
   useEffect(() => {
     setFilteredBookings(bookings ?? [])

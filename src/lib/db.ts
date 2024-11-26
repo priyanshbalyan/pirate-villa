@@ -27,9 +27,29 @@ export async function initializeDatabase(): Promise<void> {
       email TEXT NOT NULL,
       checkInDate TEXT NOT NULL,
       checkOutDate TEXT NOT NULL,
-      villaType TEXT NOT NULL
+      villaType TEXT NOT NULL,
+      transactionId TEXT NOT NULL
     )
   `);
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS pricing (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      startDate TEXT NOT NULL,
+      endDate TEXT NOT NULL,
+      villaType TEXT NOT NULL,
+      nightlyRate REAL NOT NULL
+    );
+  `)
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS manual_adjustment (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date TEXT NOT NULL,
+      villaType TEXT NOT NULL,
+      nightlyRate REAL NOT NULL
+    );
+  `)
 
   console.log('Database initialized');
 }

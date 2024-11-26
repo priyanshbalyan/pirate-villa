@@ -1,6 +1,7 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
+import { ReactQueryClientProvider } from './ReactQueryClientProvider';
 
 export interface ProvidersProps {
   children: React.ReactNode
@@ -8,7 +9,9 @@ export interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => (
   <ThemeProvider attribute="class" disableTransitionOnChange>
-    {children}
+    <ReactQueryClientProvider>
+      {children}
+    </ReactQueryClientProvider>
   </ThemeProvider>
 );
 
