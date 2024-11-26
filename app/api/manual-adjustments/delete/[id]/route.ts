@@ -12,15 +12,15 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
   try {
     verifyToken(req.headers)
     const db = await openDb()
-    const result = await db.run('DELETE FROM bookings WHERE id = ?', [id]);
+    const result = await db.run('DELETE FROM manual_adjustment WHERE id = ?', [id]);
 
     if (result.changes === 0) {
-      return new Response(JSON.stringify({ error: 'Booking not found' }), { status: 404 });
+      return new Response(JSON.stringify({ error: 'Manual adjustment not found' }), { status: 404 });
     }
 
-    return new Response(JSON.stringify({ message: `Booking with ID ${id} deleted successfully` }), { status: 200 });
+    return new Response(JSON.stringify({ message: `Manual adjustment with ID ${id} deleted successfully` }), { status: 200 });
   } catch (error) {
-    console.error('Error deleting booking:', error);
+    console.error('Error deleting manual adjustment:', error);
     return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
 }

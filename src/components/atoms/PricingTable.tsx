@@ -5,53 +5,25 @@ import { Button } from "~/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { toast } from "~/hooks/use-toast"
 import { Trash2 } from 'lucide-react'
-import useGetPricing from '~/hooks/useGetPricing'
+import useGetPricing, { getPricingQueryKey } from '~/hooks/useGetPricing'
 import { PricingAddDialog } from './PricingAddDialog'
 import { Pricing, VillaType } from '~/types'
+import { format } from 'date-fns'
+import { useQueryClient } from '@tanstack/react-query'
+import { deletePricing } from '~/hooks/useDeletePricing'
 
 
 export default function PricingTable() {
   const { data: pricingOptions, isLoading, error } = useGetPricing()
 
-  const [newRate, setNewRate] = useState('')
-  const [newStartDate, setNewStartDate] = useState('')
-  const [newEndDate, setNewEndDate] = useState('')
-  const [villa, setVilla] = useState<VillaType>('north')
-
   const [pricingAddModalOpen, setPricingAddModalOpen] = useState(false)
 
-  const handleAddPricing = () => {
-    if (!newRate || !newStartDate || !newEndDate) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields.",
-        variant: "destructive",
-      })
-      return
-    }
+  const queryClient = useQueryClient()
 
-    const newPricing: Pricing = {
-      id: Date.now(),
-      nightlyRate: parseFloat(newRate),
-      startDate: newStartDate,
-      endDate: newEndDate,
-      villaType: villa
-    }
-
-    setNewRate('')
-    setNewStartDate('')
-    setNewEndDate('')
-
-    toast({
-      title: "Pricing Added",
-      description: "New pricing option has been added successfully.",
-    })
-  }
-
-  const handleDeletePricing = (id: number) => {
-    toast({
-      title: "Pricing Deleted",
-      description: "Pricing option has been deleted successfully.",
+  const handleDeletePricing = async (id: number) => {
+    await deletePricing(id)
+    queryClient.invalidateQueries({
+      queryKey: getPricingQueryKey()
     })
   }
 
@@ -82,8 +54,8 @@ export default function PricingTable() {
           {pricingOptions?.map((option) => (
             <TableRow key={option.id}>
               <TableCell>${option.nightlyRate.toFixed(2)}</TableCell>
-              <TableCell>{option.startDate}</TableCell>
-              <TableCell>{option.endDate}</TableCell>
+              <TableCell>{format(new Date(option.startDate), 'PPP')}</TableCell>
+              <TableCell>{format(new Date(option.endDate), 'PPP')}</TableCell>
               <TableCell>{option.villaType}</TableCell>
               <TableCell>
                 <Button

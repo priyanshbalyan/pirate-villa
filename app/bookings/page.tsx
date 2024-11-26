@@ -26,7 +26,7 @@ export default function Page({ params, searchParams }: {
   return (
     <>
       <AuthenticatedPage>
-        <Tabs defaultValue="bookings" className="w-full">
+        <Tabs defaultValue="bookings" className="w-full min-h-[900px]">
           <div className='w-full flex items-center justify-center'>
             <TabsList className='w-full max-w-[500px]'>
               <TabsTrigger value="bookings" className='w-4/12'>Bookings</TabsTrigger>
@@ -34,7 +34,7 @@ export default function Page({ params, searchParams }: {
               <TabsTrigger value="manualAdjustment" className='w-4/12'>Manual Adjustment</TabsTrigger>
             </TabsList>
           </div>
-          <TabsContent value="bookings">
+          <TabsContent value="bookings" className=''>
             <BookingList north={isNorth} />
           </TabsContent>
           <TabsContent value="pricing">

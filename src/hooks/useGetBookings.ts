@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { getHeaders } from '~/utils/utils';
 
 export type Booking = {
 	id: number;
@@ -10,10 +11,9 @@ export type Booking = {
 }
 
 async function getBookings(): Promise<Booking[]> {
-	const token = localStorage.getItem('token');
 
 	const response = await fetch('/api/bookings', {
-		headers: { Authorization: `Bearer ${token}` },
+		headers: getHeaders(),
 	})
 	const data = await response.json();
 	return data as Booking[]

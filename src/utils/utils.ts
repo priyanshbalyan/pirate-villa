@@ -144,3 +144,8 @@ export function isDateRangeOverlappingStrings(
     )
   });
 }
+
+export function getHeaders() {
+  const token = localStorage.getItem('token');
+  return { Authorization: `Bearer ${token}` }
+}
