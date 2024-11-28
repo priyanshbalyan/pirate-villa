@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     if (isBefore(parse(startDate, DATE_FORMAT_STRING, new Date()), new Date())) return NextResponse.json({ error: 'Start date is in the past' }, { status: 400 })
 
     const db = await openDb();
-    const dateRanges = await db.all<{ startDate: string, endDate: string }[]>('SELECT startDate, endDate FROM pricing')
+    const dateRanges = await db.all<{ startDate: string, endDate: string }[]>('SELECT startDate, endDate FROM pricing WHERE villaType = ?', [villaType])
 
     if (isDateRangeOverlappingStrings(startDate, endDate, dateRanges)) return NextResponse.json({ error: 'Dates are overlapping with existing ranges' }, { status: 400 })
 

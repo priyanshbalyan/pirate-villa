@@ -70,27 +70,26 @@ async function seed() {
       password = excluded.password;
   `)
 
-  await db.run(
-    'INSERT INTO pricing (nightlyRate, startDate, endDate, villaType) VALUES (?, ?, ?, ?)',
-    100,
-    format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-    format(startOfDay(addDays(new Date(), 7)), 'yyyy-MM-dd'),
-    'north'
-  );
+  // await db.run(
+  //   'INSERT INTO pricing (nightlyRate, startDate, endDate, villaType) VALUES (?, ?, ?, ?)',
+  //   100,
+  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
+  //   format(startOfDay(addDays(new Date(), 7)), 'yyyy-MM-dd'),
+  //   'north'
+  // );
+  // await db.run(
+  //   'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
+  //   100,
+  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
+  //   'north'
+  // );
 
-  await db.run(
-    'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
-    100,
-    format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-    'north'
-  );
-
-  await db.run(
-    'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
-    200,
-    format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-    'south'
-  );
+  // await db.run(
+  //   'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
+  //   200,
+  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
+  //   'south'
+  // );
 
   console.log('Database seeded.')
 }

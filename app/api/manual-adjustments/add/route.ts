@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     if (!isValidDateFormat(date)) return NextResponse.json({ error: 'Date is invalid' }, { status: 400 })
 
     const db = await openDb();
-    const existingRow = await db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE date = ?', [date])
+    const existingRow = await db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE date = ? AND villaType = ?', [date, villaType])
 
     if (existingRow && existingRow.length > 0) {
       return NextResponse.json({ error: 'Manual adjustment is already available for this date' }, { status: 400 })
