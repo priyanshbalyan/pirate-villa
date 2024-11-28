@@ -57,6 +57,15 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       [&>div.rdrMonthAndYearWrapper>span.rdrMonthAndYearPickers>span.rdrMonthPicker>select]:dark:text-white
     `
 
+  const disabledDatesSet = useMemo(() => {
+    return disabledDates?.reduce((acc, cur) => acc.add(format(cur, DATE_FORMAT_STRING)), new Set())
+  }, [disabledDates])
+
+  const datePricingSet = useMemo(() => {
+    return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number>())
+  }, [datePricing])
+
+
   if (error) return <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
 
   if (isLoading) {
@@ -65,13 +74,6 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     </div>
   }
 
-  const disabledDatesSet = useMemo(() => {
-    return disabledDates?.reduce((acc, cur) => acc.add(format(cur, DATE_FORMAT_STRING)), new Set())
-  }, [disabledDates])
-
-  const datePricingSet = useMemo(() => {
-    return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number>())
-  }, [datePricing])
 
 
   return (
