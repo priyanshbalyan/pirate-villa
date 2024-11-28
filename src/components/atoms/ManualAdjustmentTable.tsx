@@ -3,10 +3,8 @@
 import { useState } from 'react'
 import { Button } from "~/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
-import { toast } from "~/hooks/use-toast"
 import { Trash2 } from 'lucide-react'
 import useGetManualAdjustments, { getManualAdjustmentQueryKey } from '~/hooks/useGetManualAdjustments'
-import { ManualAdjustment, Pricing, VillaType } from '~/types'
 import { ManualAdjustmentAddDialog } from './ManualAdjustmentAddDialog'
 import { format } from 'date-fns'
 import { deleteManualAdjustment } from '~/hooks/useDeleteManualAdjustment'

@@ -11,8 +11,6 @@ import CardBooking from './CardBooking';
 import { deleteBooking } from '~/hooks/useDeleteBooking';
 import { toast } from '~/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
-import PricingTable from './PricingTable';
-
 
 export default function PropertyBookings({ north }: { north: boolean }) {
   const [filteredBookings, setFilteredBookings] = useState<Booking[]>([])

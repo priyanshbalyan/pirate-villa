@@ -3,11 +3,9 @@
 import { useState } from 'react'
 import { Button } from "~/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
-import { toast } from "~/hooks/use-toast"
 import { Trash2 } from 'lucide-react'
 import useGetPricing, { getPricingQueryKey } from '~/hooks/useGetPricing'
 import { PricingAddDialog } from './PricingAddDialog'
-import { Pricing, VillaType } from '~/types'
 import { format } from 'date-fns'
 import { useQueryClient } from '@tanstack/react-query'
 import { deletePricing } from '~/hooks/useDeletePricing'

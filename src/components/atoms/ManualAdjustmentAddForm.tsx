@@ -126,7 +126,7 @@ export default function ManualAdjustmentAddForm({ setModalOpen }: { setModalOpen
                 {errors.date && <p className="text-xs text-red-500 mt-1">{errors.date}</p>}
                 <PopoverContent className="w-auto p-0">
                   <Calendar
-                    className=' bg-black'
+                    className=' dark:bg-black bg-white'
                     mode="single"
                     selected={date}
                     onSelect={setDate}

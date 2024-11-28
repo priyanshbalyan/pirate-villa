@@ -13,7 +13,6 @@ import { southPictures } from '~/shared/data/pages/home.data';
 import { ContactProps, ContentProps, FAQsProps, HeroProps } from '~/shared/types';
 import southExterior from 'public/south-exterior-1.avif';
 import northTerracePatio2 from 'public/north-terrace-patio-2.avif';
-import { Toaster } from '../ui/toaster';
 
 
 export default function VillaPage({ north }: { north: boolean }) {

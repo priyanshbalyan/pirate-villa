@@ -43,7 +43,6 @@ export default function PricingAddForm({ setModalOpen }: { setModalOpen: Dispatc
       newErrors.amount = 'Amount is required'
     }
     if (!startDate) {
-      console.log(startDate)
       newErrors.startDate = 'Start date is required'
     }
     if (!endDate) {
@@ -131,7 +130,7 @@ export default function PricingAddForm({ setModalOpen }: { setModalOpen: Dispatc
                 {errors.startDate && <p className="text-xs text-red-500 mt-1">{errors.startDate}</p>}
                 <PopoverContent className="w-auto p-0">
                   <Calendar
-                    className='z-99 bg-black'
+                    className='z-99 dark:bg-black bg-white'
                     mode="single"
                     selected={startDate}
                     onSelect={setStartDate}
@@ -162,7 +161,7 @@ export default function PricingAddForm({ setModalOpen }: { setModalOpen: Dispatc
                     selected={endDate}
                     onSelect={setEndDate}
                     initialFocus
-                    className='bg-black'
+                    className='dark:bg-black bg-white'
                   />
                 </PopoverContent>
               </Popover>

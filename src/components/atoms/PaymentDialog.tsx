@@ -2,7 +2,7 @@
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CreditCardPaymentForm, { CreditCardData } from './CreditCardPaymentForm';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardFooter } from '../ui/card';
 import { Button } from '../ui/button';
 import { cn } from '~/lib/utils';
 import { LoaderCircle, Lock } from 'lucide-react';
@@ -18,7 +18,7 @@ type Props = {
   loading: boolean;
 }
 
-export function PaymentDialog({ 
+export function PaymentDialog({
   modalOpen,
   setModalOpen,
   creditCardData,
@@ -27,7 +27,7 @@ export function PaymentDialog({
   handleBook,
   loading
 }: Props) {
-	const [errors, setErrors] = useState<{ [key: string]: string }>({})
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [touched, setTouched] = useState(false)
 
   const handlePayClick = () => {
@@ -40,11 +40,11 @@ export function PaymentDialog({
   }
 
   useEffect(() => {
-		if (touched) {
-			const errors = validateCardData(creditCardData)
-			setErrors(errors)
-		}
-	}, [creditCardData, touched])
+    if (touched) {
+      const errors = validateCardData(creditCardData)
+      setErrors(errors)
+    }
+  }, [creditCardData, touched])
 
   return (
     <Dialog open={modalOpen} onClose={() => setModalOpen(false)}
@@ -72,7 +72,7 @@ export function PaymentDialog({
                   {loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
                   {' '}Pay {amount > 0 ? `$${amount}` : ''}
                 </Button>
-                </CardFooter>
+              </CardFooter>
             </Card>
           </DialogPanel>
         </div>

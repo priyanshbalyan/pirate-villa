@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { verifyToken } from '~/lib/auth';
 import { openDb } from '~/lib/db';
 import { Pricing } from '~/types';
 
@@ -21,16 +22,13 @@ const calculateFees = (nightlyRate: number, guests: number, nights: number) => {
 };
 
 export async function GET(request: Request) {
-  // const { startDate, endDate, guestCount } = await request.json();
-  // const nights = Math.ceil(
-  //   (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
-  // );
+  try {
+    verifyToken(request.headers)
 
-  const db = await openDb();
-
-  // Find pricing for the range
-  const pricing = await db.all<Pricing[]>('SELECT * FROM pricing');
-
-  // const fees = calculateFees(pricing.nightlyRate, guestCount, nights);
-  return NextResponse.json(pricing);
+    const db = await openDb();
+    const pricing = await db.all<Pricing[]>('SELECT * FROM pricing');
+    return NextResponse.json(pricing);
+  } catch (err) {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

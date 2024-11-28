@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       await sendEmail(email, name, checkInDate, checkOutDate, villaType)
     }
 
-    return NextResponse.json({ message: 'Booking added successfully', transactionId  });
+    return NextResponse.json({ message: 'Booking added successfully', transactionId });
   } catch (error) {
     console.error('Booking error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -106,7 +106,6 @@ async function makePayment(data: RequestBody, amount: number) {
       cvv,
     } = data
 
-    console.log('data', data, amount)
 
     // Merchant authentication
     const merchantAuth = new APIContracts.MerchantAuthenticationType();

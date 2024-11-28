@@ -4,6 +4,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range';
 import useGetDisabledDates from '~/hooks/useGetDisabledDates';
 import { LoaderCircle } from 'lucide-react';
+import useGetDatePricing from '~/hooks/useGetDatePricing';
+import { format, getDate, isBefore, startOfDay } from 'date-fns';
+import { cn } from '~/lib/utils';
+import { useMemo } from 'react';
+import { DATE_FORMAT_STRING } from '~/utils/utils';
 
 type Props = {
   handleSelect: (rangesByKey: RangeKeyDict) => void;
@@ -14,6 +19,9 @@ type Props = {
 
 const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, northVilla }: Props) => {
   const { data: disabledDates, isLoading, error } = useGetDisabledDates(northVilla)
+  const { data: datePricing, error: errorDP } = useGetDatePricing(startDate ?? new Date(), endDate ?? new Date(), northVilla,
+    { enabled: !!startDate && !!endDate }
+  )
 
   const selectionRange = {
     startDate: startDate ?? new Date(),
@@ -57,13 +65,40 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     </div>
   }
 
-  return <DateRangePickerComp
-    ranges={[selectionRange]}
-    onChange={handleSelect}
-    minDate={new Date()}
-    disabledDates={disabledDates ?? []}
-    className={classNames}
-  />
+  const disabledDatesSet = useMemo(() => {
+    return disabledDates?.reduce((acc, cur) => acc.add(format(cur, DATE_FORMAT_STRING)), new Set())
+  }, [disabledDates])
+
+  const datePricingSet = useMemo(() => {
+    return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number>())
+  }, [datePricing])
+
+
+  return (
+    <DateRangePickerComp
+      ranges={[selectionRange]}
+      onChange={handleSelect}
+      minDate={new Date()}
+      disabledDates={disabledDates ?? []}
+      className={classNames}
+      dayContentRenderer={(date) => {
+        const dateString = format(date, DATE_FORMAT_STRING)
+        const disabled = disabledDatesSet?.has(dateString) || isBefore(date, startOfDay(new Date()))
+        const price = datePricingSet?.get(dateString)
+        return (
+          <div
+            className={cn(
+              'text-white text-lg font-bold',
+              disabled && 'pointer-events-none disabled text-gray-500 text-center'
+            )}
+          >
+            <div>{getDate(date)}</div>
+            {price && <div className='font-normal text-xs'>${price}</div>}
+          </div>
+        )
+      }}
+    />
+  )
 }
 
 export default DateRangePicker

@@ -32,3 +32,7 @@
 .rdrCalendarWrapper {
   width: 100%;
 }
+
+.rdrDay {
+  height: 80px !important;
+}
