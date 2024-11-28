@@ -19,6 +19,7 @@ import { cn } from '~/lib/utils';
 import { SITE } from '~/config';
 import { PaymentDialog } from './PaymentDialog';
 import { useQueryClient } from '@tanstack/react-query';
+import useGetCalculateTotal from '~/hooks/useGetCalculateTotal';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -46,8 +47,13 @@ export default function BookingPage({ north }: { north: boolean }) {
 		cardNumber: '', expiryDate: '', cvv: '', cardName: ''
 	})
 
-	const noOfDays = startDate && endDate ? eachDayOfInterval({ start: startDate, end: endDate }).length : 0
-	const amount = (noOfDays > 0 ? noOfDays : 0) * SITE.PRICE_PER_DAY
+	const { data: totalCalculation } = useGetCalculateTotal(
+		startDate ?? new Date(),
+		endDate ?? new Date(),
+		guests, north ? 'north' : 'south',
+		{ enabled: !!startDate && !!endDate }
+	)
+	const amount = totalCalculation?.total
 
 	const { toast } = useToast()
 	const router = useRouter()
@@ -152,7 +158,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 								disabled={!termsRead || loading}
 							>
 								{loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-								{' '}Pay Now and Book! {amount > 0 ? `$${amount}` : ''}
+								{' '}Pay Now and Book! {amount && amount > 0 ? `$${amount.toFixed(2)}` : ''}
 							</Button>
 						</div>
 						<Toaster />
@@ -172,7 +178,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 				setCreditCardData={setCreditCardData}
 				loading={loading}
 				handleBook={handleBook}
-				amount={amount}
+				amount={amount!}
 			/>
 		</div>
 	);

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { SITE } from '~/config';
 import { openDb } from '~/lib/db';
 import { combineCalendarICS } from '~/utils/calendar-ics';
 
@@ -6,8 +7,7 @@ export const dynamic = 'force-dynamic'
 
 async function fetchNorthVrboCalendarData(retries = 1): Promise<string> {
   if (retries >= 5) throw new Error('Error while trying to get vrbo data')
-  const NORTH_URL = 'http://www.vrbo.com/icalendar/4a9db9f3e66344f985b32da8cfa5a60c.ics?nonTentative'
-  const response = await fetch(NORTH_URL, { cache: 'no-store' })
+  const response = await fetch(SITE.NORTH_URL, { cache: 'no-store' })
 
   if (!response.ok) {
     console.log('Got non 200 response from vrbo, Retrying...')
