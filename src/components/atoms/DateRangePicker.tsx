@@ -62,7 +62,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
   }, [disabledDates])
 
   const datePricingSet = useMemo(() => {
-    return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number>())
+    return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number | undefined>())
   }, [datePricing])
 
 
@@ -95,7 +95,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
             )}
           >
             <div>{getDate(date)}</div>
-            {price && <div className='font-normal text-xs'>${price}</div>}
+            {price && <div className='font-semibold text-xs'>${price}</div>}
           </div>
         )
       }}

@@ -4,7 +4,7 @@ import { DATE_FORMAT_STRING } from "~/utils/utils";
 
 type DatePricing = {
   date: string;
-  price: number
+  price: number | undefined
 }
 
 async function getDatePricing(startDate: string, endDate: string, northVilla: boolean): Promise<DatePricing[]> {

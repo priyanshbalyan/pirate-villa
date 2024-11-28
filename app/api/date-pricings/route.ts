@@ -22,7 +22,7 @@ function getPricing(
   endDate: string,
   pricingTable: Pricing[],
   manualAdjustments: ManualAdjustment[]
-): { date: string, price: number }[] {
+): { date: string, price: number | undefined }[] {
   // Parse start and end dates
   const start = parse(startDate, DATE_FORMAT_STRING, new Date());
   const end = parse(endDate, DATE_FORMAT_STRING, new Date());
@@ -52,11 +52,11 @@ function getPricing(
       })
     )?.nightlyRate;
 
-    if (price !== undefined) {
-      datePrices.push({ date: dateString, price })
-    } else {
-      throw new Error(`No pricing available for date: ${dateString}`);
-    }
+    // if (price !== undefined) {
+    datePrices.push({ date: dateString, price })
+    // } else {
+    // throw new Error(`No pricing available for date: ${dateString}`);
+    // }
   }
 
   return datePrices;

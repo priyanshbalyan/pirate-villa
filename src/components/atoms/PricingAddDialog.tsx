@@ -19,7 +19,7 @@ export function PricingAddDialog({
     >
       <DialogBackdrop className="fixed inset-0 bg-black/40 h-screen" />
       <div className="fixed inset-0 w-screen overflow-y-auto p-4 backdrop-blur-lg">
-        <div className="flex min-h-full items-center justify-center">
+        <div className="flex h-screen items-center justify-center">
           <DialogPanel className="max-w-lg space-y-4 flex items-center justify-center">
             <PricingAddForm setModalOpen={setModalOpen} />
           </DialogPanel>
