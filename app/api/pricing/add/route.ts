@@ -30,7 +30,11 @@ export async function POST(req: NextRequest) {
     if (nightlyRate < 0) return NextResponse.json({ error: 'Rate can not be negative' }, { status: 400 })
     if (!isValidDateFormat(startDate)) return NextResponse.json({ error: 'Start date is invalid' }, { status: 400 })
     if (!isValidDateFormat(endDate)) return NextResponse.json({ error: 'End date is invalid' }, { status: 400 })
-    if (isBefore(parse(startDate, DATE_FORMAT_STRING, new Date()), new Date())) return NextResponse.json({ error: 'Start date is in the past' }, { status: 400 })
+    const start = parse(startDate, DATE_FORMAT_STRING, new Date())
+    const end = parse(endDate, DATE_FORMAT_STRING, new Date())
+    if (isBefore(start, new Date())) return NextResponse.json({ error: 'Start date is in the past' }, { status: 400 })
+    if (isBefore(end, start)) return NextResponse.json({ error: 'Start date should be before end date' }, { status: 400 })
+
 
     const db = await openDb();
     const dateRanges = await db.all<{ startDate: string, endDate: string }[]>('SELECT startDate, endDate FROM pricing WHERE villaType = ?', [villaType])

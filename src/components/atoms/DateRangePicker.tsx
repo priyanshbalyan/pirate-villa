@@ -7,7 +7,7 @@ import { LoaderCircle } from 'lucide-react';
 import useGetDatePricing from '~/hooks/useGetDatePricing';
 import { format, getDate, isBefore, startOfDay } from 'date-fns';
 import { cn } from '~/lib/utils';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { DATE_FORMAT_STRING } from '~/utils/utils';
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 
 const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, northVilla }: Props) => {
   const { data: disabledDates, isLoading, error } = useGetDisabledDates(northVilla)
-  const { data: datePricing, error: errorDP } = useGetDatePricing(startDate ?? new Date(), endDate ?? new Date(), northVilla,
+  const { data: datePricing } = useGetDatePricing(startDate ?? new Date(), endDate ?? new Date(), northVilla,
     { enabled: !!startDate && !!endDate }
   )
 
@@ -65,6 +65,22 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     return datePricing?.reduce((acc, cur) => acc.set(cur.date, cur.price), new Map<string, number | undefined>())
   }, [datePricing])
 
+  const customDateRender = useCallback((date: Date) => {
+    const dateString = format(date, DATE_FORMAT_STRING)
+    const disabled = disabledDatesSet?.has(dateString) || isBefore(date, startOfDay(new Date()))
+    const price = datePricingSet?.get(dateString)
+    return (
+      <div
+        className={cn(
+          'text-white text-lg font-bold block cursor-pointer w-full',
+          disabled && 'cursor-not-allowed disabled text-gray-500 text-center'
+        )}
+      >
+        <div className="">{getDate(date)}</div>
+        {price && <div className='font-semibold text-xs'>${price}</div>}
+      </div>
+    )
+  }, [disabledDatesSet, datePricingSet])
 
   if (error) return <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
 
@@ -74,8 +90,6 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     </div>
   }
 
-
-
   return (
     <DateRangePickerComp
       ranges={[selectionRange]}
@@ -83,22 +97,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       minDate={new Date()}
       disabledDates={disabledDates ?? []}
       className={classNames}
-      dayContentRenderer={(date) => {
-        const dateString = format(date, DATE_FORMAT_STRING)
-        const disabled = disabledDatesSet?.has(dateString) || isBefore(date, startOfDay(new Date()))
-        const price = datePricingSet?.get(dateString)
-        return (
-          <div
-            className={cn(
-              'text-white text-lg font-bold',
-              disabled && 'pointer-events-none disabled text-gray-500 text-center'
-            )}
-          >
-            <div>{getDate(date)}</div>
-            {price && <div className='font-semibold text-xs'>${price}</div>}
-          </div>
-        )
-      }}
+      dayContentRenderer={customDateRender}
     />
   )
 }
