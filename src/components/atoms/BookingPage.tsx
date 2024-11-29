@@ -20,6 +20,7 @@ import { PaymentDialog } from './PaymentDialog';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetCalculateTotal from '~/hooks/useGetCalculateTotal';
 import PriceBreakdown from './PriceBreakdown';
+import NumberFlow from '@number-flow/react';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -159,7 +160,7 @@ export default function BookingPage({ north }: { north: boolean }) {
 									disabled={!termsRead || loading}
 								>
 									{loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-									{' '}Pay Now and Book! {amount && amount > 0 ? `$ ${amount.toFixed(2)}` : ''}
+									{' '}Pay Now and Book! {amount && <NumberFlow value={amount} format={{ style: 'currency', currency: 'USD' }} />}
 								</Button>
 							</div>
 							<Toaster />
@@ -171,9 +172,9 @@ export default function BookingPage({ north }: { north: boolean }) {
 						guests={guests}
 						villaType={!!north ? 'north' : 'south'}
 						className={cn(
-							'box-border mx-1 mt-2 mb-4 md:my-36 md:w-[300px] h-[360px]',
+							'box-border mx-1 mt-2 mb-4 md:my-36 md:w-[300px] block',
 							'bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80',
-							'sticky top-[88px]'
+							'sticky top-[88px] h-[fit-content]'
 						)}
 					/>
 				</div>

@@ -3,6 +3,7 @@ import { SITE } from "~/config"
 import useGetCalculateTotal from "~/hooks/useGetCalculateTotal"
 import { cn } from "~/lib/utils"
 import { VillaType } from "~/types"
+import NumberFlow from "@number-flow/react"
 
 type Props = {
   startDate: Date | null;
@@ -26,41 +27,41 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
           <div className="flex justify-between items-center">
             <div>
               <span>Base Rate</span>
-              <p className="text-xs text-muted-foreground">({totalCalculation ? totalCalculation.nights : '...'} nights)</p>
+              <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation?.nights ?? 0} /> nights)</p>
             </div>
-            <span>{totalCalculation ? '$' + totalCalculation.baseRate.toFixed(2) : '...'}</span>
+            <NumberFlow value={totalCalculation?.baseRate ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
           </div>
           <div className="flex justify-between items-center">
             <div>
               <span>Tax</span>
               <p className="text-xs text-muted-foreground">({SITE.TAX_RATE * 100}% on nightly rate)</p>
             </div>
-            <span>{totalCalculation ? '$' + totalCalculation.tax.toFixed(2) : '...'}</span>
+            <NumberFlow value={totalCalculation?.tax ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
           </div>
           <div className="flex justify-between items-center">
             <span>Cleaning Fee</span>
-            <span>{totalCalculation ? '$' + totalCalculation.cleaningFee.toFixed(2) : '...'}</span>
+            <NumberFlow value={totalCalculation?.cleaningFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
           </div>
           <div className="flex justify-between items-center">
             <div>
               <span>Processing Fee</span>
               <p className="text-xs text-muted-foreground">({SITE.PROCESSING_FEE_RATE * 100}% of subtotal)</p>
             </div>
-            <span>{totalCalculation ? '$' + totalCalculation.processingFee.toFixed(2) : '...'}</span>
+            <NumberFlow value={totalCalculation?.processingFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
           </div>
-          {totalCalculation?.extraGuests && totalCalculation.extraGuests > 0 && <div className="flex justify-between items-center">
+          {totalCalculation?.extraGuests ? totalCalculation.extraGuests > 0 && <div className="flex justify-between items-center">
             <div>
               <span>Extra Guests Fee</span>
-              <p className="text-xs text-muted-foreground">({totalCalculation.extraGuests} guests @ ${SITE.EXTRA_GUEST_PER_NIGHT_FEE}/night)</p>
+              <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation.extraGuests} /> guests @ ${SITE.EXTRA_GUEST_PER_NIGHT_FEE}/night)</p>
             </div>
-            <span>{totalCalculation ? '$' + totalCalculation.extraGuestsFee.toFixed(2) : '...'}</span>
-          </div>}
+            <NumberFlow value={totalCalculation?.extraGuestsFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
+          </div> : null}
         </div>
       </CardContent>
       <CardFooter>
         <div className="w-full flex justify-between items-center">
           <span className="text-lg font-bold">Total</span>
-          <span className="text-lg font-bold">{totalCalculation ? '$' + totalCalculation.total.toFixed(2) : '...'}</span>
+          <NumberFlow value={totalCalculation?.total ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
       </CardFooter>
     </Card>
