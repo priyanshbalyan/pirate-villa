@@ -10,16 +10,16 @@ import createBooking from '~/hooks/useCreateBooking';
 import { LoaderCircle, Lock, X } from 'lucide-react'
 import { useToast } from '~/hooks/use-toast';
 import { Toaster } from '~/components/ui/toaster';
-import { eachDayOfInterval, format } from 'date-fns';
+import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { validateBookingData } from '~/utils/utils';
 import { TermsDialog } from './TermsDialog';
 import { Label } from '../ui/label';
 import { cn } from '~/lib/utils';
-import { SITE } from '~/config';
 import { PaymentDialog } from './PaymentDialog';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetCalculateTotal from '~/hooks/useGetCalculateTotal';
+import PriceBreakdown from './PriceBreakdown';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -113,57 +113,70 @@ export default function BookingPage({ north }: { north: boolean }) {
 	return (
 		<div>
 			<div className={`flex justify-center  bg-cover bg-center ${bg}`}>
-				<Card className="max-w-[700px] w-full my-36 md:mx-36 bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80">
-					<CardTitle className="p-8 text-3xl">Book The Pirates Landing {north ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</CardTitle>
-					<CardContent className="p-8 flex flex-col">
-						<div className='mb-2'>
-							<h2 className='text-md font-bold'>Booking Details</h2>
-							<div className='text-xs'>Enter your information</div>
-						</div>
-						<div className='mb-4'>
-							<Label className='mt-0'>Select booking date:</Label>
-							<div className="mt-4 rounded-md">
-								<DateRangePicker
-									handleSelect={handleDateSelect}
-									startDate={startDate}
-									endDate={endDate}
-									northVilla={north}
-								/>
+				<div className="flex flex-col md:flex-row md:mx-36  justify-center">
+					<Card className="sm:w-[700px] mx-1 mt-4 md:my-36 bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80">
+						<CardTitle className="p-8 text-3xl">Book The Pirates Landing {north ? 'North' : 'South'} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC</CardTitle>
+						<CardContent className="p-0 md:p-8 flex flex-col">
+							<div className='mb-2 px-8 md:p-0'>
+								<h2 className='text-md font-bold'>Booking Details</h2>
+								<div className='text-xs'>Enter your information</div>
 							</div>
-							{errors.date && <p className="text-xs text-red-500">{errors.date}</p>}
-							<Label className="mb-2 mt-4">Name:</Label>
-							<div className="mb-4">
-								<Input name="name" id="name" className='w-full' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)} />
-								{errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+							<div className='mb-4'>
+								<Label className='mt-0 px-8 md:px-0'>Select booking date:</Label>
+								<div className="mt-4 rounded-md">
+									<DateRangePicker
+										handleSelect={handleDateSelect}
+										startDate={startDate}
+										endDate={endDate}
+										northVilla={north}
+									/>
+								</div>
+								{errors.date && <p className="text-xs text-red-500 px-8 md:px-0">{errors.date}</p>}
+								<Label className="mb-2 mt-4 px-8 md:px-0">Name:</Label>
+								<div className="mb-4 px-8 md:px-0">
+									<Input name="name" id="name" className='w-full' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)} />
+									{errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+								</div>
+								<Label className="mb-2 mt-4 px-8 md:px-0">Email:</Label>
+								<div className="mb-4 px-8 md:px-0">
+									<Input name="email" id="email" className='' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
+									{errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+								</div>
+								<Label className="mb-2 mt-4 px-8 md:px-0">Number of Guests:</Label>
+								<div className="mb-4 px-8 md:px-0">
+									<Input name="guests" id="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
+									{errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
+								</div>
 							</div>
-							<Label className="mb-2 mt-4">Email:</Label>
-							<div className="mb-4">
-								<Input name="email" id="email" className='' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
-								{errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+							<div className="flex items-center gap-4 mb-2 mt-4 px-8 md:px-0" onClick={() => setModalOpen(true)}>
+								<Checkbox checked={termsRead} />
+								<div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
 							</div>
-							<Label className="mb-2 mt-4">Number of Guests:</Label>
-							<div className="mb-4">
-								<Input name="guests" id="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
-								{errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
+							<div className="flex justify-between mt-4 px-8 md:px-0 pb-8 md:pb-0">
+								<Button
+									onClick={handleSubmit}
+									className={cn("w-full bg-black text-white", Object.keys(errors).length > 0 && "border-red-500 border")}
+									disabled={!termsRead || loading}
+								>
+									{loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
+									{' '}Pay Now and Book! {amount && amount > 0 ? `$ ${amount.toFixed(2)}` : ''}
+								</Button>
 							</div>
-						</div>
-						<div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
-							<Checkbox checked={termsRead} />
-							<div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
-						</div>
-						<div className="flex justify-between mt-4">
-							<Button
-								onClick={handleSubmit}
-								className={cn("w-full bg-black text-white", Object.keys(errors).length > 0 && "border-red-500 border")}
-								disabled={!termsRead || loading}
-							>
-								{loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-								{' '}Pay Now and Book! {amount && amount > 0 ? `$${amount.toFixed(2)}` : ''}
-							</Button>
-						</div>
-						<Toaster />
-					</CardContent>
-				</Card>
+							<Toaster />
+						</CardContent>
+					</Card>
+					<PriceBreakdown
+						startDate={startDate}
+						endDate={endDate}
+						guests={guests}
+						villaType={!!north ? 'north' : 'south'}
+						className={cn(
+							'box-border mx-1 mt-2 mb-4 md:my-36 md:w-[300px] h-[360px]',
+							'bg-o backdrop-blur-lg bg-white/60 dark:bg-[#0f172a]/80',
+							'sticky top-[88px]'
+						)}
+					/>
+				</div>
 			</div>
 			<TermsDialog
 				modalOpen={modalOpen}

@@ -6,6 +6,8 @@ import { eachDayOfInterval, parseISO } from 'date-fns';
 import { APIContracts, APIControllers } from 'authorizenet';
 import { isDevEnv, validateEmail } from '~/utils/utils';
 import { SITE } from '~/config';
+import { calculateTaxAndFees, getPricing } from '~/lib/price-calculations';
+import { ManualAdjustment, Pricing } from '~/types';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -20,6 +22,7 @@ type RequestBody = {
   expiryDate: string;
   cvv: string;
   amount: number;
+  guests: number;
 }
 
 export async function POST(req: NextRequest) {
@@ -35,6 +38,7 @@ export async function POST(req: NextRequest) {
     cardNumber,
     expiryDate,
     cvv,
+    guests
   }: RequestBody = data
 
   if (!validateEmail(email)) return NextResponse.json({ error: 'Email Validation Error' }, { status: 400 })
@@ -47,13 +51,21 @@ export async function POST(req: NextRequest) {
   if (!checkInDate) return NextResponse.json({ error: 'Missing required fields: Check-in Date' }, { status: 400 });
   if (!checkOutDate) return NextResponse.json({ error: 'Missing required fields: Check-out Date' }, { status: 400 });
   if (!villaType) return NextResponse.json({ error: 'Missing required fields: Villa Type' }, { status: 400 });
+  if (!guests) return NextResponse.json({ error: 'Missing required fields: Guests' }, { status: 400 });
 
   try {
     const noOfDays = eachDayOfInterval({ start: parseISO(checkInDate), end: parseISO(checkOutDate) }).length
-    const amount = noOfDays * SITE.PRICE_PER_DAY
 
-    const transactionId = await makePayment(data, amount)
     const db = await openDb();
+    const [pricing, manualAdjustment] = await Promise.all([
+      db.all<Pricing[]>('SELECT * FROM pricing WHERE villaType = ?', [villaType]),
+      db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE villaType = ?', [villaType]),
+    ])
+
+    const pricings = getPricing(checkInDate, checkOutDate, pricing, manualAdjustment)
+    const total = calculateTaxAndFees(pricings, guests)
+    const transactionId = await makePayment(data, total.total)
+
     await db.run(
       'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType, transactionId) VALUES (?, ?, ?, ?, ?, ?)',
       name,

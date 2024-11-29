@@ -46,8 +46,6 @@ export function getPricing(
 
 // Helper to calculate additional fees
 export const calculateTaxAndFees = (pricesPerDate: PricePerDate[], guests: number): TotalCalculation => {
-
-  console.log(pricesPerDate)
   const baseRate = pricesPerDate.reduce((acc, pricePerDate) => acc + pricePerDate.price, 0)
   const nights = pricesPerDate.length
 
