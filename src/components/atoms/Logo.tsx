@@ -4,6 +4,7 @@ import { cn } from '~/lib/utils';
 
 import localFont from 'next/font/local'
 import LogoText from './LogoText';
+import { Suspense } from 'react';
 export const PlayfairDisplay = localFont({ src: '../../../public/PlayfairDisplay-Regular.ttf' })
 
 const Logo = () => {
@@ -18,7 +19,7 @@ const Logo = () => {
         height={50}
       />
       <span className={cn(PlayfairDisplay.className, 'text-lg md:text-4xl ml-4 text-site leading-10 font-light')}>
-        <LogoText />
+        <Suspense><LogoText /></Suspense>
       </span>
     </div>
   )
