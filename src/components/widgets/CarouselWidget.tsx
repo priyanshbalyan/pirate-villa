@@ -83,7 +83,6 @@ export function CarouselWidget() {
                   alt={item.title}
                   sizes="(max-width: 768px) 100vw, 432px"
                   quality={50}
-                  priority
                   placeholder="blur"
                 />
                 <div className="ml-[10px] rounded-lg absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />

@@ -63,7 +63,7 @@ export default function Page() {
           <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
             Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
           </div>
-          <div className='text-xs uppercase'>Check availability</div>
+          <div className='text-xs uppercase mb-4'>Check availability</div>
           <CalendarWidget className='mb-6' northVilla={true} />
         </div>
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center border-l-[0.5px]">
@@ -240,7 +240,7 @@ export default function Page() {
           <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
             Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
           </div>
-          <div className='text-xs uppercase'>Check availability</div>
+          <div className='text-xs uppercase mb-4'>Check availability</div>
           <CalendarWidget northVilla={false} className='mb-6' />
         </div>
       </div>
