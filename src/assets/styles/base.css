@@ -42,3 +42,19 @@
 .rdrDay {
   height: 80px !important;
 }
+
+.rdrStartEdge {
+  color: #d4aa7d !important;
+}
+
+.rdrEndEdge {
+  color: #d4aa7d !important;
+}
+
+.rdrInRange {
+  color: #d4aa7d !important;
+}
+
+.rdrDateDisplayItemActive {
+  border: 1px solid #d4aa7d !important;
+}

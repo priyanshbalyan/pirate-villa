@@ -52,8 +52,8 @@ export default function Page() {
           />
           <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
           <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
-          <Link href="/villa?north=true#booknow">
-            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">BOOK NOW</Button>
+          <Link href="/villa?north=true">
+            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">VIEW PROPERTY</Button>
           </Link>
         </div>
       </div>
@@ -150,7 +150,9 @@ export default function Page() {
           />
           <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
           <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
-          <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">BOOK NOW</Button>
+          <Link href="/villa">
+            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">VIEW PROPERTY</Button>
+          </Link>
         </div>
         <Image
           className="m-0 p-0 w-full md:w-1/2 shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"

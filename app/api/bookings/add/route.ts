@@ -55,6 +55,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const noOfDays = eachDayOfInterval({ start: parseISO(checkInDate), end: parseISO(checkOutDate) }).length
+    if (noOfDays < SITE.MINIMUM_NIGHTS_STAY) return NextResponse.json({ error: 'No. of days is less than minimum night stays allowed' }, { status: 400 });
+
 
     const db = await openDb();
     const [pricing, manualAdjustment] = await Promise.all([

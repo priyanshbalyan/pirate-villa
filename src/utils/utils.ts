@@ -1,5 +1,6 @@
-import { areIntervalsOverlapping, format, isAfter, isBefore, isSameDay, isValid, parse } from "date-fns";
+import { areIntervalsOverlapping, differenceInDays, format, isAfter, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { CreditCardData } from "~/components/atoms/CreditCardPaymentForm";
+import { SITE } from "~/config";
 
 // Function to format a number in thousands (K) or millions (M) format depending on its value
 export const getSuffixNumber = (number: number, digits: number = 1): string => {
@@ -54,6 +55,9 @@ export function validateBookingData(name: string, email: string, startDate: Date
   }
   if (!startDate || !endDate || isSameDay(startDate, endDate)) {
     newErrors.date = 'Date range needs to be selected'
+  }
+  if (endDate && startDate && differenceInDays(endDate, startDate) < SITE.MINIMUM_NIGHTS_STAY) {
+    newErrors.date = 'Minimum 3 night stays can be booked.'
   }
 
   return newErrors;

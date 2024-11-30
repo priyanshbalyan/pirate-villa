@@ -5,25 +5,8 @@ import Image from 'next/image';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '~/lib/utils';
-import { PlayfairDisplay } from '../atoms/Logo';
+import { PlayfairDisplay } from '~/components/atoms/Logo';
 
-const DialogContent = ({ selectedImage }: { selectedImage: string }) => {
-  return <>
-    <DialogBackdrop className="fixed inset-0 bg-black/30" />
-    <div className="fixed inset-0 flex items-center justify-center w-full">
-      <div className="flex items-center justify-center w-full">
-        <DialogPanel className="min-w-[60%] max-w-[70%] max-h-[90%] space-y-4 border bg-white">
-          <Image
-            src={selectedImage}
-            alt={'Full screen'}
-            placeholder="blur"
-            className="min-h-full min-w-full  object-cover"
-          />
-        </DialogPanel>
-      </div>
-    </div>
-  </>
-}
 const ItemGrid = ({
   items,
 }: ItemGridType) => {
@@ -72,11 +55,24 @@ const ItemGrid = ({
           </div>
         ))}
       </div>
-      <Dialog open={modalOpen} onClose={handleClose}
+
+      <Dialog open={modalOpen} onClose={() => setModalOpen(false)}
         transition
-        className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
+        className="fixed inset-0 flex w-screen items-center justify-center  p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
       >
-        <DialogContent selectedImage={selectedImage} />
+        <DialogBackdrop className="fixed inset-0 bg-black/40" />
+        <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
+          <div className="flex min-h-full items-center justify-center">
+            <DialogPanel className="max-w-lg space-y-4">
+              <Image
+                src={selectedImage}
+                alt={'Full screen'}
+                placeholder="blur"
+                className="min-h-full min-w-full  object-cover"
+              />
+            </DialogPanel>
+          </div>
+        </div>
       </Dialog>
     </div>
   );

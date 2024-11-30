@@ -109,7 +109,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 					/>
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>BOOK {villaText} VILLA TODAY</span>
 					<span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
-					<Link href="/book">
+					<Link href="#booknow">
 						<Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">BOOK NOW</Button>
 					</Link>
 				</div>
@@ -128,7 +128,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 					<p className='max-w-[90%] text-center text-primary text-sm mt-4'>
 						To elevate your stay, Pirates Landing offers personalized concierge services, including seamless transfers, villa provisioning, excursion bookings and organizing exclusive experiences like beachside yoga sessions or indulgent massages. With convenient access to local grocery stores, dining, and shopping, these villas promise a serene, stress-free escape. Guests also enjoy high-speed Wi-Fi, beach chairs, umbrellas, and coolers, ensuring every beach day is effortless and unforgettable.
 					</p>
-					<p className='max-w-[90%] text-center text-primary text-sm mt-4'>
+					<p className='max-w-[90%] text-center text-primary text-sm mt-4 mb-16'>
 						Perfect for those seeking a luxurious yet relaxed getaway in paradise!
 					</p>
 				</div>
