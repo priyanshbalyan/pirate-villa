@@ -14,6 +14,23 @@ const ItemGrid = ({
   const [modalOpen, setModalOpen] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout>()
 
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY); // Update the scroll position
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array ensures this runs once on mount
+
+
   const handleClose = () => {
     setModalOpen(false)
     timeoutRef.current = setTimeout(() => {
