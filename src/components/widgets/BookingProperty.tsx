@@ -22,6 +22,7 @@ import { PlayfairDisplay } from '../atoms/Logo';
 import Image from 'next/image';
 import { northPictures, southPictures } from '~/shared/data/pages/home.data';
 import { SITE } from '~/config';
+import PriceBreakdown from '../atoms/PriceBreakdown';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -158,6 +159,14 @@ export default function BookingProperty({ north }: { north: boolean }) {
               <div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
                 <Checkbox checked={termsRead} />
                 <div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
+              </div>
+              <div className='mt-4'>
+                <PriceBreakdown
+                  startDate={startDate}
+                  endDate={endDate}
+                  villaType={!!north ? 'north' : 'south'}
+                  guests={guests}
+                />
               </div>
               <div className="flex justify-between mt-4 pb-8 md:pb-0">
                 <Button
