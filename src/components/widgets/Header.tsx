@@ -100,6 +100,7 @@ const Header = () => {
               <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">AMENITIES</a>
               <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">FAQS</a>
               <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">PHOTOS</a>
+              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">CONTACT US</a>
             </>
             }
 

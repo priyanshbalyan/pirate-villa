@@ -20,6 +20,7 @@ import {
 } from "~/components/ui/accordion"
 import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
+import GetInTouch from '../widgets/GetInTouch';
 
 
 
@@ -239,6 +240,29 @@ export default function VillaPage({ north }: { north: boolean }) {
 			<Marquee />
 			<div className="bg-[url('/scene.jpg')] bg-cover w-full" id="testimonials">
 				<Testimonials {...testimonialsHome} />
+			</div>
+			<div className='flex flex-col md:flex-row'>
+				<div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
+					<Image
+						className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+						src={bgPic}
+						width={350}
+						height={350}
+						alt="Scenic mountain landscape with a lake in the foreground"
+						sizes="(max-width: 768px) 100vw, 432px"
+						quality={50}
+						placeholder="blur"
+					/>
+					<p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>PIRATE&apos;S LANDING</p>
+					<p>Cruz Bay, St. John Virgin Islands</p>
+					<p className="mt-4">email@example.com</p>
+					<p className="mt-4">+105 123 4567</p>
+				</div>
+				<div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
+					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
+					<p className="text-center">Send us a message and we&apos;ll get back to you as soon as possible.</p>
+					<GetInTouch className='flex w-full mt-8 max-w-lg' />
+				</div>
 			</div>
 		</>
 	);
