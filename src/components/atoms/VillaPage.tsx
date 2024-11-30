@@ -114,7 +114,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 					</Link>
 				</div>
 			</div>
-			<div className="flex flex-col md:flex-row h-fit md:h-[842px]" >
+			<div className="flex flex-col md:flex-row h-fit md:h-[842px] lg:h-fit" >
 				<div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>
 						The Pirates Landing {villaText}3-bedroom condo in fabulous Cruz Bay with WiFi, AC
@@ -229,14 +229,15 @@ export default function VillaPage({ north }: { north: boolean }) {
 					placeholder="blur"
 				/>
 			</div>
-
-			<Features items={north ? northPictures : southPictures} id="photos" />
 			<div id="booknow">
 			</div>
 
 			<BookingProperty north={north} />
+
+			<Features items={north ? northPictures : southPictures} id="photos" />
+
 			<Marquee />
-			<div className="bg-site" id="testimonials">
+			<div className="bg-[url('/scene.jpg')] bg-cover w-full" id="testimonials">
 				<Testimonials {...testimonialsHome} />
 			</div>
 		</>

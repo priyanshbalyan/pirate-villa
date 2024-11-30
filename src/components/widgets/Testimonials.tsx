@@ -15,7 +15,7 @@ const Testimonials = ({
   id,
   hasBackground = false,
 }: TestimonialsProps) => (
-  <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="bg-[url('/scene.jpg')] bg-cover">
+  <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="">
     {header && <Headline header={header} titleClass={cn(PlayfairDisplay.className, "uppercase text-4xl text-background")} />}
     <div className="flex items-stretch justify-center">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">

@@ -59,9 +59,11 @@ export default function Page() {
       </div>
       <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-r-[0.5px]'>
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[350px] text-center mt-8')}>WELCOME TO NORTH VILLA</span>
-          <span className='max-w-[350px] text-center text-site text-sm mt-4 mb-4'>Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Sunset Villa is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Built in 1925, Sunset Villa combines historic charm with modern amenities. Nestled in the heart of Seabreeze Bay, our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.</span>
-          <span className='text-xs uppercase'>Check availability</span>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>WELCOME TO NORTH VILLA</div>
+          <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
+            Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
+          </div>
+          <div className='text-xs uppercase'>Check availability</div>
           <CalendarWidget className='mb-6' northVilla={true} />
         </div>
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center border-l-[0.5px]">
@@ -232,9 +234,13 @@ export default function Page() {
           </div>
         </div>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-l-[0.5px]'>
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[350px] text-center mt-8')}>WELCOME TO SOUTH VILLA</span>
-          <span className='max-w-[350px] text-center text-site text-sm mt-4 mb-4'>Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Sunset Villa is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Built in 1925, Sunset Villa combines historic charm with modern amenities. Nestled in the heart of Seabreeze Bay, our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.</span>
-          <span className='text-xs uppercase'>Check availability</span>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>
+            WELCOME TO SOUTH VILLA
+          </div>
+          <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
+            Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
+          </div>
+          <div className='text-xs uppercase'>Check availability</div>
           <CalendarWidget northVilla={false} className='mb-6' />
         </div>
       </div>
