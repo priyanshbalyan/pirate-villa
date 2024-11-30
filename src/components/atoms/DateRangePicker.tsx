@@ -36,11 +36,11 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
       [&>*>*>*>button.rdrDayDisabled]:bg-transparent
       [&>*>*>*>button.rdrDayDisabled>span>span]:text-lg
       [&>*>*>*>button.rdrDayDisabled>span>span]:text-[#999999]
-      [&>*>*>*>button.rdrDayDisabled>span>span]:dark:text-gray-500
+      [&>*>*>*>button.rdrDayDisabled>span>span]:text-slate-100
       [&>*>*>*>button>span>span]:text-lg
       [&>*>*>*>button>span>span]:font-semibold
       [&>*>*>*>button>span>span]:dark:text-white
-      [&>*>*>*>button.rdrDayDisabled>span>span]:dark:text-gray
+      [&>*>*>*>button.rdrDayDisabled>span>span]:text-slate-100
       [&>option]:bg-black
       [&>div>div>span.rdrDateInput]:bg-transparent
       [&>div>div>span.rdrDateInput]:dark:bg-black/40

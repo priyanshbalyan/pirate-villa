@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <footer className="relative border-t border-gray-200 dark:border-slate-800">
-      <div className="relative mx-auto max-w-7xl px-4 dark:text-slate-300 sm:px-6">
+      <div className="relative mx-auto max-w-7xl px-4 text-site sm:px-6">
         <div className="grid grid-cols-12 gap-4 gap-y-8 py-8 sm:gap-8 md:py-12">
           <div className="col-span-12 lg:col-span-4">
             <div className="mb-2">

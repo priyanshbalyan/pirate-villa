@@ -100,7 +100,7 @@ export default function CreditCardPaymentForm({ creditCardData, setCreditCardDat
 					</div>
 					<div className="grid grid-cols-3 gap-4">
 						<div className="flex flex-col space-y-1.5 col-span-1">
-							<Label htmlFor="expiryMonth">Expiry Month</Label>
+							<Label htmlFor="expiryMonth" className='whitespace-nowrap'>Expiry Month</Label>
 							<Select value={expiryMonth} onValueChange={handleExpiryMonthChange}>
 								<SelectTrigger id="expiryMonth">
 									<SelectValue placeholder="Month" />

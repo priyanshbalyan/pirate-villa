@@ -32,8 +32,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={cn(
-        "tracking-tight antialiased text-gray-900 dark:text-slate-300 dark:bg-gradient-to-r dark:from-slate-800 dark:to-sky-900 backdrop-blur-lg",
-        "bg-gradient-to-r from-gray-100 to-gray-300"
+        "tracking-tight antialiased backdrop-blur-lg bg-background text-secondary",
       )}>
         <Providers>
           <Header />
@@ -42,7 +41,6 @@ export default function RootLayout({ children }: LayoutProps) {
           </main>
           <Footer2 />
         </Providers>
-
         <div id="headlessui-portal-root"></div>
       </body>
     </html>

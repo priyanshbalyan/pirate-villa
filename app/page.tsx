@@ -4,11 +4,20 @@ import { SITE } from '~/config.js';
 
 import southExterior from 'public/south-exterior-1.avif'
 import northInterior from 'public/north-terrace-patio-2.avif'
+import northMiscellaneous from 'public/north-miscellaneous.avif'
 import Image from 'next/image';
-import ContactUsWidget from '~/components/widgets/ContactUsWidget';
-import DateWidget from '~/components/widgets/DateWidget';
-import CTA from '~/components/common/CTA';
-import logo from 'public/pirate-villa-logo.png'
+
+import { PlayfairDisplay } from '~/components/atoms/Logo';
+import { cn } from '~/lib/utils';
+import { Button } from '~/components/ui/button';
+import { CarouselWidget } from '~/components/widgets/CarouselWidget';
+import CalendarWidget from '~/components/widgets/CalendarWidget';
+import { northPictures, southPictures } from '~/shared/data/pages/home.data';
+import GetInTouch from '~/components/widgets/GetInTouch';
+import bgPic from 'public/bgpic.jpeg';
+import Marquee from '~/components/widgets/Marquee';
+import Link from 'next/link';
+
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -17,88 +26,262 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      {/* <div className="h-[400px] bg-cover bg-center bg-[url('/bgpic.jpeg')]">
-      <div className="backdrop-blur-2xl h-full relative flex items-center justify-center">
-        <Image src={logo} width={250} alt="logo"  />
+      <div className="flex flex-col md:flex-row h-fit md:h-[842px]" id="northvilla">
+        <Image
+          className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
+          src={northMiscellaneous}
+          width={828}
+          height={842}
+          alt="North villa"
+          sizes="(max-width: 768px) 100vw, 432px"
+          priority
+          quality={100}
+          placeholder="blur"
+        />
+        <div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
+          <Image
+            className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            src={northInterior}
+            width={350}
+            height={350}
+            alt="Scenic mountain landscape with a lake in the foreground"
+            sizes="(max-width: 768px) 100vw, 432px"
+            priority
+            quality={50}
+            placeholder="blur"
+          />
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
+          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
+          <Link href="/villa?north=true#booknow">
+            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">BOOK NOW</Button>
+          </Link>
+        </div>
       </div>
-      </div> */}
-    <div className='mx-auto max-w-[1000px] mt-8'>
-      <h1 className='text-3xl font-bold'>The Pirate Landing North</h1>
-      <div className='sm:flex mt-2'>
-        <div className='sm:w-6/12'>
-          <div className="relative">
+      <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
+        <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-r-[0.5px]'>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[350px] text-center mt-8')}>WELCOME TO NORTH VILLA</span>
+          <span className='max-w-[350px] text-center text-site text-sm mt-4 mb-4'>Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Sunset Villa is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Built in 1925, Sunset Villa combines historic charm with modern amenities. Nestled in the heart of Seabreeze Bay, our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.</span>
+          <span className='text-xs uppercase'>Check availability</span>
+          <CalendarWidget className='mb-6' northVilla={true} />
+        </div>
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center border-l-[0.5px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <Image
-              className="mx-auto w-full rounded-lg shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01]"
-              src={northInterior}
-              width={828}
-              height={828}
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[0].image}
+              width={268}
+              height={462}
               alt="Scenic mountain landscape with a lake in the foreground"
               sizes="(max-width: 768px) 100vw, 432px"
-              priority
               quality={50}
               placeholder="blur"
             />
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-              <CTA callToAction={{ text: 'View Pirate Villa North', href: '/villa?north=true' }} linkClass="btn bg-white/60 backdrop-blur-lg" />
-            </div>
-          </div>
-          <div className='p-4'>
-            <DateWidget northVilla={true} />
-          </div>
-        </div>
-        <div className="px-4 sm:w-6/12 text-justify">
-          <h2 className='font-bold text-center mt-2 mb-2'>The Pirate&apos;s Landing North 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
-          <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
-          <br />
-          <p>Both villas boast private jacuzzi, sleek modern kitchens, and air-conditioned interiors, with each spacious bedroom having its own luxurious en-suite bathroom. The open-concept layout creates a seamless indoor-outdoor living experience, ideal for soaking in the island&apos;s natural beauty.</p>
-          <br />
-          <p>To elevate your stay, Pirates Landing offers personalized concierge services, including seamless transfers, villa provisioning, excursion bookings and organizing exclusive experiences like beachside yoga sessions or indulgent massages. With convenient access to local grocery stores, dining, and shopping, these villas promise a serene, stress-free escape. Guests also enjoy high-speed Wi-Fi, beach chairs, umbrellas, and coolers, ensuring every beach day is effortless and unforgettable.</p>
-          <br />
-          <p>Perfect for those seeking a luxurious yet relaxed getaway in paradise!</p>
-          <div className='w-full flex items-center justify-center h-[150px]'>
-            <ContactUsWidget fixed={false} />
-          </div>
-        </div>
-      </div>
-      <h1 className='mt-10 text-3xl font-bold'>The Pirate Landing South</h1>
-      <div className='sm:flex mt-2'>
-        <div className="pr-4 sm:w-6/12 text-justify mt-2">
-          <h2 className="font-bold text-center mt-2 mb-2">The Pirate&apos;s Landing South 3-bedroom condo with WiFi, AC in enchanting Cruz Bay</h2>
-          <p>Pirates Landing North and South are exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.</p>
-          <br />
-          <p>Both villas boast private jacuzzi, sleek modern kitchens, and air-conditioned interiors, with each spacious bedroom having its own luxurious en-suite bathroom. The open-concept layout creates a seamless indoor-outdoor living experience, ideal for soaking in the island&apos;s natural beauty.</p>
-          <br />
-          <p>To elevate your stay, Pirates Landing offers personalized concierge services, including seamless transfers, villa provisioning, excursion bookings and organizing exclusive experiences like beachside yoga sessions or indulgent massages. With convenient access to local grocery stores, dining, and shopping, these villas promise a serene, stress-free escape. Guests also enjoy high-speed Wi-Fi, beach chairs, umbrellas, and coolers, ensuring every beach day is effortless and unforgettable.</p>
-          <br />
-          <p>Perfect for those seeking a luxurious yet relaxed getaway in paradise!</p>
-          <div className='w-full flex items-center justify-center h-[150px]'>
-            <ContactUsWidget fixed={false} />
-          </div>
-        </div>
-        <div className='sm:w-6/12'>
-          <div className='relative'>
             <Image
-              className="mx-auto w-full rounded-lg shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01]"
-              src={southExterior}
-              width={828}
-              height={828}
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[1].image}
+              width={268}
+              height={462}
               alt="Scenic mountain landscape with a lake in the foreground"
               sizes="(max-width: 768px) 100vw, 432px"
-              priority
-              placeholder='blur'
               quality={50}
+              placeholder="blur"
             />
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-              <CTA callToAction={{ text: 'View Pirate Villa South', href: '/villa' }} linkClass="btn bg-white/60 backdrop-blur-lg" />
-            </div>
-          </div>
-          <div className='p-4'>
-            <DateWidget northVilla={false} />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[2].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[3].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[4].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[5].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
           </div>
         </div>
-
       </div>
-    </div>
+      <Marquee />
+      <div className='w-full flex justify-center'>
+        <CarouselWidget />
+      </div>
+
+
+      <div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" id="southvilla">
+        <div className="w-full md:w-1/2 bg-site flex flex-col items-center justify-center ">
+          <Image
+            className="z-10 -mt-16 md:mt-0 shadow-lg h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            src={southPictures[7].image}
+            width={350}
+            height={350}
+            alt="South picture"
+            sizes="(max-width: 768px) 100vw, 432px"
+            priority
+            quality={50}
+            placeholder="blur"
+          />
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
+          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
+          <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">BOOK NOW</Button>
+        </div>
+        <Image
+          className="m-0 p-0 w-full md:w-1/2 shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
+          src={southExterior}
+          width={828}
+          height={842}
+          alt="South villa"
+          sizes="(max-width: 768px) 100vw, 432px"
+          priority
+          quality={100}
+          placeholder="blur"
+        />
+      </div>
+      <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
+        <div className="md:w-1/2 w-full flex flex-col justify-center items-center border-r-[0.5px] mt-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[0].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[1].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[2].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[3].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[4].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={southPictures[5].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+          </div>
+        </div>
+        <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-l-[0.5px]'>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[350px] text-center mt-8')}>WELCOME TO SOUTH VILLA</span>
+          <span className='max-w-[350px] text-center text-site text-sm mt-4 mb-4'>Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Sunset Villa is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Built in 1925, Sunset Villa combines historic charm with modern amenities. Nestled in the heart of Seabreeze Bay, our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.</span>
+          <span className='text-xs uppercase'>Check availability</span>
+          <CalendarWidget northVilla={false} className='mb-6' />
+        </div>
+      </div>
+      <Marquee />
+      <div className='w-full flex justify-center px-4'>
+        <CarouselWidget />
+      </div>
+      <div className='flex flex-col justify-center items-center bg-primary border-[1px] border-line py-10'>
+        <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl max-w-lg text-center')}>
+          Committed to Your Perfect Stay
+        </div>
+        <p className={cn('text-site max-w-lg text-center mt-4')}>
+          At Pirate Villa, our mission is to provide you with an exceptional experience. We are dedicated to ensuring that every aspect of your stay is perfect, from our high-end amenities to our personalized service.
+        </p>
+      </div>
+      <div className={cn(`flex flex-col justify-center items-center border-b-[1px] border-line py-40`, "bg-[url('/scene.jpg')] bg-cover")}>
+        <div className="p-10 bg-background rounded-3xl px-4 md:px-36 py-24 flex items-center justify-center flex-col">
+          <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center ')}>
+            Experience Tranquility<br />and Luxury
+          </div>
+          <p className={cn('text-site max-w-lg text-center mt-4')}>
+            Escape to Pirate Villa, your sanctuary by the sea. Immerse yourself in the comfort and elegance of our fully self-contained accommodation. Reserve your spot today and start your journey to relaxation.
+          </p>
+          <Button className='mt-4 rounded-full py-6 px-10'>Book Your Stay</Button>
+        </div>
+      </div>
+      <div className='flex flex-col md:flex-row'>
+        <div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
+          <Image
+            className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            src={bgPic}
+            width={350}
+            height={350}
+            alt="Scenic mountain landscape with a lake in the foreground"
+            sizes="(max-width: 768px) 100vw, 432px"
+            quality={50}
+            placeholder="blur"
+          />
+          <p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>PIRATE&apos;S LANDING</p>
+          <p>Cruz Bay, St. John Virgin Islands</p>
+          <p className="mt-4">email@example.com</p>
+          <p className="mt-4">+105 123 4567</p>
+        </div>
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
+          <span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
+          <p className="text-center">Send us a message and we&apos;ll get back to you as soon as possible.</p>
+          <GetInTouch className='flex w-full mt-8 max-w-lg' />
+        </div>
+      </div>
     </div>
   );
 }

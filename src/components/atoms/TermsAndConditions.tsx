@@ -8,14 +8,14 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 	const [agreed, setAgreed] = useState(false)
 
 	return (
-		<div className="container mx-auto px-4 pb-8 pt-6 max-h-[90%] overflow-y-scroll">
+		<div className=" mx-auto px-4 pb-8 pt-6 max-h-[90%] ">
 			<h1 className="text-3xl font-bold mb-6 dark:text-black">Rental Agreement and Policies</h1>
 			<p className="text-gray-600 mb-6">
 				Please read through our rental agreement and policies carefully. By agreeing to these terms,
 				you acknowledge that you have read, understood, and agree to abide by all the conditions set forth.
 			</p>
 
-			<ScrollArea className=" border rounded-md p-4 mb-6">
+			<ScrollArea className=" border rounded-md p-4 mb-6 ">
 				<Accordion type="single" collapsible className="w-full dark:text-black">
 					<AccordionItem value="booking">
 						<AccordionTrigger>Booking and Payment</AccordionTrigger>

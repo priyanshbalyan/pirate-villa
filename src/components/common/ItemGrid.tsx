@@ -4,16 +4,19 @@ import type { ItemGrid as ItemGridType } from '~/shared/types';
 import Image from 'next/image';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { useEffect, useRef, useState } from 'react';
+import { cn } from '~/lib/utils';
+import { PlayfairDisplay } from '../atoms/Logo';
 
 const DialogContent = ({ selectedImage }: { selectedImage: string }) => {
   return <>
     <DialogBackdrop className="fixed inset-0 bg-black/30" />
-    <div className="fixed inset-0 w-screen overflow-y-auto p-4">
-      <div className="flex min-h-full items-center justify-center">
+    <div className="fixed inset-0 flex items-center justify-center w-full">
+      <div className="flex items-center justify-center w-full">
         <DialogPanel className="min-w-[60%] max-w-[70%] max-h-[90%] space-y-4 border bg-white">
           <Image
             src={selectedImage}
             alt={'Full screen'}
+            placeholder="blur"
             className="min-h-full min-w-full  object-cover"
           />
         </DialogPanel>
@@ -38,7 +41,7 @@ const ItemGrid = ({
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current)
       }
     }
   }, [])
@@ -64,7 +67,7 @@ const ItemGrid = ({
             </div>
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-              <h2 className="text-lg font-semibold">{title}</h2>
+              <h2 className={cn(PlayfairDisplay.className, "text-lg font-semibold")}>{title}</h2>
             </div>
           </div>
         ))}

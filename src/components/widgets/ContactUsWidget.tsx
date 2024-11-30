@@ -10,8 +10,10 @@ import { MessageSquareText, Send, X } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { SITE } from '~/config'
 
-export default function ContactUsWidget({ fixed = true }: { fixed: boolean }) {
-  const [isOpen, setIsOpen] = useState(false)
+type Props = { fixed: boolean; open?: boolean }
+
+export default function ContactUsWidget({ fixed = true, open }: Props) {
+  const [isOpen, setIsOpen] = useState(!!open)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')

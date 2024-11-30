@@ -27,6 +27,22 @@ export function PaymentDialog({
   handleBook,
   loading
 }: Props) {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY); // Update the scroll position
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array ensures this runs once on mount
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [touched, setTouched] = useState(false)
 
@@ -52,10 +68,10 @@ export function PaymentDialog({
       className="fixed inset-0 flex w-screen items-center justify-center  p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
     >
       <DialogBackdrop className="fixed inset-0 bg-black/40" />
-      <div className="fixed inset-0 w-screen overflow-y-auto p-4 backdrop-blur-lg">
+      <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
         <div className="flex min-h-full items-center justify-center">
           <DialogPanel className="max-w-lg space-y-4">
-            <Card className='rounded-lg bg-transparent backdrop-blur-lg px-4'>
+            <Card className='rounded-lg bg-primary text-site backdrop-blur-lg px-4'>
               <CardContent className='mt-10'>
                 <CreditCardPaymentForm
                   creditCardData={creditCardData}
