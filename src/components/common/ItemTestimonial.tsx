@@ -38,8 +38,8 @@ const ItemTestimonial = ({
               )}
 
               <div className={twMerge('flex flex-col justify-center', nameJobClass)}>
-                {name && <h3 className={twMerge('font-semibold', nameClass)}>{name}</h3>}
-                {job && <span className={twMerge('dark:text-slate-400', jobClass)}>{job}</span>}
+                {name && <h3 className={twMerge('font-semibold text-site', nameClass)}>{name}</h3>}
+                {job && <span className={twMerge(' text-site', jobClass)}>{job}</span>}
               </div>
             </div>
 
@@ -49,7 +49,7 @@ const ItemTestimonial = ({
 
         {testimonial && (
           <blockquote className={twMerge('flex-auto', testimonialClass)}>
-            <p className="font-light dark:text-slate-400">
+            <p className="font-light text-site">
               {startSlice !== undefined && endSlice !== undefined
                 ? `" ${testimonial.slice(Number(startSlice), Number(endSlice))}... "`
                 : `" ${testimonial} "`}

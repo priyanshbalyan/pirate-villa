@@ -24,7 +24,7 @@ const Testimonials = ({
             testimonial && (
               <div
                 key={`item-testimonial-${index}`}
-                className={`card max-w-sm h-full bg-primary border-[1px] border-site text-site ${!callToAction && href
+                className={`card max-w-sm h-full bg-primary dark:bg-primary border-[1px] border-site text-site ${!callToAction && href
                   ? 'hover:border-primary-600 hover:shadow-lg hover:transition hover:duration-100'
                   : ''
                   }`}
