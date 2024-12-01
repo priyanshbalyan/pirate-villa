@@ -20,7 +20,7 @@ import {
 } from "~/components/ui/accordion"
 import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
-import GetInTouch from '../widgets/GetInTouch';
+import GetInTouch from '~/components/widgets/GetInTouch';
 
 
 
@@ -144,7 +144,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 					placeholder="blur"
 				/>
 			</div>
-			<div className="flex flex-col md:flex-row h-fit md:h-[842px]" >
+			<div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" >
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
 					src={north ? northPictures[9].image : southPictures[5].image}
@@ -244,7 +244,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 			<div className='flex flex-col md:flex-row'>
 				<div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
 					<Image
-						className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+						className="shadow-lg mt-8 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
 						src={bgPic}
 						width={350}
 						height={350}
@@ -258,7 +258,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 					<p className="mt-4">email@example.com</p>
 					<p className="mt-4">+105 123 4567</p>
 				</div>
-				<div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
+				<div className="w-full md:w-1/2 flex flex-col items-center justify-center mb-8 md:mb-0  h-fit md:h-[842px] px-8 md:px-0" id="contactus">
 					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
 					<p className="text-center">Send us a message and we&apos;ll get back to you as soon as possible.</p>
 					<GetInTouch className='flex w-full mt-8 max-w-lg' />

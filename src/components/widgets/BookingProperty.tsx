@@ -123,7 +123,7 @@ export default function BookingProperty({ north }: { north: boolean }) {
 
 
   return (
-    <div className="w-full bg-background flex flex-col items-center justify-center px-4 md:px-20 text-site pb-16  border-b-site border-[1px] pt-16">
+    <div className="w-full bg-background flex flex-col items-center justify-center px-4 md:px-20 text-site py-4 md:py-16  border-b-site border-[1px]">
       <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
         BOOK NOW
       </span>

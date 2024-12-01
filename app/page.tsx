@@ -70,27 +70,27 @@ export default function Page() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <Image
               className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
-              src={northPictures[0].image}
-              width={268}
-              height={462}
-              alt="Scenic mountain landscape with a lake in the foreground"
-              sizes="(max-width: 768px) 100vw, 432px"
-              quality={50}
-              placeholder="blur"
-            />
-            <Image
-              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
-              src={northPictures[1].image}
-              width={268}
-              height={462}
-              alt="Scenic mountain landscape with a lake in the foreground"
-              sizes="(max-width: 768px) 100vw, 432px"
-              quality={50}
-              placeholder="blur"
-            />
-            <Image
-              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
               src={northPictures[2].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[4].image}
+              width={268}
+              height={462}
+              alt="Scenic mountain landscape with a lake in the foreground"
+              sizes="(max-width: 768px) 100vw, 432px"
+              quality={50}
+              placeholder="blur"
+            />
+            <Image
+              className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+              src={northPictures[9].image}
               width={268}
               height={462}
               alt="Scenic mountain landscape with a lake in the foreground"
@@ -120,7 +120,7 @@ export default function Page() {
             />
             <Image
               className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
-              src={northPictures[5].image}
+              src={northPictures[11].image}
               width={268}
               height={462}
               alt="Scenic mountain landscape with a lake in the foreground"
