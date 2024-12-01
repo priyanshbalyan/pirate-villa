@@ -255,8 +255,8 @@ export default function VillaPage({ north }: { north: boolean }) {
 					/>
 					<p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>PIRATE&apos;S LANDING</p>
 					<p>Cruz Bay, St. John Virgin Islands</p>
-					<p className="mt-4">email@example.com</p>
-					<p className="mt-4">+105 123 4567</p>
+					<p className="mt-4">Brit.saainc@gmail.com</p>
+					<p className="mt-4">+404 432 1384</p>
 				</div>
 				<div className="w-full md:w-1/2 flex flex-col items-center justify-center mb-8 md:mb-0  h-fit md:h-[842px] px-8 md:px-0" id="contactus">
 					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
