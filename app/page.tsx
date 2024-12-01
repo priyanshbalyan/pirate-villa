@@ -17,6 +17,7 @@ import GetInTouch from '~/components/widgets/GetInTouch';
 import bgPic from 'public/bgpic.jpeg';
 import Marquee from '~/components/widgets/Marquee';
 import Link from 'next/link';
+import BookingYourStayButton from '~/components/widgets/BookYourStayButton';
 
 
 export const metadata: Metadata = {
@@ -67,6 +68,7 @@ export default function Page() {
           <CalendarWidget className='mb-6' northVilla={true} />
         </div>
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center border-l-[0.5px]">
+          <div className='mb-4 md:hidden'>PICTURES</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <Image
               className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
@@ -168,9 +170,10 @@ export default function Page() {
           placeholder="blur"
         />
       </div>
-      <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
+      <div className='flex flex-col-reverse md:flex-row h-fit md:h-[842px]'>
         <div className="md:w-1/2 w-full flex flex-col justify-center items-center border-r-[0.5px] mt-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className='mb-4 md:hidden'>PICTURES</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 md:mb-0">
             <Image
               className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
               src={southPictures[0].image}
@@ -234,7 +237,7 @@ export default function Page() {
           </div>
         </div>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-l-[0.5px]'>
-          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8 md:mx-4')}>
             WELCOME TO SOUTH VILLA
           </div>
           <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
@@ -264,7 +267,7 @@ export default function Page() {
           <p className={cn('text-site max-w-lg text-center mt-4')}>
             Escape to Pirate Villa, your sanctuary by the sea. Immerse yourself in the comfort and elegance of our fully self-contained accommodation. Reserve your spot today and start your journey to relaxation.
           </p>
-          <Button className='mt-4 rounded-full py-6 px-10'>Book Your Stay</Button>
+          <BookingYourStayButton />
         </div>
       </div>
       <div className='flex flex-col md:flex-row'>
