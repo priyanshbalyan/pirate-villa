@@ -149,7 +149,7 @@ export default function PropertyBookings({ north }: { north: boolean }) {
         className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
-        <div className="fixed inset-0 w-full overflow-y-auto p-4 rounded-lg">
+        <div className="fixed inset-0 w-full h-screen overflow-y-auto p-4 rounded-lg">
           <div className="flex min-h-full items-center justify-center">
             <DialogPanel className="max-w-lg space-y-4 border bg-white dark:bg-black dark:text-white p-12">
               <DialogTitle className="dark:text-white">Do you want to delete this booking?</DialogTitle>
