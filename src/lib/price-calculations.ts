@@ -3,7 +3,7 @@ import { DATE_FORMAT_STRING } from '~/utils/utils';
 import { ManualAdjustment, Pricing, TotalCalculation } from '~/types';
 import { SITE } from "~/config";
 
-export type PricePerDate = { date: string, price: number }
+type PricePerDate = { date: string, price: number }
 
 export function getPricing(
   startDate: string,

@@ -9,7 +9,7 @@ async function getVrboCalendarDisabledDates(north: boolean, retries = 1): Promis
   if (retries >= 5) throw new Error('Error while trying to get vrbo data')
   // Fetch data from the external API
   // cache response for 10 minutes
-  const response = await fetch(north ? SITE.NORTH_URL : SITE.SOUTH_URL, { cache: 'force-cache', next: { revalidate: 10 * 60 } });
+  const response = await fetch(north ? SITE.NORTH_URL : SITE.SOUTH_URL, { next: { revalidate: 10 * 60 } });
 
   // Check if the response is successful
   if (!response.ok) {

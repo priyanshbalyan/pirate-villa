@@ -19,7 +19,8 @@ async function getCalculateTotal(start: string, end: string, guests: number, vil
   return json
 }
 
-export const getCalculateTotalQueryKey = (start: string, end: string, guests: number) => [`getCalculateTotal ${start} ${end} ${guests}`]
+
+const getCalculateTotalQueryKey = (start: string, end: string, guests: number) => [`getCalculateTotal ${start} ${end} ${guests}`]
 
 const useGetCalculateTotal = (startDate: Date, endDate: Date, guests: number, villaType: VillaType, options?: { enabled?: boolean }) => {
   const start = format(startDate, DATE_FORMAT_STRING)

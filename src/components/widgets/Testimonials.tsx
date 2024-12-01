@@ -16,7 +16,7 @@ const Testimonials = ({
   hasBackground = false,
 }: TestimonialsProps) => (
   <WidgetWrapper id={id ? id : ''} hasBackground={hasBackground} containerClass="">
-    {header && <Headline header={header} titleClass={cn(PlayfairDisplay.className, "uppercase text-4xl text-background")} />}
+    {header && <Headline header={header} titleClass={cn(PlayfairDisplay.className, "uppercase text-3xl md:text-5xl text-background drop-shadow-2xl")} />}
     <div className="flex items-stretch justify-center">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {testimonials.map(

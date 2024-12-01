@@ -8,7 +8,7 @@ export async function openDb(): Promise<Database<sqlite3.Database, sqlite3.State
   });
 }
 
-export async function initializeDatabase(): Promise<void> {
+async function initializeDatabase(): Promise<void> {
   const db = await openDb();
 
   // Create `users` table
@@ -55,5 +55,4 @@ export async function initializeDatabase(): Promise<void> {
 }
 
 initializeDatabase()
-  .then(() => console.log('Database initialized successfully'))
   .catch((error) => console.error('Error initialising database: ', error))
