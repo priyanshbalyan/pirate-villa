@@ -21,22 +21,7 @@ const Footer2 = () => {
                 ))}
             </div>
           ))}
-          <div className="col-span-4 sm:col-span-2 md:col-span-2 lg:col-span-1 xl:col-span-1">
-            <div className="mb-2 font-semibold">Social</div>
-            <ul className="mb-4 -ml-2 rtl:ml-0 rtl:-mr-2 flex md:order-1 md:mb-0">
-              {socials.map(({ label, icon: Icon, href }, index) => (
-                <li key={`item-social-${index}`}>
-                  <a
-                    className="text-muted inline-flex items-center rounded-lg p-2.5 text-sm hover:bg-white focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
-                    aria-label={label}
-                    href={href}
-                  >
-                    {Icon && <Icon className="h-5 w-5" />}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+
         </div>
         <div className="text-muted py-6 text-sm md:flex md:items-center md:justify-between md:py-8">
           <ul className="mb-4 flex pl-2 rtl:pl-0 rtl:pr-2 md:order-1 md:mb-0">

@@ -87,15 +87,15 @@ export const footerData2: FooterProps = {
     },
     {
       title: 'Phone',
-      texts: ['Reception: +105 123 4567', 'Office: +107 235 7890'],
+      texts: ['Reception: +404 432 1384', 'Whatsapp: +404 432 1384'],
     },
     {
       title: 'Email',
-      texts: ['Office: info@example.com', 'Site: https://example.com'],
+      texts: ['Office: Brit.saainc@gmail.com'],
     },
     {
       title: 'Hosted by',
-      texts: ['Kim Poss']
+      texts: ['SAA Property Management']
     },
     {
       title: 'Languages',
