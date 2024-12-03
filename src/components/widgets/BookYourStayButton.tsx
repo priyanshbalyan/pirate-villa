@@ -2,22 +2,24 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import useTranslation from "~/hooks/useTranslation";
 
 export default function BookingYourStayButton() {
   const [show, setShow] = useState(false)
+  const { t } = useTranslation()
 
   return show ? (
     <div className="gap-4 flex">
       <Link href="/villa?north=true#booknow">
-        <Button className='mt-4 rounded-full py-6 px-10'>Book North Villa</Button>
+        <Button className='mt-4 rounded-full py-6 px-10'>{t('book_north_villa')}</Button>
       </Link>
       <Link href="/villa#booknow">
-        <Button className='mt-4 rounded-full py-6 px-10'>Book South Villa</Button>
+        <Button className='mt-4 rounded-full py-6 px-10'>{t('book_south_villa')}</Button>
       </Link>
     </div>
   ) : (
     <div className="gap-4 flex">
-      <Button className='mt-4 rounded-full py-6 px-10' onClick={() => setShow(true)}>Book Your Stay</Button>
+      <Button className='mt-4 rounded-full py-6 px-10' onClick={() => setShow(true)}>{t('book_your_stay_button')}</Button>
     </div>
   )
 }

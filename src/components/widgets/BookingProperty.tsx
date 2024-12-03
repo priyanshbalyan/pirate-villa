@@ -23,6 +23,7 @@ import Image from 'next/image';
 import { northPictures, southPictures } from '~/shared/data/pages/home.data';
 import { SITE } from '~/config';
 import PriceBreakdown from '../atoms/PriceBreakdown';
+import useTranslation from '~/hooks/useTranslation';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -32,6 +33,7 @@ type Props = {
 
 export default function BookingProperty({ north }: { north: boolean }) {
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
 
   const [modalOpen, setModalOpen] = useState(false)
   const [paymentsModalOpen, setPaymentsModalOpen] = useState(false)
@@ -125,13 +127,13 @@ export default function BookingProperty({ north }: { north: boolean }) {
   return (
     <div className="w-full bg-background flex flex-col items-center justify-center px-4 md:px-20 text-site py-4 md:py-16  border-b-site border-[1px]">
       <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
-        BOOK NOW
+        {t('book_now')}
       </span>
       <div className="w-full mt-8">
         <div className='mb-4'>
           <div className="flex flex-col md:flex-row gap-0 md:gap-16">
             <div className="rounded-md w-full md:w-1/2">
-              <Label className='mt-0 px-8 md:px-0'>Select booking date:</Label>
+              <Label className='mt-0 px-8 md:px-0'>{t('book_now_select_date_label')}</Label>
               <DateRangePicker
                 handleSelect={handleDateSelect}
                 startDate={startDate}
@@ -141,24 +143,24 @@ export default function BookingProperty({ north }: { north: boolean }) {
               {errors.date && <p className="text-xs text-red-500 px-8 md:px-0">{errors.date}</p>}
             </div>
             <div className="w-full md:w-1/2">
-              <Label className="mb-2 mt-4 ">Name:</Label>
+              <Label className="mb-2 mt-4 ">{t('book_now_name_label')}</Label>
               <div className="mb-4">
-                <Input name="name" id="name" className='w-full' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)} />
+                <Input name="name" id="name" className='w-full' placeholder={t('book_now_name_placeholder')} value={name} onChange={(e) => setName(e.target.value)} />
                 {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
               </div>
-              <Label className="mb-2 mt-4">Email:</Label>
+              <Label className="mb-2 mt-4">{t('book_now_email_label')}</Label>
               <div className="mb-4">
-                <Input name="email" id="email" className='' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input name="email" id="email" className='' placeholder={t('book_now_email_placeholder')} value={email} onChange={(e) => setEmail(e.target.value)} />
                 {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
               </div>
-              <Label className="mb-2 mt-4">Number of Guests:</Label>
+              <Label className="mb-2 mt-4">{t('book_now_number_of_guests_label')}</Label>
               <div className="mb-4">
                 <Input name="guests" id="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
                 {errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
               </div>
               <div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
                 <Checkbox checked={termsRead} />
-                <div className="hover:text-blue-400 cursor-pointer underline">Read terms and conditions</div>
+                <div className="hover:text-blue-400 cursor-pointer underline">{t('book_now_read_terms')}</div>
               </div>
               <div className='mt-4'>
                 <PriceBreakdown
@@ -175,7 +177,7 @@ export default function BookingProperty({ north }: { north: boolean }) {
                   disabled={!termsRead || loading}
                 >
                   {loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-                  {' '}Pay Now and Book! {amount && <NumberFlow value={amount} format={{ style: 'currency', currency: 'USD' }} />}
+                  {' '}{t('book_now_pay_button')} {amount && <NumberFlow value={amount} format={{ style: 'currency', currency: 'USD' }} />}
                 </Button>
               </div>
             </div>

@@ -51,6 +51,14 @@ async function initializeDatabase(): Promise<void> {
     );
   `)
 
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS texts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      text_key TEXT NOT NULL,
+      content TEXT NOT NULL
+    );
+  `);
+
   console.log('Database initialized');
 }
 

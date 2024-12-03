@@ -1,7 +1,32 @@
-import { footerData2 } from '~/shared/data/global.data';
+import { getServerTranslation } from '~/lib/serverTranslation';
 
-const Footer2 = () => {
+const Footer2 = async () => {
+  const { tArray } = await getServerTranslation()
+  const footerData2 = {
+    links: [
+      {
+        label: 'Terms & Conditions',
+        href: '/terms',
+      },
+      {
+        label: 'Privacy Policy',
+        href: '/privacy',
+      },
+    ],
+    columns: tArray('footer_columns_title').map((text, index) => ({
+      title: text,
+      texts: tArray('footer_columns_value')?.[index]?.split('<br>')
+    })),
+    socials: [
+    ],
+    footNote: (
+      <div className="mr-4 rtl:mr-0 rtl:ml-4 text-sm">
+
+      </div>
+    ),
+  };
   const { links, columns, socials, footNote } = footerData2;
+
 
   return (
     <div className="px-4 sm:px-6 text-site bg-primary flex justify-center w-full border-t-site border-[1px] border-b-site">

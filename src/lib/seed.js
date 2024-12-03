@@ -53,6 +53,14 @@ async function initializeDatabase() {
     );
   `)
 
+  // await db.exec(`
+  //   CREATE TABLE IF NOT EXISTS texts (
+  //     id INTEGER PRIMARY KEY AUTOINCREMENT,
+  //     text_key TEXT NOT NULL,
+  //     content TEXT NOT NULL
+  //   );
+  // `);
+
   console.log('Database initialized');
 }
 
@@ -68,6 +76,11 @@ async function seed() {
     VALUES ('${process.env.ADMIN_EMAIL}', '${await bcrypt.hash(process.env.ADMIN_PASS, 10)}')
     ON CONFLICT (email) DO UPDATE SET
       password = excluded.password;
+  `)
+
+  await db.exec(`
+    INSERT INTO texts (text_key, content)
+    VALUES ('property_address', 'Cruz Bay, St. John Virgin Islands')
   `)
 
   // await db.run(

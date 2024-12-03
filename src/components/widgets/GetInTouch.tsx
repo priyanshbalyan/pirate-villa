@@ -8,6 +8,7 @@ import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
+import useTranslation from "~/hooks/useTranslation";
 
 export default function GetInTouch({ className }: { className?: string }) {
   const [name, setName] = useState('')
@@ -17,6 +18,8 @@ export default function GetInTouch({ className }: { className?: string }) {
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const [touched, setTouched] = useState(false)
+
+  const { t } = useTranslation()
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {}
@@ -73,20 +76,20 @@ export default function GetInTouch({ className }: { className?: string }) {
   return <div className={cn(className)}>
     <div className="grid w-full items-center gap-4">
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="name">Name</Label>
+        <Label htmlFor="name">{t('contact_us_name_label')}</Label>
         <Input
           id="name"
-          placeholder="John Doe"
+          placeholder={t('contact_us_name_placeholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">{t('contact_us_email_label')}</Label>
         <Input
           id="email"
-          placeholder="john@example.com"
+          placeholder={t('contact_us_email_placeholder')}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -94,20 +97,20 @@ export default function GetInTouch({ className }: { className?: string }) {
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="subject">Subject</Label>
+        <Label htmlFor="subject">{t('contact_us_subject_label')}</Label>
         <Input
           id="subject"
-          placeholder="How can we help?"
+          placeholder={t('contact_us_subject_placeholder')}
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         />
         {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="message">Message</Label>
+        <Label htmlFor="message">{t('contact_us_message_label')}</Label>
         <Textarea
           id="message"
-          placeholder="Tell us more about your inquiry..."
+          placeholder={t('contact_us_message_placeholder')}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
@@ -115,7 +118,7 @@ export default function GetInTouch({ className }: { className?: string }) {
       </div>
       <div className="flex justify-center">
         <Button onClick={handleSubmit} className="w-fit py-6 backdrop-blur-lg uppercase  bg-primary border-[2px] rounded-full">
-          <Send className="mr-2 h-4 w-4" /> Send Message
+          <Send className="mr-2 h-4 w-4" />{' '}{t('contact_us_send_button')}
         </Button>
       </div>
     </div>

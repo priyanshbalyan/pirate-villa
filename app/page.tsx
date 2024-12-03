@@ -18,13 +18,16 @@ import bgPic from 'public/bgpic.jpeg';
 import Marquee from '~/components/widgets/Marquee';
 import Link from 'next/link';
 import BookingYourStayButton from '~/components/widgets/BookYourStayButton';
+import { getServerTranslation } from '~/lib/serverTranslation';
 
 
 export const metadata: Metadata = {
   title: SITE.title,
 };
 
-export default function Page() {
+export default async function Page() {
+  const { t } = await getServerTranslation()
+
   return (
     <div>
       <div className="flex flex-col md:flex-row h-fit md:h-[842px]" id="northvilla">
@@ -51,20 +54,20 @@ export default function Page() {
             quality={50}
             placeholder="blur"
           />
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
-          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>{t('north_villa_title_1')}</span>
+          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t('north_villa_subtitle_1')}</span>
           <Link href="/villa?north=true">
-            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">VIEW PIRATE&apos;S LANDING NORTH</Button>
+            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">{t('north_villa_button_1')}</Button>
           </Link>
         </div>
       </div>
       <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-r-[0.5px]'>
-          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>WELCOME TO NORTH VILLA</div>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>{t('north_villa_title_2')}</div>
           <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
-            Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
+            {t('north_villa_subtitle_2')}
           </div>
-          <div className='text-xs uppercase mb-4'>Check availability</div>
+          <div className='text-xs uppercase mb-4'>{t('check_availability')}</div>
           <CalendarWidget className='mb-6' northVilla={true} />
         </div>
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center border-l-[0.5px]">
@@ -152,10 +155,10 @@ export default function Page() {
             quality={50}
             placeholder="blur"
           />
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>YOUR PERFECT COASTAL GETAWAY</span>
-          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>{t('south_villa_title_1')}</span>
+          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t('south_villa_subtitle_1')}</span>
           <Link href="/villa">
-            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">VIEW PIRATE&apos;S LANDING SOUTH</Button>
+            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">{t('south_villa_button_1')}</Button>
           </Link>
         </div>
         <Image
@@ -172,7 +175,7 @@ export default function Page() {
       </div>
       <div className='flex flex-col-reverse md:flex-row h-fit md:h-[842px]'>
         <div className="md:w-1/2 w-full flex flex-col justify-center items-center border-r-[0.5px] mt-8">
-          <div className='mb-4 md:hidden'>PICTURES</div>
+          <div className='mb-4 md:hidden'>{t('pictures')}</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 md:mb-0">
             <Image
               className="shadow-lg h-[231px] w-[154px] md:h-[298px] md:w-[207px] md: bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
@@ -238,12 +241,12 @@ export default function Page() {
         </div>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-l-[0.5px]'>
           <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8 md:mx-4')}>
-            WELCOME TO SOUTH VILLA
+            {t('south_villa_title_2')}
           </div>
           <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
-            Hosted by Kim Poss and located in the picturesque coastal town of Cruz Bay, St. John Virgin Islands, Pirate&apos;s Landing is committed to providing you with a memorable stay. Our mission is to ensure every guest experiences the perfect blend of comfort and relaxation. Pirate Villa combines historic charm with modern amenities. Our villa offers a unique and tranquil escape, making it the ideal home away from home for both couples and families.
+            {t('south_villa_subtitle_2')}
           </div>
-          <div className='text-xs uppercase mb-4'>Check availability</div>
+          <div className='text-xs uppercase mb-4'>{t('check_availability')}</div>
           <CalendarWidget northVilla={false} className='mb-6' />
         </div>
       </div>
@@ -253,19 +256,19 @@ export default function Page() {
       </div>
       <div className='flex flex-col justify-center items-center bg-primary border-[1px] border-line py-10'>
         <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl max-w-lg text-center')}>
-          Committed to Your Perfect Stay
+          {t('attraction_title_1')}
         </div>
         <p className={cn('text-site max-w-lg text-center mt-4')}>
-          At Pirate Villa, our mission is to provide you with an exceptional experience. We are dedicated to ensuring that every aspect of your stay is perfect, from our high-end amenities to our personalized service.
+          {t('attraction_subtitle_1')}
         </p>
       </div>
       <div className={cn(`flex flex-col justify-center items-center border-b-[1px] border-line py-40`, "bg-[url('/scene.jpg')] bg-cover")}>
         <div className="p-10 bg-background rounded-3xl px-4 md:px-36 py-24 flex items-center justify-center flex-col">
-          <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center ')}>
-            Experience Tranquility<br />and Luxury
+          <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center max-w-[690px]')}>
+            {t('attraction_title_2')}
           </div>
           <p className={cn('text-site max-w-lg text-center mt-4')}>
-            Escape to Pirate Villa, your sanctuary by the sea. Immerse yourself in the comfort and elegance of our fully self-contained accommodation. Reserve your spot today and start your journey to relaxation.
+            {t('attraction_subtitle_2')}
           </p>
           <BookingYourStayButton />
         </div>
@@ -282,14 +285,14 @@ export default function Page() {
             quality={50}
             placeholder="blur"
           />
-          <p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>PIRATE&apos;S LANDING</p>
-          <p>Cruz Bay, St. John Virgin Islands</p>
-          <p className="mt-4">Brit.saainc@gmail.com</p>
-          <p className="mt-4">+404 432 1384</p>
+          <p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>{t('contact_property_header')}</p>
+          <p>{t('contact_address')}</p>
+          <p className="mt-4">{t('contact_email')}</p>
+          <p className="mt-4">{t('contact_number')}</p>
         </div>
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
-          <span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
-          <p className="text-center">Send us a message and we&apos;ll get back to you as soon as possible.</p>
+          <span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>{t('contact_us_title')}</span>
+          <p className="text-center">{t('contact_us_subtitle')}</p>
           <GetInTouch className='flex w-full mt-8 max-w-lg' />
         </div>
       </div>

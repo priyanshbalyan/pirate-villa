@@ -1,6 +1,7 @@
 import { areIntervalsOverlapping, differenceInDays, format, isAfter, isBefore, isSameDay, isValid, parse } from "date-fns";
 import { CreditCardData } from "~/components/atoms/CreditCardPaymentForm";
 import { SITE } from "~/config";
+import { Text, TextMap } from "~/types";
 
 export function toStartCase(str: string) {
   if (!str) return '';
@@ -132,4 +133,15 @@ export function isDateRangeOverlappingStrings(
 export function getHeaders() {
   const token = localStorage.getItem('token');
   return { Authorization: `Bearer ${token}` }
+}
+
+export function getTextMap(texts: Text[]): TextMap {
+  return texts.reduce((acc, cur) => {
+    try {
+      acc[cur.text_key] = JSON.parse(cur.content);
+    } catch (_) {
+      acc[cur.text_key] = cur.content;
+    }
+    return acc
+  }, {} as TextMap)
 }

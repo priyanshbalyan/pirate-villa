@@ -25,3 +25,11 @@ export type TotalCalculation = {
   extraGuests: number;
   nights: number;
 }
+
+export type Text = {
+  id: number;
+  text_key: string;
+  content: string;
+}
+
+export type TextMap = { [key: string]: string | string[] }

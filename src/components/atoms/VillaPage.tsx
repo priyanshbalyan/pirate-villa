@@ -2,10 +2,8 @@ import Features from '~/components/widgets/Features';
 import Testimonials from '~/components/widgets/Testimonials';
 import {
 	northPictures,
-	testimonialsHome,
 } from '~/shared/data/pages/home.data';
 import { southPictures } from '~/shared/data/pages/home.data';
-import { ContactProps } from '~/shared/types';
 import Image from 'next/image';
 import { Button } from '~/components/ui/button';
 import { PlayfairDisplay } from './Logo';
@@ -21,67 +19,32 @@ import {
 import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
+import { getServerTranslation } from '~/lib/serverTranslation';
 
-
-
-export default function VillaPage({ north }: { north: boolean }) {
+export default async function VillaPage({ north }: { north: boolean }) {
+	const { t, tArray } = await getServerTranslation()
 	const villaText = north ? 'North' : 'South'
 
-	const contactHome: ContactProps = {
+	const key = !!north ? 'north_villa_page_' : 'south_villa_page_'
+
+	const testimonialsHome = {
+		id: 'testimonials-on-home',
 		hasBackground: true,
 		header: {
-			title: 'Important Information',
-			subtitle: 'You need to know',
+			title: 'What our guests say about us',
+			subtitle:
+				'',
 		},
-		content:
-			'',
-		items: [
-			{
-				description: ['Extra-person charges may apply and vary depending on property policy']
+		testimonials: tArray(`${key}testimonial_header_name`).map((text, index) => ({
+			name: text,
+			job: tArray(`${key}testimonial_header_subtitle`)[index],
+			testimonial: tArray(`${key}testimonial_message`)[index],
+			image: {
+				src: tArray(`${key}testimonial_image`)[index],
+				alt: text
 			},
-			{
-				description: ['Government-issued photo identification and a credit card, debit card, or cash deposit may be required at check-in for incidental charges'],
-			},
-			{
-				description: ['Special requests are subject to availability upon check-in and may incur additional charges; special requests cannot be guaranteed'],
-			},
-			{
-				description: ['Onsite parties or group events are strictly prohibited'],
-			},
-			{
-				description: ['Host has indicated there are no carbon monoxide detectors or gas appliances on the property'],
-			},
-			{
-				description: ['Host has indicated there is a smoke detector on the property'],
-			},
-		],
-		form: {
-			title: 'Amenities',
-			inputs: [
-				{
-					type: 'text',
-					name: 'name',
-					autocomplete: 'off',
-					placeholder: 'Your name',
-				},
-				{
-					type: 'email',
-					name: 'email',
-					autocomplete: 'on',
-					placeholder: 'Your email address',
-				},
-			],
-			textarea: {
-				cols: 30,
-				rows: 5,
-				name: 'textarea',
-				placeholder: 'Write your message...',
-			},
-			btn: {
-				title: 'Send Message',
-				type: 'submit',
-			},
-		},
+			href: '/'
+		}))
 	};
 
 	return (
@@ -108,30 +71,25 @@ export default function VillaPage({ north }: { north: boolean }) {
 						quality={50}
 						placeholder="blur"
 					/>
-					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>BOOK {villaText} VILLA TODAY</span>
-					<span className='max-w-[90%] text-center text-primary text-sm mt-4'>Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.</span>
+					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>{t(!!north ? 'north_villa_page_title_1' : 'south_villa_page_title_1')}</span>
+					<span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t(`${key}subtitle_1`)}</span>
 					<Link href="#booknow">
-						<Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">BOOK NOW</Button>
+						<Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">{t(`${key}book_now_button`)}</Button>
 					</Link>
 				</div>
 			</div>
-			<div className="flex flex-col md:flex-row h-fit md:h-[842px] lg:h-fit" >
+			<div className="flex flex-col md:flex-row min-h-[942px] lg:h-fit">
 				<div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>
-						The Pirates Landing {villaText}3-bedroom condo in fabulous Cruz Bay with WiFi, AC
+						{t(`${key}title_2`)}
 					</span>
-					<p className='max-w-[90%] text-center text-primary text-sm mt-4'>
-						Pirates Landing {villaText} is exquisite, luxury duplex villas nestled on the pristine shores of Chocolate Hole Beach in St. John, U.S. Virgin Islands. These beautifully designed, high-end retreats offer breathtaking ocean views and are just a quick 5-minute drive from the vibrant Cruz Bay. Each villa is only steps from the beach.
-					</p>
-					<p className='max-w-[90%] text-center text-primary text-sm mt-4'>
-						Both villas boast private jacuzzi, sleek modern kitchens, and air-conditioned interiors, with each spacious bedroom having its own luxurious en-suite bathroom. The open-concept layout creates a seamless indoor-outdoor living experience, ideal for soaking in the island&apos;s natural beauty.
-					</p>
-					<p className='max-w-[90%] text-center text-primary text-sm mt-4'>
-						To elevate your stay, Pirates Landing offers personalized concierge services, including seamless transfers, villa provisioning, excursion bookings and organizing exclusive experiences like beachside yoga sessions or indulgent massages. With convenient access to local grocery stores, dining, and shopping, these villas promise a serene, stress-free escape. Guests also enjoy high-speed Wi-Fi, beach chairs, umbrellas, and coolers, ensuring every beach day is effortless and unforgettable.
-					</p>
-					<p className='max-w-[90%] text-center text-primary text-sm mt-4 mb-16'>
-						Perfect for those seeking a luxurious yet relaxed getaway in paradise!
-					</p>
+					<div className="mt-4 flex flex-col justify-center items-center">
+						{tArray(`${key}subtitle_2_paragraph_1`).map(text =>
+							<p className='max-w-[90%] text-center text-primary text-sm mb-4' key={text}>
+								{text}
+							</p>
+						)}
+					</div>
 				</div>
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
@@ -156,7 +114,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 				/>
 				<div className="md:w-1/2 w-full bg-background flex flex-col items-center justify-center" id="amenities">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
-						AMENITIES
+						{t(`${key}feature_1_title`)}
 					</span>
 					<div className="grid grid-cols-2 gap-8 mt-4 mx-8 mb-6">
 						<div className=' text-right'>
@@ -200,22 +158,18 @@ export default function VillaPage({ north }: { north: boolean }) {
 			<div className="flex flex-col md:flex-row h-fit md:h-[842px] border-b-site border-[1px]" id="faqs">
 				<div className="md:w-1/2 w-full bg-background flex flex-col items-center justify-center">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
-						FREQUENTLY ASKED QUESTIONS
+						{t(!!north ? 'north_villa_page_faq_title' : 'south_villa_page_faq_title')}
 					</span>
 					<div className="w-full px-4 md:px-36 mt-8">
 						<Accordion type="single" collapsible className="w-full">
-							<AccordionItem value="item-1">
-								<AccordionTrigger>Is The Pirates Landing {villaText} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC pet-friendly?</AccordionTrigger>
-								<AccordionContent>
-									No, pets are not allowed at this property.
-								</AccordionContent>
-							</AccordionItem>
-							<AccordionItem value="item-2">
-								<AccordionTrigger>Where is The Pirates Landing {villaText} 3-bedroom condo in fabulous Cruz Bay with WiFi, AC located?</AccordionTrigger>
-								<AccordionContent>
-									Situated in St. John, this condo building is steps from Chocolate Hole and 1.9 mi (3.1 km) from Virgin Islands National Park. Chocolate Hole Beach and Sunset Beach are also within 1 mi (2 km).
-								</AccordionContent>
-							</AccordionItem>
+							{tArray(`${key}faq_questions`).map((text, index) =>
+								<AccordionItem value={index.toString()} key={text}>
+									<AccordionTrigger>{text}</AccordionTrigger>
+									<AccordionContent>
+										{tArray(`${key}faq_answers`)[index]}
+									</AccordionContent>
+								</AccordionItem>
+							)}
 						</Accordion>
 					</div>
 				</div>
@@ -253,14 +207,14 @@ export default function VillaPage({ north }: { north: boolean }) {
 						quality={50}
 						placeholder="blur"
 					/>
-					<p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>PIRATE&apos;S LANDING</p>
-					<p>Cruz Bay, St. John Virgin Islands</p>
-					<p className="mt-4">Brit.saainc@gmail.com</p>
-					<p className="mt-4">+404 432 1384</p>
+					<p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>{t('contact_property_header')}</p>
+					<p>{t('contact_address')}</p>
+					<p className="mt-4">{t('contact_email')}</p>
+					<p className="mt-4">{t('contact_number')}</p>
 				</div>
-				<div className="w-full md:w-1/2 flex flex-col items-center justify-center mb-8 md:mb-0  h-fit md:h-[842px] px-8 md:px-0" id="contactus">
-					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>GET IN TOUCH</span>
-					<p className="text-center">Send us a message and we&apos;ll get back to you as soon as possible.</p>
+				<div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
+					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>{t('contact_us_title')}</span>
+					<p className="text-center">{t('contact_us_subtitle')}</p>
 					<GetInTouch className='flex w-full mt-8 max-w-lg' />
 				</div>
 			</div>

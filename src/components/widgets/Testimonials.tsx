@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { TestimonialsProps } from '~/shared/types';
 import Headline from '../common/Headline';
 import WidgetWrapper from '../common/WidgetWrapper';

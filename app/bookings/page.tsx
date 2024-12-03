@@ -12,6 +12,7 @@ import {
 } from "~/components/ui/tabs"
 import PricingTable from '~/components/atoms/PricingTable';
 import ManualAdjustmentTable from '~/components/atoms/ManualAdjustmentTable';
+import SiteText from '~/components/atoms/SiteText';
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -28,10 +29,11 @@ export default function Page({ params, searchParams }: {
       <AuthenticatedPage>
         <Tabs defaultValue="bookings" className="w-full min-h-[900px]">
           <div className='w-full flex items-center justify-center'>
-            <TabsList className='w-full max-w-[500px]'>
+            <TabsList className='w-full max-w-[500px] mt-4'>
               <TabsTrigger value="bookings" className='w-4/12'>Bookings</TabsTrigger>
               <TabsTrigger value="pricing" className='w-4/12'>Pricing</TabsTrigger>
               <TabsTrigger value="manualAdjustment" className='w-4/12'>Manual Adjustment</TabsTrigger>
+              <TabsTrigger value="text" className='w-4/12'>Site Text</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="bookings" className=''>
@@ -42,6 +44,9 @@ export default function Page({ params, searchParams }: {
           </TabsContent>
           <TabsContent value="manualAdjustment">
             <ManualAdjustmentTable />
+          </TabsContent>
+          <TabsContent value="text">
+            <SiteText />
           </TabsContent>
         </Tabs>
       </AuthenticatedPage>
