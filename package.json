@@ -65,6 +65,7 @@
     "@tailwindcss/typography": "^0.5.14",
     "@types/authorizenet": "^1.0.2",
     "@types/bcrypt": "^5.0.2",
+    "@types/formidable": "^3.4.5",
     "@types/ical": "^0.8.3",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "22.5.0",

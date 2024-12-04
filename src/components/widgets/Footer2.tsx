@@ -3,16 +3,10 @@ import { getServerTranslation } from '~/lib/serverTranslation';
 const Footer2 = async () => {
   const { tArray } = await getServerTranslation()
   const footerData2 = {
-    links: [
-      {
-        label: 'Terms & Conditions',
-        href: '/terms',
-      },
-      {
-        label: 'Privacy Policy',
-        href: '/privacy',
-      },
-    ],
+    links: tArray('footer_link_text').map((text, index) => ({
+      label: text,
+      href: tArray('footer_link_href')[index]
+    })),
     columns: tArray('footer_columns_title').map((text, index) => ({
       title: text,
       texts: tArray('footer_columns_value')?.[index]?.split('<br>')
