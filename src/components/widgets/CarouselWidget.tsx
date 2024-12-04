@@ -1,5 +1,5 @@
 'use client';
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import * as React from "react"
 
 import {
@@ -9,13 +9,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel"
-import { northPictures } from "~/shared/data/pages/home.data";
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import useTranslation from "~/hooks/useTranslation";
 
-const DialogContent = ({ selectedImage, onClose }: { selectedImage: StaticImageData | null, onClose: () => void }) => {
+const DialogContent = ({ selectedImage, onClose }: { selectedImage: string | null, onClose: () => void }) => {
   return <div>
     <Image
-      src={selectedImage as StaticImageData}
+      src={selectedImage!}
       alt={'Full screen'}
       className="object-cover"
       quality={100}
@@ -23,9 +23,10 @@ const DialogContent = ({ selectedImage, onClose }: { selectedImage: StaticImageD
   </div>
 }
 
-export function CarouselWidget() {
+export function CarouselWidget({ north }: { north: boolean }) {
+  const { tArray } = useTranslation()
   const timeoutRef = React.useRef<NodeJS.Timeout>()
-  const [selectedImage, setSelectedImage] = React.useState<StaticImageData | null>(null)
+  const [selectedImage, setSelectedImage] = React.useState<string | null>(null)
   const [modalOpen, setModalOpen] = React.useState(false)
 
   const [scrollY, setScrollY] = React.useState(0);
@@ -69,25 +70,26 @@ export function CarouselWidget() {
         className="w-full relative py-10 "
       >
         <CarouselContent>
-          {northPictures.map((item, index) => (
+          {tArray(north ? 'main_page_north_villa_carousel' : 'main_page_south_villa_carousel').map((image, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 flex justify-center">
               <div
                 key={index}
                 className="relative overflow-hidden rounded-lg  group"
-                onClick={() => { clearTimeout(timeoutRef.current); setSelectedImage(item.image); setModalOpen(true) }}
+                onClick={() => { clearTimeout(timeoutRef.current); setSelectedImage(image); setModalOpen(true) }}
               >
                 <Image
-                  className="mx-2 shadow-lg w-[100%] rounded-lg h-[100%] dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover hover:scale-[1.01]"
-                  src={item.image}
-                  height={200}
-                  alt={item.title}
+                  className="mx-2 shadow-lg w-[410px] h-[300px] rounded-lg dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover hover:scale-[1.01]"
+                  src={image}
+                  height={300}
+                  width={400}
+                  alt={tArray(north ? 'main_page_north_villa_carousel_titles' : 'main_page_south_villa_carousel_titles')[index]}
                   sizes="(max-width: 768px) 100vw, 432px"
                   quality={50}
-                  placeholder="blur"
+                // placeholder="blur"
                 />
-                <div className="ml-[10px] rounded-lg absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />
+                <div className="ml-[10px] mr-[10px] rounded-lg absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                  <h2 className="text-lg font-semibold">{item.title}</h2>
+                  <h2 className="text-lg font-semibold">{tArray(north ? 'main_page_north_villa_carousel_titles' : 'main_page_south_villa_carousel_titles')[index]}</h2>
                 </div>
               </div>
             </CarouselItem>

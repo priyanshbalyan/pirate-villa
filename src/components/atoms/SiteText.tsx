@@ -197,7 +197,7 @@ export default function SiteText() {
                   width={200}
                   height={200}
                   className="h-[200px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
-                  quality={50}
+                  quality={40}
                 />
               </div>
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />

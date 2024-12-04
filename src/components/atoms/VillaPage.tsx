@@ -6,7 +6,6 @@ import {
 import { southPictures } from '~/shared/data/pages/home.data';
 import Image from 'next/image';
 import { Button } from '~/components/ui/button';
-import { PlayfairDisplay } from './Logo';
 import { cn } from '~/lib/utils';
 import bgPic from 'public/bgpic.jpeg'
 import Marquee from '~/components/widgets/Marquee';
@@ -20,6 +19,9 @@ import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
 import { getServerTranslation } from '~/lib/serverTranslation';
+import localFont from 'next/font/local';
+
+const PlayfairDisplay = localFont({ src: '../../../public/PlayfairDisplay-Regular.ttf' })
 
 export default async function VillaPage({ north }: { north: boolean }) {
 	const { t, tArray } = await getServerTranslation()
@@ -71,7 +73,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 						quality={50}
 						placeholder="blur"
 					/>
-					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>{t(!!north ? 'north_villa_page_title_1' : 'south_villa_page_title_1')}</span>
+					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>{t(`${key}title_1`)}</span>
 					<span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t(`${key}subtitle_1`)}</span>
 					<Link href="#booknow">
 						<Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">{t(`${key}book_now_button`)}</Button>
@@ -84,7 +86,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 						{t(`${key}title_2`)}
 					</span>
 					<div className="mt-4 flex flex-col justify-center items-center">
-						{tArray(`${key}subtitle_2_paragraph_1`).map(text =>
+						{tArray(`${key}subtitle_2_paragraph`).map(text =>
 							<p className='max-w-[90%] text-center text-primary text-sm mb-4' key={text}>
 								{text}
 							</p>
@@ -158,7 +160,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 			<div className="flex flex-col md:flex-row h-fit md:h-[842px] border-b-site border-[1px]" id="faqs">
 				<div className="md:w-1/2 w-full bg-background flex flex-col items-center justify-center">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
-						{t(!!north ? 'north_villa_page_faq_title' : 'south_villa_page_faq_title')}
+						{t(`${key}faq_title`)}
 					</span>
 					<div className="w-full px-4 md:px-36 mt-8">
 						<Accordion type="single" collapsible className="w-full">

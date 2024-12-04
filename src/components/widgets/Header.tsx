@@ -2,14 +2,16 @@
 
 import { useRef, useState } from 'react';
 import { useOnClickOutside } from '~/hooks/useOnClickOutside';
-import ToggleDarkMode from '~/components/atoms/ToggleDarkMode';
+// import ToggleDarkMode from '~/components/atoms/ToggleDarkMode';
 import Link from 'next/link';
 import Logo from '~/components/atoms/Logo';
 import { headerData } from '~/shared/data/global.data';
 import { cn } from '~/lib/utils';
 import { usePathname } from 'next/navigation';
+import useTranslation from '~/hooks/useTranslation';
 
 const Header = () => {
+  const { t } = useTranslation()
   const { links, actions, isSticky, showToggleTheme, showRssFeed, position } = headerData;
 
   const ref = useRef(null);
@@ -90,17 +92,17 @@ const Header = () => {
         >
           <div className="flex w-full items-center justify-between md:w-auto">
             {pathname === '/' && <>
-              <a href="#northvilla" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">NORTH VILLA</a>
-              <a href="#southvilla" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">SOUTH VILLA</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">CONTACT US</a>
+              <a href="#northvilla" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_north_villa')}</a>
+              <a href="#southvilla" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_south_villa')}</a>
+              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_contact_us')}</a>
             </>
             }
             {pathname === '/villa' && <>
-              <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">BOOK THIS VILLA</a>
-              <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">AMENITIES</a>
-              <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">FAQS</a>
-              <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">PHOTOS</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">CONTACT US</a>
+              <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_book_this_villa')}</a>
+              <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_amenities')}</a>
+              <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_faqs')}</a>
+              <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_photos')}</a>
+              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_contact_us')}</a>
             </>
             }
 

@@ -1,38 +1,3 @@
-import {
-  IconArrowDown,
-  IconArrowsRightLeft,
-  IconBrandLinkedin,
-  IconBrandTailwind,
-  IconBrandTwitter,
-  IconBulb,
-  IconCheck,
-  IconClock,
-  IconComponents,
-  IconDownload,
-  IconListCheck,
-  IconMail,
-  IconMapPin,
-  IconPhoneCall,
-  IconRocket,
-} from '@tabler/icons-react';
-import {
-  CallToActionProps,
-  ContactProps,
-  ContentProps,
-  FAQsProps,
-  FeaturesProps,
-  HeroProps,
-  PricingProps,
-  SocialProofProps,
-  StepsProps,
-  TeamProps,
-  TestimonialsProps,
-} from '../../types';
-import nextJsLogo from '~/assets/images/nextjs-logo.png';
-import reactLogo from '~/assets/images/react-logo.png';
-import tailwindCssLogo from '~/assets/images/tailwind-css-logo.png';
-import typescriptLogo from '~/assets/images/typescript-logo.png';
-
 import southExterior2 from 'public/south-exterior-2.avif';
 import southLivingArea3 from 'public/south-living-area-3.webp';
 import southRoom4 from 'public/south-room-4.avif';
