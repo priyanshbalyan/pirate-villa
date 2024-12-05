@@ -57,7 +57,7 @@ export default function SiteText() {
 
   const handleUpdateClick = async () => {
     try {
-      await updateTexts(textState)
+      await updateTexts(getDifferences(texts, textState) as TextMap)
       queryClient.invalidateQueries({ queryKey: getTextsQueryKey() })
       toast({ title: 'Texts updated', })
     } catch (err: any) {
@@ -210,7 +210,6 @@ export default function SiteText() {
                   alt={image}
                   width={200}
                   height={200}
-                  fill
                   className="h-[200px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
                   quality={40}
                 />
