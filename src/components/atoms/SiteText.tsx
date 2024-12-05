@@ -8,10 +8,10 @@ import updateTexts from "~/hooks/useUpdateTexts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "~/hooks/use-toast";
 import { LoaderCircle, Trash2 } from "lucide-react";
-import Image from "next/image";
 import useGetImages, { getImagesQueryKey } from "~/hooks/useGetImages";
 import { cn } from "~/lib/utils";
 import { getHeaders } from "~/utils/utils";
+import SafeImage from "../widgets/SafeImage";
 
 type TextMap = { [key: string]: string | string[]; }
 
@@ -205,11 +205,12 @@ export default function SiteText() {
               onClick={handleImageClick(image)}
             >
               <div className="aspect-w-3 aspect-h-2">
-                <Image
+                <SafeImage
                   src={image}
                   alt={image}
                   width={200}
                   height={200}
+                  fill
                   className="h-[200px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
                   quality={40}
                 />

@@ -5,7 +5,6 @@ import { SITE } from '~/config.js';
 import southExterior from 'public/south-exterior-1.avif'
 import northInterior from 'public/north-terrace-patio-2.avif'
 import northMiscellaneous from 'public/north-miscellaneous.avif'
-import Image from 'next/image';
 
 import { cn } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
@@ -19,8 +18,8 @@ import Link from 'next/link';
 import BookingYourStayButton from '~/components/widgets/BookYourStayButton';
 import { getServerTranslation } from '~/lib/serverTranslation';
 import PhotoWidget from '~/components/widgets/PhotoWidget';
-import localFont from 'next/font/local';
 import { PlayfairDisplay } from '~/utils/utils';
+import SafeImage from '~/components/widgets/SafeImage';
 
 
 export const metadata: Metadata = {
@@ -33,7 +32,7 @@ export default async function Page() {
   return (
     <div>
       <div className="flex flex-col md:flex-row h-fit md:h-[842px]" id="northvilla">
-        <Image
+        <SafeImage
           className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
           src={t('main_page_north_villa_left_image')}
           width={828}
@@ -46,7 +45,7 @@ export default async function Page() {
           blurDataURL={northMiscellaneous.src}
         />
         <div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
-          <Image
+          <SafeImage
             className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_north_villa_right_circle')}
             width={350}
@@ -89,7 +88,7 @@ export default async function Page() {
 
       <div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" id="southvilla">
         <div className="w-full md:w-1/2 bg-site flex flex-col items-center justify-center ">
-          <Image
+          <SafeImage
             className="z-10 -mt-16 md:mt-0 shadow-lg h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_south_villa_left_circle')}
             width={350}
@@ -107,7 +106,7 @@ export default async function Page() {
             <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">{t('south_villa_button_1')}</Button>
           </Link>
         </div>
-        <Image
+        <SafeImage
           className="m-0 p-0 w-full md:w-1/2 shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
           src={t('main_page_south_villa_right_image')}
           width={828}
@@ -152,7 +151,7 @@ export default async function Page() {
       </div>
       <div className={cn('border-b-[1px] border-line')}>
         <div className="relative w-full h-[800px] overflow-hidden">
-          <img alt="" src={t('main_page_attraction_bg')} className="w-full h-fit absolute left-0 top-0 object-cover" />
+          <img alt="" src={t('main_page_attraction_bg')} className="w-full h-[800px] absolute left-0 top-0 object-cover" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-background rounded-3xl px-4 md:px-36 py-24 flex items-center justify-center flex-col w-full max-w-[900px]">
               <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center ')}>
@@ -168,7 +167,7 @@ export default async function Page() {
       </div>
       <div className='flex flex-col md:flex-row'>
         <div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
-          <Image
+          <SafeImage
             className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_pirate_villa_contact_us_logo')}
             width={350}

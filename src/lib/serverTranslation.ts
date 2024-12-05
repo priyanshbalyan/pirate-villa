@@ -1,4 +1,4 @@
-import locale from 'public/locale/en';
+import locale from 'public/locale/en.json';
 import { Text, TextMap } from '~/types';
 import { openDb } from './db';
 import { getTextMap } from '~/utils/utils';

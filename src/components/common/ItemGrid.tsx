@@ -6,6 +6,7 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '~/lib/utils';
 import { PlayfairDisplay } from '~/utils/utils';
+import SafeImage from '../widgets/SafeImage';
 
 const ItemGrid = ({
   items,
@@ -57,7 +58,7 @@ const ItemGrid = ({
             onClick={() => { clearTimeout(timeoutRef.current); setSelectedImage(image as string); setModalOpen(true) }}
           >
             <div className="aspect-w-3 aspect-h-2">
-              <Image
+              <SafeImage
                 src={image as string}
                 alt={title as string}
                 className="h-[312px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
@@ -83,7 +84,7 @@ const ItemGrid = ({
         <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
           <div className="flex min-h-full items-center justify-center">
             <DialogPanel className="max-w-lg space-y-4">
-              <Image
+              <SafeImage
                 src={selectedImage}
                 alt={'Full screen'}
                 placeholder="blur"

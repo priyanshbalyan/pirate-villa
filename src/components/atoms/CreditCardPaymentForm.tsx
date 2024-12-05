@@ -6,6 +6,7 @@ import { Input } from "~/components/ui/input"
 import { Label } from "~/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 import { detectCardType } from '~/utils/utils'
+import SafeImage from '../widgets/SafeImage'
 
 export type CreditCardData = {
 	cardNumber: string;
@@ -78,7 +79,7 @@ export default function CreditCardPaymentForm({ creditCardData, setCreditCardDat
 								value={cardNumber}
 								onChange={handleCardNumberChange}
 							/>
-							{cardLogo && <Image
+							{cardLogo && <SafeImage
 								src={cardLogo}
 								alt={'payment-card-logo'}
 								width={30}

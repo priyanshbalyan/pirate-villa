@@ -100,7 +100,7 @@ type FormProps = {
   btn: Button;
   btnPosition?: 'center' | 'right' | 'left';
   containerClass?: string;
-  columns?: {title: string, texts: string[] }[]
+  columns?: { title: string, texts: string[] }[]
 };
 
 type Image = {
@@ -269,8 +269,8 @@ type FeaturesProps = Widget & {
   isBeforeContent?: boolean;
   isAfterContent?: boolean;
   items: {
-      image: StaticImageData;
-      title: string;
+    image: StaticImageData;
+    title: string;
   }[]
 };
 
@@ -329,7 +329,7 @@ type StatsProps = Widget & {
 };
 
 type SocialProofProps = Widget & {
-  images: Array<Image>;
+  images: Array<SafeImage>;
 };
 
 type ContactProps = Widget & {

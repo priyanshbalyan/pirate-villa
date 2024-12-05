@@ -11,10 +11,11 @@ import {
 } from "~/components/ui/carousel"
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import useTranslation from "~/hooks/useTranslation";
+import SafeImage from "./SafeImage";
 
 const DialogContent = ({ selectedImage, onClose }: { selectedImage: string | null, onClose: () => void }) => {
   return <div>
-    <Image
+    <SafeImage
       src={selectedImage!}
       alt={'Full screen'}
       className="object-cover"
@@ -77,7 +78,7 @@ export function CarouselWidget({ north }: { north: boolean }) {
                 className="relative overflow-hidden rounded-lg  group"
                 onClick={() => { clearTimeout(timeoutRef.current); setSelectedImage(image); setModalOpen(true) }}
               >
-                <Image
+                <SafeImage
                   className="mx-2 shadow-lg w-[410px] h-[300px] rounded-lg dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover hover:scale-[1.01]"
                   src={image}
                   height={300}

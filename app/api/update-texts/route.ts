@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const texts: TextMap = await req.json();
 
     for (const [textKey, textContent] of Object.entries(texts)) {
-      const existingText = await db.get("SELECT id FROM texts WHERE text_key = ?", []);
+      const existingText = await db.get("SELECT id FROM texts WHERE text_key = ?", [textKey]);
       if (existingText) {
         await db.run("UPDATE texts SET content = ? WHERE text_key = ?", [JSON.stringify(textContent), textKey]);
       } else {

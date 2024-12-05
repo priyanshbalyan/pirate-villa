@@ -3,6 +3,8 @@ const sqlite3 = require('sqlite3')
 const bcrypt = require('bcrypt');
 const { startOfDay, addDays, format } = require('date-fns');
 require('dotenv').config()
+const fs = require('fs')
+const locale = require('../../public/locale/en.json')
 
 async function openDb() {
   return open({
@@ -53,13 +55,13 @@ async function initializeDatabase() {
     );
   `)
 
-  // await db.exec(`
-  //   CREATE TABLE IF NOT EXISTS texts (
-  //     id INTEGER PRIMARY KEY AUTOINCREMENT,
-  //     text_key TEXT NOT NULL,
-  //     content TEXT NOT NULL
-  //   );
-  // `);
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS texts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      text_key TEXT NOT NULL,
+      content TEXT NOT NULL
+    );
+  `);
 
   console.log('Database initialized');
 }
@@ -78,31 +80,14 @@ async function seed() {
       password = excluded.password;
   `)
 
-  await db.exec(`
-    INSERT INTO texts (text_key, content)
-    VALUES ('property_address', 'Cruz Bay, St. John Virgin Islands')
-  `)
-
-  // await db.run(
-  //   'INSERT INTO pricing (nightlyRate, startDate, endDate, villaType) VALUES (?, ?, ?, ?)',
-  //   100,
-  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-  //   format(startOfDay(addDays(new Date(), 7)), 'yyyy-MM-dd'),
-  //   'north'
-  // );
-  // await db.run(
-  //   'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
-  //   100,
-  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-  //   'north'
-  // );
-
-  // await db.run(
-  //   'INSERT INTO manual_adjustment (nightlyRate, date, villaType) VALUES (?, ?, ?)',
-  //   200,
-  //   format(startOfDay(addDays(new Date(), 3)), 'yyyy-MM-dd'),
-  //   'south'
-  // );
+  for (let [textKey, textContent] of Object.entries(locale)) {
+    const existingText = await db.get("SELECT id FROM texts WHERE text_key = ?", [textKey]);
+    if (existingText) {
+      await db.run("UPDATE texts SET content = ? WHERE text_key = ?", [JSON.stringify(textContent), textKey]);
+    } else {
+      await db.run("INSERT INTO texts (text_key, content) VALUES (?, ?)", [textKey, JSON.stringify(textContent)]);
+    }
+  }
 
   console.log('Database seeded.')
 }

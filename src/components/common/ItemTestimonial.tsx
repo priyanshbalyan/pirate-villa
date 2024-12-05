@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import { Testimonial } from '~/shared/types';
 import DividerLine from './DividerLine';
+import SafeImage from '../widgets/SafeImage';
 
 const ItemTestimonial = ({
   name,
@@ -28,7 +29,7 @@ const ItemTestimonial = ({
           <>
             <div className={twMerge('flex items-center', dataClass)}>
               {image && (
-                <Image
+                <SafeImage
                   src={image.src}
                   width={248}
                   height={248}

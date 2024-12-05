@@ -20,6 +20,7 @@ import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
 import { getServerTranslation } from '~/lib/serverTranslation';
 import { PlayfairDisplay } from '~/utils/utils';
+import SafeImage from '../widgets/SafeImage';
 
 export default async function VillaPage({ north }: { north: boolean }) {
 	const { t, tArray } = await getServerTranslation()
@@ -50,7 +51,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 	return (
 		<>
 			<div className="flex flex-col md:flex-row h-fit md:h-[842px]">
-				<Image
+				<SafeImage
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
 					src={t(`${key}image_1`)}
 					width={828}
@@ -62,7 +63,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 					blurDataURL={north ? northPictures[1].image.src : southPictures[0].image.src}
 				/>
 				<div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
-					<Image
+					<SafeImage
 						className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
 						src={t(`${key}image_2`)}
 						width={350}
@@ -93,7 +94,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 						)}
 					</div>
 				</div>
-				<Image
+				<SafeImage
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
 					blurDataURL={north ? northPictures[2].image.src : southPictures[1].image.src}
 					width={828}
@@ -106,7 +107,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 				/>
 			</div>
 			<div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" >
-				<Image
+				<SafeImage
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
 					blurDataURL={north ? northPictures[9].image.src : southPictures[5].image.src}
 					width={828}
@@ -153,7 +154,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 						</Accordion>
 					</div>
 				</div>
-				<Image
+				<SafeImage
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
 					blurDataURL={north ? northPictures[11].image.src : southPictures[4].image.src}
 					width={828}
@@ -181,7 +182,7 @@ export default async function VillaPage({ north }: { north: boolean }) {
 			</div>
 			<div className='flex flex-col md:flex-row'>
 				<div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
-					<Image
+					<SafeImage
 						className="shadow-lg mt-8 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
 						blurDataURL={bgPic.src}
 						width={350}
