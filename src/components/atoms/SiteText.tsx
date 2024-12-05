@@ -7,7 +7,7 @@ import { Button } from "~/components/ui/button";
 import updateTexts from "~/hooks/useUpdateTexts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "~/hooks/use-toast";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, Trash2 } from "lucide-react";
 import Image from "next/image";
 import useGetImages, { getImagesQueryKey } from "~/hooks/useGetImages";
 import { cn } from "~/lib/utils";
@@ -93,6 +93,17 @@ export default function SiteText() {
     }
   }
 
+  const handleRemoveField = (key: string) => {
+    const newArray = [...(Array.isArray(textState[key]) ? textState[key] : [])]
+    newArray.pop()
+    return () => {
+      setTextState({
+        ...textState,
+        [key]: newArray
+      })
+    }
+  }
+
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string>('');
 
@@ -164,7 +175,10 @@ export default function SiteText() {
                           placeholder="Empty field"
                         />
                       ))}
-                      <Button onClick={handleAddField(text.textKey)}>Add Field</Button>
+                      <div className="flex gap-2">
+                        <Button onClick={handleAddField(text.textKey)}>Add Item</Button>
+                        <Button onClick={handleRemoveField(text.textKey)}>Remove Item</Button>
+                      </div>
                     </div>
                   ) : (
                     <Input
@@ -201,7 +215,16 @@ export default function SiteText() {
                 />
               </div>
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+              <div className="cursor-pointer absolute top-0 right-0 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => { }}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="cursor-pointer absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                 <h2 className={cn("text-xs font-semibold")}>{image}</h2>
                 <p className={cn("text-[10px] ")}>Click to copy link</p>
               </div>

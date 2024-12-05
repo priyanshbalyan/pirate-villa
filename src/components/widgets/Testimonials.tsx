@@ -4,7 +4,7 @@ import WidgetWrapper from '../common/WidgetWrapper';
 import CTA from '../common/CTA';
 import ItemTestimonial from '../common/ItemTestimonial';
 import { cn } from '~/lib/utils';
-import { PlayfairDisplay } from '../atoms/Logo';
+import { PlayfairDisplay } from '~/utils/utils';
 
 const Testimonials = ({
   header,

@@ -2,11 +2,10 @@
 import Image from 'next/image';
 import { cn } from '~/lib/utils';
 
-import localFont from 'next/font/local'
 import LogoText from './LogoText';
 import { Suspense } from 'react';
 import useTranslation from '~/hooks/useTranslation';
-const PlayfairDisplay = localFont({ src: '../../../public/PlayfairDisplay-Regular.ttf' })
+import { PlayfairDisplay } from '~/utils/utils';
 
 const Logo = () => {
   const { t } = useTranslation()

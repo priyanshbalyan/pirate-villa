@@ -19,9 +19,7 @@ import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
 import { getServerTranslation } from '~/lib/serverTranslation';
-import localFont from 'next/font/local';
-
-const PlayfairDisplay = localFont({ src: '../../../public/PlayfairDisplay-Regular.ttf' })
+import { PlayfairDisplay } from '~/utils/utils';
 
 export default async function VillaPage({ north }: { north: boolean }) {
 	const { t, tArray } = await getServerTranslation()
@@ -54,24 +52,26 @@ export default async function VillaPage({ north }: { north: boolean }) {
 			<div className="flex flex-col md:flex-row h-fit md:h-[842px]">
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
-					src={north ? northPictures[1].image : southPictures[0].image}
+					src={t(`${key}image_1`)}
 					width={828}
 					height={842}
 					alt="North villa"
 					sizes="(max-width: 768px) 100vw, 432px"
 					quality={100}
 					placeholder="blur"
+					blurDataURL={north ? northPictures[1].image.src : southPictures[0].image.src}
 				/>
 				<div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
 					<Image
 						className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
-						src={bgPic}
+						src={t(`${key}image_2`)}
 						width={350}
 						height={350}
 						alt="Scenic mountain landscape with a lake in the foreground"
 						sizes="(max-width: 768px) 100vw, 432px"
 						quality={50}
 						placeholder="blur"
+						blurDataURL={bgPic.src}
 					/>
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8 uppercase')}>{t(`${key}title_1`)}</span>
 					<span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t(`${key}subtitle_1`)}</span>
@@ -95,64 +95,42 @@ export default async function VillaPage({ north }: { north: boolean }) {
 				</div>
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
-					src={north ? northPictures[2].image : southPictures[1].image}
+					blurDataURL={north ? northPictures[2].image.src : southPictures[1].image.src}
 					width={828}
 					height={842}
 					alt="North villa"
 					sizes="(max-width: 768px) 100vw, 432px"
 					quality={100}
 					placeholder="blur"
+					src={t(`${key}image_3`)}
 				/>
 			</div>
 			<div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" >
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
-					src={north ? northPictures[9].image : southPictures[5].image}
+					blurDataURL={north ? northPictures[9].image.src : southPictures[5].image.src}
 					width={828}
 					height={842}
 					alt="North villa"
 					sizes="(max-width: 768px) 100vw, 432px"
 					placeholder="blur"
+					src={t(`${key}image_4`)}
 				/>
 				<div className="md:w-1/2 w-full bg-background flex flex-col items-center justify-center" id="amenities">
 					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
 						{t(`${key}feature_1_title`)}
 					</span>
 					<div className="grid grid-cols-2 gap-8 mt-4 mx-8 mb-6">
-						<div className=' text-right'>
-							Essentials
-						</div>
-						<ul className=' text-left'>
-							<li>Wireless Internet</li>
-							<li>WiFi</li>
-							<li>Towels provided</li>
-							<li>Linens provided</li>
-						</ul>
-						<div className=' text-right'>
-							Laundry
-						</div>
-						<ul className='text-left'>
-							<li>Dryer</li>
-						</ul>
-						<div className='text-right'>
-							Safety
-						</div>
-						<ul className=''>
-							<li>No carbon monoxide detector or gas appliances (host has indicated there are no carbon monoxide detectors or gas appliances on the property)</li>
-							<li>Smoke detector (host has indicated there is a smoke detector on the property)</li>
-						</ul>
-						<div className='text-right'>
-							Suitability
-						</div>
-						<ul className=''>
-							<li>Minimum age limit of renters</li>
-						</ul>
-						<div className='text-right'>
-							Pets
-						</div>
-						<ul className=''>
-							<li>No pets allowed</li>
-						</ul>
+						{tArray(`${key}amenities_titles`).map((text, index) =>
+							<>
+								<div className='text-right' key={text}>
+									{text}
+								</div>
+								<ul className='text-left' key={text}>
+									{tArray(`${key}amenities_descriptions`)?.[index]?.split('<br>')?.map(description => <li key={description}>{description}</li>)}
+								</ul>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
@@ -177,13 +155,14 @@ export default async function VillaPage({ north }: { north: boolean }) {
 				</div>
 				<Image
 					className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
-					src={north ? northPictures[11].image : southPictures[4].image}
+					blurDataURL={north ? northPictures[11].image.src : southPictures[4].image.src}
 					width={828}
 					height={842}
 					alt="North villa"
 					sizes="(max-width: 768px) 100vw, 432px"
 					quality={100}
 					placeholder="blur"
+					src={t(`${key}image_5`)}
 				/>
 			</div>
 			<div id="booknow">
@@ -191,7 +170,10 @@ export default async function VillaPage({ north }: { north: boolean }) {
 
 			<BookingProperty north={north} />
 
-			<Features items={north ? northPictures : southPictures} id="photos" />
+			<Features items={tArray(`${key}photo_gallery`).map((text, index) => ({
+				title: tArray(`${key}photo_gallery_titles`)[index],
+				image: text
+			}))} id="photos" />
 
 			<Marquee />
 			<div className="bg-[url('/scene.jpg')] bg-cover w-full" id="testimonials">
@@ -201,13 +183,14 @@ export default async function VillaPage({ north }: { north: boolean }) {
 				<div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
 					<Image
 						className="shadow-lg mt-8 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
-						src={bgPic}
+						blurDataURL={bgPic.src}
 						width={350}
 						height={350}
 						alt="Scenic mountain landscape with a lake in the foreground"
 						sizes="(max-width: 768px) 100vw, 432px"
 						quality={50}
 						placeholder="blur"
+						src={t(`${key}image_6`)}
 					/>
 					<p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>{t('contact_property_header')}</p>
 					<p>{t('contact_address')}</p>

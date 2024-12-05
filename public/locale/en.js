@@ -35,6 +35,7 @@ export default {
   contact_address: 'Cruz Bay, St. John Virgin Islands',
   contact_email: 'Brit.saainc@gmail.com',
   contact_number: '+404 432 1384',
+
   north_villa_page_title_1: 'BOOK North VILLA TODAY',
   north_villa_page_subtitle_1: 'Enjoy the ultimate home away from home experience, with every comfort and convenience thoughtfully provided. Relax in style, savor your surroundings, and enjoy a memorable stay.',
   north_villa_page_book_now_button: 'BOOK NOW',
@@ -63,13 +64,9 @@ export default {
   south_villa_page_feature_1_title: 'AMENITIES',
   south_villa_page_feature_headers: ['Essentials', 'Laundry', 'Safety', 'Suitability', 'Pets'],
   south_villa_page_faq_title: 'FREQUENTLY ASKED QUESTIONS',
+
   feature_descriptions: ['Wireless Internet<br>WiFi<br>Towels provided<br>Linens provided', 'Dryer', 'No carbon monoxide detector or gas appliances (host has indicated there are no carbon monoxide detectors or gas appliances on the property)<br>Smoke detector (host has indicated there is a smoke detector on the property)', 'Minimum age limit of renters', 'No pets allowed'],
   feature_1_subtitle: '',
-  south_villa_page_faq_questions: ['Is The Pirates Landing South 3-bedroom condo in fabulous Cruz Bay with WiFi, AC pet-friendly?', 'Where is The Pirates Landing South 3-bedroom condo in fabulous Cruz Bay with WiFi, AC located?'],
-  south_villa_page_faq_answers: ['No, pets are not allowed at this property.', 'Situated in St. John, this condo building is steps from Chocolate Hole and 1.9 mi (3.1 km) from Virgin Islands National Park. Chocolate Hole Beach and Sunset Beach are also within 1 mi (2 km).'],
-
-  north_villa_page_faq_questions: ['Is The Pirates Landing North 3-bedroom condo in fabulous Cruz Bay with WiFi, AC pet-friendly?', 'Where is The Pirates Landing North 3-bedroom condo in fabulous Cruz Bay with WiFi, AC located?'],
-  north_villa_page_faq_answers: ['No, pets are not allowed at this property.', 'Situated in St. John, this condo building is steps from Chocolate Hole and 1.9 mi (3.1 km) from Virgin Islands National Park. Chocolate Hole Beach and Sunset Beach are also within 1 mi (2 km).'],
 
   book_now: 'Book Now',
   book_now_select_date_label: 'Select booking date:',
@@ -90,6 +87,7 @@ export default {
   book_now_extra_guests_fee: 'Extra guests Fee',
   book_now_total: 'Total',
   book_now_pay_button: 'Pay Now and Book!',
+
   photo_gallery: 'PHOTO_GALLERY',
   what_guests_say: 'WHAT OUR GUESTS SAY ABOUT US',
 
@@ -112,6 +110,89 @@ export default {
     'https://images.unsplash.com/photo-1665984867752-6370ab5ae35e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80'
   ],
 
+  north_villa_page_image_1: '/north-miscellaneous.avif',
+  north_villa_page_image_2: '/bgpic.jpeg',
+  north_villa_page_image_3: '/north-private-kitchen.avif',
+  north_villa_page_image_4: '/north-terrace-patio-2.avif',
+  north_villa_page_image_5: '/north-terrace-patio.avif',
+  north_villa_page_image_6: '/bgpic.jpeg',
+
+  north_villa_page_photo_gallery: [
+    '/north-bathroom.avif',
+    '/north-miscellaneous.avif',
+    '/north-private-kitchen.avif',
+    '/north-room-2.avif',
+    '/north-room-3.avif',
+    '/north-room-4.avif',
+    '/north-room-5.avif',
+    '/north-room-6.avif',
+    '/north-room.avif',
+    '/north-terrace-patio-3.avif',
+    '/north-terrace-patio-2.avif',
+    '/north-terrace-patio.avif',
+  ],
+
+  north_villa_page_photo_gallery_titles: ['Bathroom', 'Miscellaneous', 'Private Kitchen', 'Room', 'Room', 'Room', 'Room', 'Room', 'Room', 'Terrace/Patio', 'Terrace/Patio', 'Terrace/Patio'],
+  north_villa_page_faq_questions: ['Is The Pirates Landing North 3-bedroom condo in fabulous Cruz Bay with WiFi, AC pet-friendly?', 'Where is The Pirates Landing North 3-bedroom condo in fabulous Cruz Bay with WiFi, AC located?'],
+  north_villa_page_faq_answers: ['No, pets are not allowed at this property.', 'Situated in St. John, this condo building is steps from Chocolate Hole and 1.9 mi (3.1 km) from Virgin Islands National Park. Chocolate Hole Beach and Sunset Beach are also within 1 mi (2 km).'],
+  north_villa_page_amenities_titles: ['Essentials', 'Laundry', 'Safety', 'Suitability', 'Pets'],
+  north_villa_page_amenities_descriptions: [
+    'Wireless Internet<br>WiFi<br>Towels provided<br>Linens provided',
+    'Dryer',
+    'No carbon monoxide detector or gas appliances (host has indicated there are no carbon monoxide detectors or gas appliances on the property)<br>Smoke detector (host has indicated there is a smoke detector on the property)',
+    'Minimum age limit of renters',
+    'No pets allowed'
+  ],
+
+  south_villa_page_image_1: '/south-exterior-2.avif',
+  south_villa_page_image_2: '/bgpic.jpeg',
+  south_villa_page_image_3: '/south-living-area-3.webp',
+  south_villa_page_image_4: '/south-living-area.avif',
+  south_villa_page_image_5: '/south-interior-2.avif',
+  south_villa_page_image_6: '/bgpic.jpeg',
+
+  south_villa_page_photo_gallery: [
+    '/south-exterior-2.avif',
+    '/south-living-area-3.webp',
+    '/south-room-4.avif',
+    '/south-bathroom.avif',
+    '/south-interior-2.avif',
+    '/south-living-area.avif',
+    '/south-room-5.avif',
+    '/south-beach.avif',
+    '/south-interior-3.avif',
+    '/south-private-kitchen.avif',
+    '/south-room.webp',
+    '/south-dining.webp',
+    '/south-interior.avif',
+    '/south-room-2.avif',
+    '/south-terrace-patio.avif',
+    '/south-exterior-1.avif',
+    '/south-living-area-2.webp',
+    '/south-room-3.avif',
+  ],
+
+  south_villa_page_photo_gallery_titles: [
+    'Exterior',
+    'Living Area',
+    'Room',
+    'Bathroom',
+    'Interior',
+    'Living Area',
+    'Room',
+    'Beach',
+    'Interior',
+    'Private Kitchen',
+    'Room',
+    'Dining',
+    'Interior',
+    'Room',
+    'Terrace/Patio',
+    'Exterior',
+    'Living Area',
+    'Room',
+  ],
+
   south_villa_page_testimonial_header_name: ['Angie C.', 'Jackie P.', 'Robert B.', 'Pamela C.', 'Matthew S.', 'Tricia C.'],
   south_villa_page_testimonial_header_subtitle: ['Beautiful Home', 'Perfect Location, Comfort and Cleaninenss', 'Wonderfull Villa', '2023 St John Family Trip', 'Awesome time', 'St John Lovely Unit Short Walk From Beach'],
   south_villa_page_testimonial_message: [
@@ -130,6 +211,18 @@ export default {
     'https://images.unsplash.com/photo-1694287877106-ee22f764aef1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
     'https://images.unsplash.com/photo-1665984867752-6370ab5ae35e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80'
   ],
+
+  south_villa_page_amenities_titles: ['Essentials', 'Laundry', 'Safety', 'Suitability', 'Pets'],
+  south_villa_page_amenities_descriptions: [
+    'Wireless Internet<br>WiFi<br>Towels provided<br>Linens provided',
+    'Dryer',
+    'No carbon monoxide detector or gas appliances (host has indicated there are no carbon monoxide detectors or gas appliances on the property)<br>Smoke detector (host has indicated there is a smoke detector on the property)',
+    'Minimum age limit of renters',
+    'No pets allowed'
+  ],
+
+  south_villa_page_faq_questions: ['Is The Pirates Landing South 3-bedroom condo in fabulous Cruz Bay with WiFi, AC pet-friendly?', 'Where is The Pirates Landing South 3-bedroom condo in fabulous Cruz Bay with WiFi, AC located?'],
+  south_villa_page_faq_answers: ['No, pets are not allowed at this property.', 'Situated in St. John, this condo building is steps from Chocolate Hole and 1.9 mi (3.1 km) from Virgin Islands National Park. Chocolate Hole Beach and Sunset Beach are also within 1 mi (2 km).'],
 
   terms_and_conditions_title: 'Rental Agreement and Policies',
   terms_and_conditions_subtitle: 'Please read through our rental agreement and policies carefully. By agreeing to these terms, you acknowledge that you have read, understood, and agree to abide by all the conditions set forth.',

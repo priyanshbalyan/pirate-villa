@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Button } from "~/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
@@ -41,7 +41,7 @@ export default function ContactUsWidget({ fixed = true, open }: Props) {
     }, 300)
   }
 
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {}
 
     if (name.trim() === '') {
@@ -64,7 +64,7 @@ export default function ContactUsWidget({ fixed = true, open }: Props) {
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
-  }
+  }, [name, email, subject, message])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,7 +91,7 @@ export default function ContactUsWidget({ fixed = true, open }: Props) {
     if (touched) {
       validateForm()
     }
-  }, [touched, name, email, subject, message])
+  }, [touched, name, email, subject, message, validateForm])
 
   return (
     <>

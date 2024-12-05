@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
 import { SITE } from "~/config";
@@ -21,7 +21,7 @@ export default function GetInTouch({ className }: { className?: string }) {
 
   const { t } = useTranslation()
 
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {}
 
     if (name.trim() === '') {
@@ -44,7 +44,7 @@ export default function GetInTouch({ className }: { className?: string }) {
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
-  }
+  }, [name, email, subject, message])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,7 +70,7 @@ export default function GetInTouch({ className }: { className?: string }) {
     if (touched) {
       validateForm()
     }
-  }, [touched, name, email, subject, message])
+  }, [touched, name, email, subject, message, validateForm])
 
 
   return <div className={cn(className)}>

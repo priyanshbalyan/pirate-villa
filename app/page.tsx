@@ -20,8 +20,8 @@ import BookingYourStayButton from '~/components/widgets/BookYourStayButton';
 import { getServerTranslation } from '~/lib/serverTranslation';
 import PhotoWidget from '~/components/widgets/PhotoWidget';
 import localFont from 'next/font/local';
+import { PlayfairDisplay } from '~/utils/utils';
 
-const PlayfairDisplay = localFont({ src: '../public/PlayfairDisplay-Regular.ttf' })
 
 export const metadata: Metadata = {
   title: SITE.title,

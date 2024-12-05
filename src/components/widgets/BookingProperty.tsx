@@ -6,23 +6,20 @@ import { Button } from '~/components/ui/button'
 import DateRangePicker from '~/components/atoms/DateRangePicker'
 import { RangeKeyDict } from 'react-date-range'
 import createBooking from '~/hooks/useCreateBooking';
-import { LoaderCircle, Lock, X } from 'lucide-react'
+import { LoaderCircle, Lock } from 'lucide-react'
 import { useToast } from '~/hooks/use-toast';
 import { differenceInDays, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { validateBookingData } from '~/utils/utils';
+import { PlayfairDisplay, validateBookingData } from '~/utils/utils';
 import { TermsDialog } from '~/components/atoms/TermsDialog';
-import { Label } from '../ui/label';
+import { Label } from '~/components/ui/label';
 import { cn } from '~/lib/utils';
 import { PaymentDialog } from '~/components/atoms/PaymentDialog';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetCalculateTotal from '~/hooks/useGetCalculateTotal';
 import NumberFlow from '@number-flow/react';
-import { PlayfairDisplay } from '../atoms/Logo';
-import Image from 'next/image';
-import { northPictures, southPictures } from '~/shared/data/pages/home.data';
 import { SITE } from '~/config';
-import PriceBreakdown from '../atoms/PriceBreakdown';
+import PriceBreakdown from '~/components/atoms/PriceBreakdown';
 import useTranslation from '~/hooks/useTranslation';
 
 type Villa = 'north-villa' | 'south-villa';

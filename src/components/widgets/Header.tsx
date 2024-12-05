@@ -9,6 +9,7 @@ import { headerData } from '~/shared/data/global.data';
 import { cn } from '~/lib/utils';
 import { usePathname } from 'next/navigation';
 import useTranslation from '~/hooks/useTranslation';
+import { Toaster } from '~/components/ui/toaster';
 
 const Header = () => {
   const { t } = useTranslation()
@@ -110,6 +111,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </header >
   );
 };

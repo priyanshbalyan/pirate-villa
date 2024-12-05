@@ -19,11 +19,11 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 			<ScrollArea className=" border rounded-md p-4 mb-6 ">
 				<Accordion type="single" collapsible className="w-full dark:text-black">
 					{tArray('terms_and_conditions_points').map((text, index) =>
-						<AccordionItem value={index.toString()}>
+						<AccordionItem value={index.toString()} key={index}>
 							<AccordionTrigger>{text}</AccordionTrigger>
 							<AccordionContent>
 								<ul className="list-disc pl-6 space-y-2">
-									{tArray('terms_and_conditions_description')?.[index]?.split('<br>').map(description => <li>{description}</li>)}
+									{tArray('terms_and_conditions_description')?.[index]?.split('<br>').map(description => <li key={description}>{description}</li>)}
 								</ul>
 							</AccordionContent>
 						</AccordionItem>

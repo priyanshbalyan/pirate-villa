@@ -1,7 +1,10 @@
-import { areIntervalsOverlapping, differenceInDays, format, isAfter, isBefore, isSameDay, isValid, parse } from "date-fns";
+import { areIntervalsOverlapping, differenceInDays, format, isSameDay, isValid, parse } from "date-fns";
+import localFont from "next/font/local";
 import { CreditCardData } from "~/components/atoms/CreditCardPaymentForm";
 import { SITE } from "~/config";
 import { Text, TextMap } from "~/types";
+
+export const PlayfairDisplay = localFont({ src: '../../public/PlayfairDisplay-Regular.ttf' })
 
 export function toStartCase(str: string) {
   if (!str) return '';

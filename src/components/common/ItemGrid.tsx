@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '~/lib/utils';
-import { PlayfairDisplay } from '~/components/atoms/Logo';
+import { PlayfairDisplay } from '~/utils/utils';
 
 const ItemGrid = ({
   items,
@@ -61,7 +61,9 @@ const ItemGrid = ({
                 src={image as string}
                 alt={title as string}
                 className="h-[312px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
-                placeholder="blur"
+                // placeholder="blur"
+                width={312}
+                height={312}
                 quality={50}
               />
             </div>

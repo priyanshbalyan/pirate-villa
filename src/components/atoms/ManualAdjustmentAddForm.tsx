@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { Button } from "~/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
@@ -34,7 +34,7 @@ export default function ManualAdjustmentAddForm({ setModalOpen }: { setModalOpen
 
   const [loading, setLoading] = useState(false)
 
-  const validateData = () => {
+  const validateData = useCallback(() => {
     setTouched(true)
     const newErrors: { [key: string]: string } = {}
 
@@ -46,7 +46,7 @@ export default function ManualAdjustmentAddForm({ setModalOpen }: { setModalOpen
     }
 
     return newErrors;
-  }
+  }, [amount])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -81,7 +81,7 @@ export default function ManualAdjustmentAddForm({ setModalOpen }: { setModalOpen
       const errors = validateData()
       setErrors(errors)
     }
-  }, [touched, amount, date, villa])
+  }, [touched, amount, date, villa, validateData])
 
   return (
     <Card className="w-full max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
