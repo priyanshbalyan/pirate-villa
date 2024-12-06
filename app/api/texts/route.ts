@@ -3,7 +3,7 @@ import { openDb } from '~/lib/db';
 import { Text } from '~/types';
 import { getTextMap } from '~/utils/utils';
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
   try {
     const db = await openDb();
     const texts = await db.all<Text[]>('SELECT * FROM texts');
