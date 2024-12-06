@@ -137,7 +137,7 @@ export default function SiteText() {
         toast({ title: `File uploaded successfully: ${result.fileName}` });
         queryClient.invalidateQueries({ queryKey: getImagesQueryKey() })
       } else {
-        toast({ title: `Upload failed: ${result.message}` });
+        toast({ title: `Upload failed: ${result.error}` });
       }
     } catch (error) {
       toast({ title: 'An error occurred while uploading the file.' });
