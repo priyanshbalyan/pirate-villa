@@ -166,7 +166,7 @@ export default function SiteText() {
           return (
             <div className="flex mb-1 gap-2 text-sm" key={text.textKey}>
               <div className="w-3/12 break-all">{text.textKey}:</div>
-              <div className={cn(currentlyEditing === text.textKey ? "w-7/12" : "w-9/12")}>
+              <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-7/12" : "w-9/12")}>
                 {Array.isArray(text.content)
                   ? (
                     <div className="mb-4">
@@ -196,7 +196,7 @@ export default function SiteText() {
                   )
                 }
               </div>
-              <div className={cn(currentlyEditing === text.textKey ? "w-2/12" : "w-0/12")}>
+              <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-2/12" : "w-0/12")}>
                 {currentlyEditing === text.textKey && updateButton}
               </div>
             </div>
