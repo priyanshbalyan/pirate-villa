@@ -1,10 +1,10 @@
+'use client'
 import Features from '~/components/widgets/Features';
 import Testimonials from '~/components/widgets/Testimonials';
 import {
 	northPictures,
 } from '~/shared/data/pages/home.data';
 import { southPictures } from '~/shared/data/pages/home.data';
-import Image from 'next/image';
 import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
 import bgPic from 'public/bgpic.jpeg'
@@ -18,12 +18,12 @@ import {
 import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
-import { getServerTranslation } from '~/lib/serverTranslation';
 import { PlayfairDisplay } from '~/utils/utils';
 import SafeImage from '../widgets/SafeImage';
+import useTranslation from '~/hooks/useTranslation';
 
-export default async function VillaPage({ north }: { north: boolean }) {
-	const { t, tArray } = await getServerTranslation()
+export default function VillaPage({ north }: { north: boolean }) {
+	const { t, tArray } = useTranslation()
 	const villaText = north ? 'North' : 'South'
 
 	const key = !!north ? 'north_villa_page_' : 'south_villa_page_'

@@ -40,12 +40,12 @@ export default function SiteText() {
   const { data: texts, isLoading } = useGetTexts()
   const { data: images, } = useGetImages()
 
+  const { toast } = useToast()
+  const queryClient = useQueryClient()
+
   const [textState, setTextState] = useState<TextMap>({})
   const [errors, setErrors] = useState('')
-
-  const { toast } = useToast()
-
-  const queryClient = useQueryClient()
+  const [currentlyEditing, setCurrentlyEditing] = useState('')
 
   useEffect(() => {
     if (texts) setTextState(texts)
@@ -67,6 +67,7 @@ export default function SiteText() {
 
   const handleValueChange = useCallback((textKey: string, index?: number) => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCurrentlyEditing(textKey)
       if (index) {
         const value = Array.isArray(textState[textKey]) ? textState[textKey] : [textState[textKey]]
         const newValue = [...value.slice(0, index), e.target.value, ...value.slice(index + 1)]
@@ -153,6 +154,8 @@ export default function SiteText() {
 
   if (isLoading) return <LoaderCircle className="animate-spin w-full flex items-center justify-center" />
 
+  const updateButton = detectKeyChanges && <Button onClick={handleUpdateClick} className="">UPDATE</Button>
+
   return (
     <div className=" px-4 mx-auto text-site flex">
       <div className="w-1/2 h-full ">
@@ -162,14 +165,14 @@ export default function SiteText() {
           return (
             <div className="flex mb-1 gap-2 text-sm" key={text.textKey}>
               <div className="w-3/12 break-all">{text.textKey}:</div>
-              <div className="w-9/12">
+              <div className={cn(currentlyEditing === text.textKey ? "w-7/12" : "w-9/12")}>
                 {Array.isArray(text.content)
                   ? (
                     <div className="mb-4">
                       {text.content.map((cnt, index) => (
                         <Input
                           value={cnt}
-                          key={`${text.textKey} ${cnt} ${index}`}
+                          key={`${text.textKey}`}
                           onChange={handleValueChange(text.textKey, index)}
                           className="mb-1 border-[1px] border-primary"
                           placeholder="Empty field"
@@ -187,14 +190,18 @@ export default function SiteText() {
                       name={text.textKey}
                       onChange={handleValueChange(text.textKey)}
                       placeholder="Empty field"
+                      key={text.textKey}
                     />
                   )
                 }
               </div>
+              <div className={cn(currentlyEditing === text.textKey ? "w-2/12" : "w-0/12")}>
+                {currentlyEditing === text.textKey && updateButton}
+              </div>
             </div>
           )
         })}
-        {detectKeyChanges && <Button onClick={handleUpdateClick} className="mb-4">UPDATE</Button>}
+
       </div>
       <div className="w-1/2 px-4">
         <div className="  h-[600px] overflow-y-scroll">

@@ -11,7 +11,7 @@ async function updateTexts(texts: TextMap) {
 
   const json = await response.json()
   if (!response.ok) {
-    const errorResponse = await response.json()
+    const errorResponse = json
     throw new Error(errorResponse.error || ('Server responded with status ' + response.status))
   }
 

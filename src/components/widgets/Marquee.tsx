@@ -1,10 +1,10 @@
+'use client';
 import { cn } from "~/lib/utils";
-import { getServerTranslation } from "~/lib/serverTranslation";
-import localFont from "next/font/local";
-const PlayfairDisplay = localFont({ src: '../../../public/PlayfairDisplay-Regular.ttf' })
+import { PlayfairDisplay } from "~/utils/utils";
+import useTranslation from "~/hooks/useTranslation";
 
-export default async function Marquee() {
-  const { t } = await getServerTranslation()
+export default function Marquee() {
+  const { t } = useTranslation()
 
   return (
     <div className={cn(PlayfairDisplay.className, 'h-[60px] bg-primary flex items-center justify-center  border-[#10100f] border-t-[1px] border-b-[1px]')}>
