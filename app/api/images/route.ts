@@ -7,7 +7,7 @@ function getPublicImageUrls(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   return entries.flatMap((entry) => {
-    return /\.(jpe?g|png|gif|bmp|webp|avif)$/i.test(entry.name) ? [`/${entry.name}`] : [];
+    return /\.(jpe?g|png|gif|bmp|webp|avif)$/i.test(entry.name) ? [`/api/uploads/${entry.name}`] : [];
   }).filter(Boolean);
 }
 
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     verifyToken(req.headers)
 
-    const imagesDirectory = path.join(process.cwd(), 'public');
+    const imagesDirectory = path.join(process.cwd(), 'uploads');
     const imageUrls = getPublicImageUrls(imagesDirectory); // URLs relative to `public`
     return NextResponse.json(imageUrls);
   } catch (error) {

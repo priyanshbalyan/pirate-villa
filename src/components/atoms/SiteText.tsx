@@ -205,7 +205,7 @@ export default function SiteText() {
 
       </div>
       <div className="w-1/2 px-4">
-        <div className="  h-[600px] overflow-y-scroll">
+        <div className="max-h-[600px] overflow-y-scroll">
           <div className="grid grid-cols-4 gap-2">
             {images?.map((image, index) => (<div
               key={index}

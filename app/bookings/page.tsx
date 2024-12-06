@@ -13,6 +13,8 @@ import {
 import PricingTable from '~/components/atoms/PricingTable';
 import ManualAdjustmentTable from '~/components/atoms/ManualAdjustmentTable';
 import SiteText from '~/components/atoms/SiteText';
+import { Suspense } from 'react';
+import { LoaderCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -24,6 +26,9 @@ export default function Page({ params, searchParams }: {
 }) {
 
   const isNorth = !!searchParams && !!searchParams['north']
+
+  const loader = <div className='w-full mx-auto'><LoaderCircle className='animate-spin w-6 h-6' /></div>
+
   return (
     <>
       <AuthenticatedPage>
@@ -37,16 +42,24 @@ export default function Page({ params, searchParams }: {
             </TabsList>
           </div>
           <TabsContent value="bookings" className=''>
-            <BookingList north={isNorth} />
+            <Suspense fallback={loader}>
+              <BookingList north={isNorth} />
+            </Suspense>
           </TabsContent>
           <TabsContent value="pricing">
-            <PricingTable />
+            <Suspense fallback={loader}>
+              <PricingTable />
+            </Suspense>
           </TabsContent>
           <TabsContent value="manualAdjustment">
-            <ManualAdjustmentTable />
+            <Suspense fallback={loader}>
+              <ManualAdjustmentTable />
+            </Suspense>
           </TabsContent>
           <TabsContent value="text">
-            <SiteText />
+            <Suspense fallback={loader}>
+              <SiteText />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </AuthenticatedPage>

@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     verifyToken(request.headers)
 
     const form = await request.formData();
-    const uploadDir = path.join(process.cwd(), 'public');
+    const uploadDir = path.join(process.cwd(), 'uploads');
 
     const file = form.get('file')
     if (!file) {
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await (file as any).arrayBuffer())
     const fileName = (file as any).name.replaceAll(" ", '-');
 
-    await writeFile(path.join(process.cwd(), 'public/' + fileName), buffer)
+    await writeFile(path.join(process.cwd(), 'uploads/' + fileName), buffer)
 
     return NextResponse.json({ message: 'File uploaded successfully', fileName });
   } catch (error) {
