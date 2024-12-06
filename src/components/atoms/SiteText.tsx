@@ -12,6 +12,7 @@ import useGetImages, { getImagesQueryKey } from "~/hooks/useGetImages";
 import { cn } from "~/lib/utils";
 import { getHeaders } from "~/utils/utils";
 import SafeImage from "../widgets/SafeImage";
+import Image from "next/image";
 
 type TextMap = { [key: string]: string | string[]; }
 
@@ -212,7 +213,7 @@ export default function SiteText() {
               onClick={handleImageClick(image)}
             >
               <div className="aspect-w-3 aspect-h-2">
-                <SafeImage
+                <Image
                   src={image}
                   alt={image}
                   width={200}
