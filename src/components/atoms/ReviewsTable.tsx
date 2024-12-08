@@ -25,7 +25,6 @@ export default function ReviewsTable() {
   }
 
   const handleApproveReview = async (id: number) => {
-    console.log('test')
     try {
       await modifyReview(id, 'approve')
       queryClient.invalidateQueries({ queryKey: getReviewsQueryKey() })
