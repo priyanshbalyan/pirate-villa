@@ -28,26 +28,6 @@ export default function VillaPage({ north }: { north: boolean }) {
 
 	const key = !!north ? 'north_villa_page_' : 'south_villa_page_'
 
-	const testimonialsHome = {
-		id: 'testimonials-on-home',
-		hasBackground: true,
-		header: {
-			title: 'What our guests say about us',
-			subtitle:
-				'',
-		},
-		testimonials: tArray(`${key}testimonial_header_name`).map((text, index) => ({
-			name: text,
-			job: tArray(`${key}testimonial_header_subtitle`)[index],
-			testimonial: tArray(`${key}testimonial_message`)[index],
-			image: {
-				src: tArray(`${key}testimonial_image`)[index],
-				alt: text
-			},
-			href: '/'
-		}))
-	};
-
 	return (
 		<>
 			<div className="flex flex-col md:flex-row h-fit md:h-[842px]">
@@ -178,7 +158,7 @@ export default function VillaPage({ north }: { north: boolean }) {
 
 			<Marquee />
 			<div className="bg-[url('/scene.jpg')] bg-cover w-full" id="testimonials">
-				<Testimonials {...testimonialsHome} />
+				<Testimonials north={north} />
 			</div>
 			<div className='flex flex-col md:flex-row'>
 				<div className='w-full md:w-1/2 flex items-center justify-center flex-col'>

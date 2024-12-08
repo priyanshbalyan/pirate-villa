@@ -61,7 +61,7 @@ const ItemGrid = ({
               <SafeImage
                 src={image as string}
                 alt={title as string}
-                className="h-[312px] transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
+                className="h-[312px] w-full transition-transform duration-300 ease-in-out group-hover:scale-110 object-cover shadow-lg bg-gray-400 dark:bg-slate-700"
                 // placeholder="blur"
                 width={312}
                 height={312}

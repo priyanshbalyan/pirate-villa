@@ -15,6 +15,7 @@ import ManualAdjustmentTable from '~/components/atoms/ManualAdjustmentTable';
 import SiteText from '~/components/atoms/SiteText';
 import { Suspense } from 'react';
 import { LoaderCircle } from 'lucide-react';
+import ReviewsTable from '~/components/atoms/ReviewsTable';
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -27,7 +28,7 @@ export default function Page({ params, searchParams }: {
 
   const isNorth = !!searchParams && !!searchParams['north']
 
-  const loader = <div className='w-full mx-auto'><LoaderCircle className='animate-spin w-6 h-6' /></div>
+  const loader = <div className='w-full flex items-center justify-center'><LoaderCircle className='animate-spin w-6 h-6' /></div>
 
   return (
     <>
@@ -39,6 +40,7 @@ export default function Page({ params, searchParams }: {
               <TabsTrigger value="pricing" className='w-4/12'>Pricing</TabsTrigger>
               <TabsTrigger value="manualAdjustment" className='w-4/12'>Manual Adjustment</TabsTrigger>
               <TabsTrigger value="text" className='w-4/12'>Site Text</TabsTrigger>
+              <TabsTrigger value="review" className='w-4/12'>Reviews</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="bookings" className=''>
@@ -59,6 +61,11 @@ export default function Page({ params, searchParams }: {
           <TabsContent value="text">
             <Suspense fallback={loader}>
               <SiteText />
+            </Suspense>
+          </TabsContent>
+          <TabsContent value="review">
+            <Suspense fallback={loader}>
+              <ReviewsTable />
             </Suspense>
           </TabsContent>
         </Tabs>

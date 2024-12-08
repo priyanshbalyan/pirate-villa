@@ -18,31 +18,33 @@ async function initializeDatabase() {
 
   // Create `users` table
   await db.exec(`
-      CREATE TABLE IF NOT EXISTS users (
-        email TEXT PRIMARY KEY,
-        password TEXT NOT NULL
-      )
-    `);
+    CREATE TABLE IF NOT EXISTS users (
+      email TEXT PRIMARY KEY,
+      password TEXT NOT NULL
+    )
+  `);
 
   // Create `bookings` table
   await db.exec(`
-      CREATE TABLE IF NOT EXISTS bookings (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        checkInDate TEXT NOT NULL,
-        checkOutDate TEXT NOT NULL,
-        villaType TEXT NOT NULL
-      )
-    `);
+    CREATE TABLE IF NOT EXISTS bookings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      checkInDate TEXT NOT NULL,
+      checkOutDate TEXT NOT NULL,
+      villaType TEXT NOT NULL,
+      transactionId TEXT NOT NULL,
+      createdAt TEXT NOT NULL
+    )
+  `);
 
   await db.exec(`
     CREATE TABLE IF NOT EXISTS pricing (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       startDate TEXT NOT NULL,
       endDate TEXT NOT NULL,
-      nightlyRate REAL NOT NULL,
-      villaType TEXT NOT NULL
+      villaType TEXT NOT NULL,
+      nightlyRate REAL NOT NULL
     );
   `)
 
@@ -50,8 +52,8 @@ async function initializeDatabase() {
     CREATE TABLE IF NOT EXISTS manual_adjustment (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date TEXT NOT NULL,
-      nightlyRate REAL NOT NULL,
-      villaType TEXT NOT NULL
+      villaType TEXT NOT NULL,
+      nightlyRate REAL NOT NULL
     );
   `)
 
@@ -60,6 +62,19 @@ async function initializeDatabase() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       text_key TEXT NOT NULL,
       content TEXT NOT NULL
+    );
+  `);
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL,
+      villaType TEXT NOT NULL,
+      isApproved BOOLEAN NOT NULL,
+      rating INTEGER NOT NULL,
+      createdAt TEXT NOT NULL
     );
   `);
 

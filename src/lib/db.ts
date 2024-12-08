@@ -28,7 +28,8 @@ async function initializeDatabase(): Promise<void> {
       checkInDate TEXT NOT NULL,
       checkOutDate TEXT NOT NULL,
       villaType TEXT NOT NULL,
-      transactionId TEXT NOT NULL
+      transactionId TEXT NOT NULL,
+      createdAt TEXT NOT NULL
     )
   `);
 
@@ -56,6 +57,19 @@ async function initializeDatabase(): Promise<void> {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       text_key TEXT NOT NULL,
       content TEXT NOT NULL
+    );
+  `);
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL,
+      villaType TEXT NOT NULL,
+      isApproved BOOLEAN NOT NULL,
+      rating INTEGER NOT NULL,
+      createdAt TEXT NOT NULL
     );
   `);
 

@@ -4,6 +4,8 @@ import { Checkbox } from "../ui/checkbox"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~/components/ui/accordion'
 import { ScrollArea } from '~/components/ui/scroll-area'
 import useTranslation from "~/hooks/useTranslation"
+import { cn } from "~/lib/utils"
+import { PlayfairDisplay } from "~/utils/utils"
 
 export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () => void }) {
 	const [agreed, setAgreed] = useState(false)
@@ -11,7 +13,7 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 
 	return (
 		<div className=" mx-auto px-4 pb-8 pt-6 max-h-[90%] ">
-			<h1 className="text-3xl font-bold mb-6 dark:text-black">{t('terms_and_conditions_title')}</h1>
+			<h1 className={cn(PlayfairDisplay.className, "text-3xl font-bold mb-6 dark:text-black")}>{t('terms_and_conditions_title')}</h1>
 			<p className="text-gray-600 mb-6">
 				{t('terms_and_conditions_subtitle')}
 			</p>
@@ -42,6 +44,6 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 			</div>
 
 			<Button className="dark:text-black" disabled={!agreed} onClick={onAcceptClick}>{t('terms_accept_button')}</Button>
-		</div>
+		</div >
 	)
 }

@@ -69,13 +69,14 @@ export async function POST(req: NextRequest) {
     const transactionId = await makePayment(data, total.total)
 
     await db.run(
-      'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType, transactionId) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType, transactionId, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
       name,
       email,
       checkInDate,
       checkOutDate,
       villaType,
-      transactionId
+      transactionId,
+      new Date().toISOString()
     );
 
     if (!isDevEnv) {

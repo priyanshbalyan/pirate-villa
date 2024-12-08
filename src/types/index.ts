@@ -33,3 +33,14 @@ export type Text = {
 }
 
 export type TextMap = { [key: string]: string | string[] }
+
+export type Review = {
+  id: number;
+  name: string;
+  title: string;
+  content: string;
+  isApproved: boolean;
+  createdAt: string;
+  rating: number;
+  villaType: VillaType;
+}
