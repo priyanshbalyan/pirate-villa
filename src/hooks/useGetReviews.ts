@@ -6,6 +6,7 @@ import { getHeaders } from '~/utils/utils';
 async function getReviews(): Promise<Review[]> {
 
   const response = await fetch('/api/reviews', {
+    cache: 'no-store',
     headers: getHeaders(),
   })
   const data = await response.json();

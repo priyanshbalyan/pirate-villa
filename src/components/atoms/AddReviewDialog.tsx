@@ -59,7 +59,7 @@ export function AddReviewDialog({
       setModalOpen(false)
       toast({
         title: "Review Submitted",
-        description: "Thank you for your feedback!",
+        description: "Thank you for your feedback! Your review will be posted after approval.",
       })
       queryClient.invalidateQueries({ queryKey: getReviewsQueryKey() })
     } catch (err) {

@@ -143,10 +143,10 @@ export default function HomePage() {
         </p>
       </div>
       <div className={cn('border-b-[1px] border-line')}>
-        <div className="relative w-full h-[800px] overflow-hidden">
-          <img alt="" src={t('main_page_attraction_bg')} className="w-full h-[800px] absolute left-0 top-0 object-cover" />
+        <div className="relative w-full h-[900px] overflow-hidden">
+          <img alt="" src={t('main_page_attraction_bg')} className="w-full h-[900px] absolute left-0 top-0 object-cover" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-background rounded-3xl px-4 md:px-36 py-24 flex items-center justify-center flex-col w-full max-w-[900px]">
+            <div className="bg-background rounded-3xl px-4 md:px-36 py-12 flex items-center justify-center flex-col w-full max-w-[1200px]">
               <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center ')}>
                 {t('attraction_title_2')}
               </div>
@@ -161,7 +161,7 @@ export default function HomePage() {
       <div className='flex flex-col md:flex-row'>
         <div className='w-full md:w-1/2 flex items-center justify-center flex-col'>
           <SafeImage
-            className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            className="z-10 shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_pirate_villa_contact_us_logo')}
             width={350}
             height={350}
