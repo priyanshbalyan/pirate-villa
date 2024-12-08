@@ -4,6 +4,7 @@ import { cn } from "~/lib/utils"
 import { VillaType } from "~/types"
 import NumberFlow from "@number-flow/react"
 import useTranslation from "~/hooks/useTranslation"
+import CollapseAnimate from "../widgets/CollapseAnimate"
 
 type Props = {
   startDate: Date | null;
@@ -47,13 +48,15 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
           </div>
           <NumberFlow value={totalCalculation?.processingFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
-        {totalCalculation?.extraGuests ? totalCalculation.extraGuests > 0 && <div className="flex justify-between items-center">
-          <div>
-            <span>{t('book_now_extra_guests_fee')}</span>
-            <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation.extraGuests} /> guests @ ${SITE.EXTRA_GUEST_PER_NIGHT_FEE}/night)</p>
-          </div>
-          <NumberFlow value={totalCalculation?.extraGuestsFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
-        </div> : null}
+        <CollapseAnimate>
+          {totalCalculation?.extraGuests ? totalCalculation.extraGuests > 0 && <div className="flex justify-between items-center">
+            <div>
+              <span>{t('book_now_extra_guests_fee')}</span>
+              <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation.extraGuests} /> guests @ ${SITE.EXTRA_GUEST_PER_NIGHT_FEE}/night)</p>
+            </div>
+            <NumberFlow value={totalCalculation?.extraGuestsFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
+          </div> : null}
+        </CollapseAnimate>
       </div>
       <div className="w-full flex justify-between items-center">
         <span className="text-lg font-bold">{t('book_now_total')}</span>

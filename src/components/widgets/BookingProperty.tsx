@@ -21,6 +21,7 @@ import NumberFlow from '@number-flow/react';
 import { SITE } from '~/config';
 import PriceBreakdown from '~/components/atoms/PriceBreakdown';
 import useTranslation from '~/hooks/useTranslation';
+import CollapseAnimate from './CollapseAnimate';
 
 type Villa = 'north-villa' | 'south-villa';
 
@@ -174,7 +175,14 @@ export default function BookingProperty({ north }: { north: boolean }) {
                   disabled={!termsRead || loading}
                 >
                   {loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-                  {' '}{t('book_now_pay_button')} {amount && <NumberFlow value={amount} format={{ style: 'currency', currency: 'USD' }} />}
+                  <div>{' '}</div>
+                  <div>
+                    {t('book_now_pay_button')}
+                  </div>
+                  <div>{' '}</div>
+                  <CollapseAnimate>
+                    <NumberFlow value={amount ?? 0} format={{ style: 'currency', currency: 'USD' }} />
+                  </CollapseAnimate>
                 </Button>
               </div>
             </div>
