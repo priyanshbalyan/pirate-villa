@@ -84,11 +84,14 @@ const ItemGrid = ({
         <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
           <div className="flex min-h-full items-center justify-center">
             <DialogPanel className="max-w-lg space-y-4">
-              <SafeImage
+              <Image
                 src={selectedImage}
                 alt={'Full screen'}
                 placeholder="blur"
+                width={1000}
+                height={1000}
                 className="min-h-full min-w-full  object-cover"
+                blurDataURL='/bgpic.png'
               />
             </DialogPanel>
           </div>

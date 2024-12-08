@@ -3,6 +3,8 @@ import path from 'path';
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '~/lib/auth';
 
+export const dynamic = 'force-dynamic'
+
 function getPublicImageUrls(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 

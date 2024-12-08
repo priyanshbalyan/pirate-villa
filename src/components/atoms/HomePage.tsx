@@ -14,7 +14,7 @@ import Marquee from '~/components/widgets/Marquee';
 import Link from 'next/link';
 import BookingYourStayButton from '~/components/widgets/BookYourStayButton';
 import PhotoWidget from '~/components/widgets/PhotoWidget';
-import { PlayfairDisplay } from '~/utils/utils';
+import { Nexa, PlayfairDisplay } from '~/utils/utils';
 import SafeImage from '~/components/widgets/SafeImage';
 
 import useTranslation from "~/hooks/useTranslation";
@@ -53,7 +53,7 @@ export default function HomePage() {
           <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>{t('north_villa_title_1')}</span>
           <span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t('north_villa_subtitle_1')}</span>
           <Link href="/villa?north=true">
-            <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-10">{t('north_villa_button_1')}</Button>
+            <Button className={cn("bg-primary rounded-full px-10 py-6 mt-4 mb-10")}>{t('north_villa_button_1')}</Button>
           </Link>
         </div>
       </div>

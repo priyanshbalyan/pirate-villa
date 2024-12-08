@@ -12,14 +12,18 @@ import {
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import useTranslation from "~/hooks/useTranslation";
 import SafeImage from "./SafeImage";
+import { cn } from "~/lib/utils";
+import { PlayfairDisplay } from "~/utils/utils";
 
 const DialogContent = ({ selectedImage, onClose }: { selectedImage: string | null, onClose: () => void }) => {
-  return <div>
+  return <div className="max-w-[100%]">
     <SafeImage
       src={selectedImage!}
       alt={'Full screen'}
       className="object-cover"
       quality={100}
+      width={1000}
+      height={1000}
     />
   </div>
 }
@@ -90,7 +94,7 @@ export function CarouselWidget({ north }: { north: boolean }) {
                 />
                 <div className="ml-[10px] mr-[10px] rounded-lg absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 ease-in-out" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                  <h2 className="text-lg font-semibold">{tArray(north ? 'main_page_north_villa_carousel_titles' : 'main_page_south_villa_carousel_titles')[index]}</h2>
+                  <h2 className={cn(PlayfairDisplay.className, "text-lg font-semibold")}>{tArray(north ? 'main_page_north_villa_carousel_titles' : 'main_page_south_villa_carousel_titles')[index]}</h2>
                 </div>
               </div>
             </CarouselItem>

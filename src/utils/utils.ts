@@ -5,6 +5,7 @@ import { SITE } from "~/config";
 import { Text, TextMap } from "~/types";
 
 export const PlayfairDisplay = localFont({ src: '../../public/PlayfairDisplay-Regular.ttf' })
+export const Nexa = localFont({ src: '../../public/Nexa-Heavy.ttf' })
 
 export function toStartCase(str: string) {
   if (!str) return '';

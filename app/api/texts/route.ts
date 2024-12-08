@@ -3,6 +3,8 @@ import { openDb } from '~/lib/db';
 import { Text } from '~/types';
 import { getTextMap } from '~/utils/utils';
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: Request) {
   try {
     const db = await openDb();

@@ -7,7 +7,7 @@ import { LoaderCircle, Star, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { useGetReviews } from '~/hooks/useGetReviews';
 import useTranslation from '~/hooks/useTranslation';
-import { format, parse, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { Button } from '~/components/ui/button';
 import { useState } from 'react';
 import { AddReviewDialog } from '~/components/atoms/AddReviewDialog';
@@ -21,6 +21,20 @@ const Testimonials = ({ north }: { north: boolean }) => {
     const currentProperty = north ? 'north' : 'south'
     return review.isApproved && review.villaType === currentProperty
   }) ?? []
+
+
+  const getRandomImage = () => {
+    const images = [
+      "https://images.unsplash.com/photo-1619734086067-24bf8889ea7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+      "https://images.unsplash.com/photo-1565049786474-1dea82a8b995?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+      "https://images.unsplash.com/photo-1659057106920-da022cfbc0cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+      "https://images.unsplash.com/photo-1572417884940-c24659be6068?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+      "https://images.unsplash.com/photo-1694287877106-ee22f764aef1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+      "https://images.unsplash.com/photo-1665984867752-6370ab5ae35e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+    ]
+    const index = Math.floor(Math.random() * images.length)
+    return index < images.length ? images[index] : images[0];
+  }
 
   return (
     <WidgetWrapper id={''} containerClass="">
@@ -49,7 +63,7 @@ const Testimonials = ({ north }: { north: boolean }) => {
                   <p className="text-gray-600 mb-4">{content}</p>
                   <div className="flex items-center">
                     <Avatar className="h-10 w-10 mr-3">
-                      <AvatarImage src={name} alt={name} />
+                      <AvatarImage src={getRandomImage()} alt={name} />
                       <AvatarFallback>
                         <User className="h-6 w-6" />
                       </AvatarFallback>
@@ -65,7 +79,7 @@ const Testimonials = ({ north }: { north: boolean }) => {
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        <Button className="text-md rounded-full h-12 uppercase text-site" onClick={() => setModalOpen(true)}>{approvedReviews.length === 0 && !isLoading ? 'No reviews yet. Leave a review!' : 'Add Your Review'}</Button>
+        <Button className="text-md rounded-full h-12 text-site" onClick={() => setModalOpen(true)}>{approvedReviews.length === 0 && !isLoading ? t('no_reviews_yet_leave_a_review') : t('add_your_review')}</Button>
       </div>
       <AddReviewDialog modalOpen={modalOpen} setModalOpen={setModalOpen} north={north} />
     </WidgetWrapper>

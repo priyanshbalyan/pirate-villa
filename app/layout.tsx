@@ -9,6 +9,7 @@ import Footer2 from '~/components/widgets/Footer2';
 import { Inter as CustomFont } from 'next/font/google';
 import '~/assets/styles/base.css';
 import { cn } from '~/lib/utils';
+import { Nexa } from '~/utils/utils';
 
 const customFont = CustomFont({ subsets: ['latin'], variable: '--font-custom' });
 
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={cn(
-        "tracking-tight antialiased backdrop-blur-lg bg-background text-secondary",
+        "tracking-tight antialiased backdrop-blur-lg bg-background text-secondary"
       )}>
         <Providers>
           <Header />

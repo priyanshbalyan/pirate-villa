@@ -84,7 +84,6 @@
     "Minimum age limit of renters",
     "No pets allowed"
   ],
-  "feature_1_subtitle": "",
   "book_now": "Book Now",
   "book_now_select_date_label": "Select booking date:",
   "book_now_name_label": "Name:",
@@ -452,5 +451,19 @@
   "header_south_villa_title": "South Villa",
   "header_north_villa_subtitle": "Welcome to Pirate's Landing Villa North, your perfect Caribbean Getaway",
   "header_south_villa_subtitle": "Welcome to Pirate's Landing Villa South, your perfect Caribbean Getaway",
-  "header_logo": "/pirate-villa-logo.png"
+  "header_logo": "/pirate-villa-logo.png",
+  "no_reviews_yet_leave_a_review": "No reviews yet. Leave a review!",
+  "add_your_review": "Add Your Review",
+  "review_submitted_toast_title": "Review Submitted",
+  "review_submitted_toast_description": "Thank you for your feedback! Your review will be posted after approval.",
+  "write_a_review": "Write a Review",
+  "add_review_your_rating": "Your Rating",
+  "add_review_your_name": "Your Name",
+  "add_review_name_placeholder": "Name / Email",
+  "add_review_review_title": "Review Title",
+  "add_review_title_placeholder": "Summarize your experience",
+  "add_review_your_review": "Your Review",
+  "add_review_review_placeholder": "Tell us about your experience...",
+  "add_review_submit_review": "Submit Review ",
+  "add_review_review_footer": "Your review helps others make better decisions about our products/services."
 }
