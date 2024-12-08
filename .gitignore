@@ -47,3 +47,5 @@ public/sitemap-0.xml
 public/robots.txt
 
 .react-email
+
+uploads/*

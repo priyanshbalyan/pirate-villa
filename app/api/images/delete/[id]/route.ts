@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '~/lib/auth';
-import { openDb } from '~/lib/db';
+import fs from 'fs/promises'
+import path from 'path';
 
 interface Params {
   id: string;
@@ -11,16 +12,17 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
 
   try {
     verifyToken(req.headers)
-    const db = await openDb()
-    const result = await db.run('DELETE FROM bookings WHERE id = ?', [id]);
 
-    if (result.changes === 0) {
-      return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
-    }
+    const sanitizedFileName = id.replace(/[^a-zA-Z0-9.\-_]/g, '-');
 
-    return NextResponse.json({ message: `Booking with ID ${id} deleted successfully` }, { status: 200 });
+    // Ensure the file path is safe
+    const filePath = path.resolve('./uploads', sanitizedFileName);
+
+    await fs.unlink(filePath)
+
+    return NextResponse.json({ message: `Image with url ${id} deleted successfully` }, { status: 200 });
   } catch (error) {
-    console.error('Error deleting booking:', error);
+    console.error('Error deleting image:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

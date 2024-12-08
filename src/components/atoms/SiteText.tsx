@@ -18,6 +18,7 @@ import {
   ResizablePanelGroup,
 } from "~/components/ui/resizable"
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { deleteImage } from "~/hooks/useDeleteImage";
 
 
 type TextMap = { [key: string]: string | string[]; }
@@ -157,6 +158,16 @@ export default function SiteText() {
     }
   }
 
+  const handleImageDelete = async (image: string) => {
+    try {
+      await deleteImage(image)
+      toast({ title: 'Image deleted.' })
+      queryClient.invalidateQueries({ queryKey: getImagesQueryKey() })
+    } catch (err) {
+      toast({ title: 'An error occured' })
+    }
+  }
+
   const detectKeyChanges = useMemo(() => Object.keys(getDifferences(texts, textState)).length > 0, [texts, textState])
 
   if (isLoading) return <LoaderCircle className="animate-spin w-full flex items-center justify-center" />
@@ -221,10 +232,10 @@ export default function SiteText() {
         <ResizablePanel defaultSize={30}>
           <div className="px-4 mt-12">
             <div className="max-h-[600px] overflow-y-scroll">
-              <div className="grid grid-cols-4 gap-2">
+              <div className="gap-2">
                 {images?.map((image, index) => (<div
                   key={index}
-                  className="relative overflow-hidden rounded-lg shadow-lg group"
+                  className="relative overflow-hidden rounded-lg shadow-lg group inline-block"
                   onClick={handleImageClick(image)}
                 >
                   <div className="aspect-w-3 aspect-h-2">
@@ -242,7 +253,7 @@ export default function SiteText() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => { }}
+                      onClick={() => handleImageDelete(image)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -256,9 +267,9 @@ export default function SiteText() {
               </div>
             </div>
             <form onSubmit={handleUpload} className="mt-4">
-              <div className="flex gap-2">
-                <Input className="border-[1px] border-primary" type="file" accept="image/*" onChange={handleFileChange} />
-                <Button type="submit">Upload File</Button>
+              <div className="">
+                <Input className="border-[1px] border-primary" placeholder="Upload image" type="file" accept="image/*" onChange={handleFileChange} />
+                <Button className="mt-4 inline-block" type="submit">Upload Image</Button>
               </div>
             </form>
           </div>

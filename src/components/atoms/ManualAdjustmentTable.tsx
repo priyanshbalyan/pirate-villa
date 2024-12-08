@@ -30,7 +30,7 @@ export default function ManualAdjustmentTable() {
       <div className="container mx-auto p-4">
         <div className="w-full flex items-center justify-between">
           <h1 className="text-2xl font-bold mb-4">Manual Price Adjustments</h1>
-          <Button variant="outline" onClick={() => setManualAdjustmentModalOpen(true)}>Add new manual price adjustment</Button>
+          <Button className='bg-primary' onClick={() => setManualAdjustmentModalOpen(true)}>Add new manual price adjustment</Button>
         </div>
         <p>Adjust price for any day. Note that this will override any existing pricing range</p>
         <Table>

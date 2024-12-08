@@ -17,6 +17,7 @@ const SafeImage = ({ fallbackSrc = '/bgpic.jpeg', src, ...rest }: ImageProps & {
     <Image
       onError={handleError}
       blurDataURL={fallbackSrc}
+      placeholder='blur'
       src={imageSrc}
       {...rest}
     />
