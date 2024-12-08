@@ -52,7 +52,7 @@ export default function ReviewsTable() {
     <Table>
       {reviews.length > 0 && <TableHeader>
         <TableRow>
-          <TableHead className="w-[20%]">Email</TableHead>
+          <TableHead className="w-[20%]">Name</TableHead>
           <TableHead className="w-[30%]">Title</TableHead>
           <TableHead className="w-[30%]">Review</TableHead>
           <TableHead className="w-[10%]">Property</TableHead>
