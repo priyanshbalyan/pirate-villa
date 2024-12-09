@@ -2,11 +2,11 @@
 
 import type { ItemGrid as ItemGridType } from '~/shared/types';
 import Image from 'next/image';
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '~/lib/utils';
 import { PlayfairDisplay } from '~/utils/utils';
 import SafeImage from '../widgets/SafeImage';
+import { Dialog } from '../ui/dialog';
 
 const ItemGrid = ({
   items,
@@ -77,25 +77,16 @@ const ItemGrid = ({
       </div>
 
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)}
-        transition
-        className="fixed inset-0 flex w-screen items-center justify-center  p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
       >
-        <DialogBackdrop className="fixed inset-0 bg-black/40" />
-        <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
-          <div className="flex min-h-full items-center justify-center">
-            <DialogPanel className="max-w-lg space-y-4">
-              <Image
-                src={selectedImage}
-                alt={'Full screen'}
-                placeholder="blur"
-                width={1000}
-                height={1000}
-                className="min-h-full min-w-full  object-cover"
-                blurDataURL='/bgpic.png'
-              />
-            </DialogPanel>
-          </div>
-        </div>
+        <Image
+          src={selectedImage}
+          alt={'Full screen'}
+          placeholder="blur"
+          width={1000}
+          height={1000}
+          className="min-h-full min-w-full  object-cover"
+          blurDataURL='/bgpic.png'
+        />
       </Dialog>
     </div>
   );

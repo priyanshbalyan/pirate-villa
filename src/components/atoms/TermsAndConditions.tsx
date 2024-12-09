@@ -6,13 +6,14 @@ import { ScrollArea } from '~/components/ui/scroll-area'
 import useTranslation from "~/hooks/useTranslation"
 import { cn } from "~/lib/utils"
 import { PlayfairDisplay } from "~/utils/utils"
+import { Card } from "../ui/card"
 
 export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () => void }) {
 	const [agreed, setAgreed] = useState(false)
 	const { t, tArray } = useTranslation()
 
 	return (
-		<div className=" mx-auto px-4 pb-8 pt-6 max-h-[90%] ">
+		<Card className=" mx-auto px-8 pb-8 pt-6 max-h-[90%] ">
 			<h1 className={cn(PlayfairDisplay.className, "text-3xl font-bold mb-6 dark:text-black")}>{t('terms_and_conditions_title')}</h1>
 			<p className="text-gray-600 mb-6">
 				{t('terms_and_conditions_subtitle')}
@@ -44,6 +45,6 @@ export default function RentalAgreement({ onAcceptClick }: { onAcceptClick: () =
 			</div>
 
 			<Button className="dark:text-black" disabled={!agreed} onClick={onAcceptClick}>{t('terms_accept_button')}</Button>
-		</div >
+		</Card>
 	)
 }

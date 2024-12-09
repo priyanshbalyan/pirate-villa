@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import * as React from "react"
 
 import {
@@ -9,11 +8,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel"
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import useTranslation from "~/hooks/useTranslation";
 import SafeImage from "./SafeImage";
 import { cn } from "~/lib/utils";
 import { PlayfairDisplay } from "~/utils/utils";
+import { Dialog } from "../ui/dialog";
 
 const DialogContent = ({ selectedImage, onClose }: { selectedImage: string | null, onClose: () => void }) => {
   return <div className="max-w-[100%]">
@@ -106,17 +105,8 @@ export function CarouselWidget({ north }: { north: boolean }) {
 
 
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)}
-        transition
-        className="fixed inset-0 flex w-screen items-center justify-center  p-4 transition duration-300 ease-out data-[closed]:opacity-0 z-[90]"
       >
-        <DialogBackdrop className="fixed inset-0 bg-black/40" />
-        <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
-          <div className="flex min-h-full items-center justify-center">
-            <DialogPanel className="max-w-lg space-y-4">
-              <DialogContent selectedImage={selectedImage} onClose={handleClose} />
-            </DialogPanel>
-          </div>
-        </div>
+        <DialogContent selectedImage={selectedImage} onClose={handleClose} />
       </Dialog>
 
     </div>
