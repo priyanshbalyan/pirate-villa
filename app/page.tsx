@@ -4,6 +4,7 @@ import { SITE } from '~/config.js';
 import HomePage from '~/components/atoms/HomePage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { getTextsQueryKey } from '~/hooks/useGetTexts';
+import { getDisabledDatesQueryKey } from '~/hooks/useGetDisabledDates';
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({ queryKey: getTextsQueryKey() })
+  await Promise.all([
+    queryClient.prefetchQuery({ queryKey: getTextsQueryKey() }),
+    queryClient.prefetchQuery({ queryKey: getDisabledDatesQueryKey(true) }),
+    queryClient.prefetchQuery({ queryKey: getDisabledDatesQueryKey(false) }),
+  ])
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

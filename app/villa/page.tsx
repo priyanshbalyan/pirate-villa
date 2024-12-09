@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import VillaPage from '~/components/atoms/VillaPage';
 
 import { SITE } from '~/config.js';
+import { getDisabledDatesQueryKey } from '~/hooks/useGetDisabledDates';
+import { getReviewsQueryKey } from '~/hooks/useGetReviews';
 import { getTextsQueryKey } from '~/hooks/useGetTexts';
 
 export const metadata: Metadata = {
@@ -17,7 +19,11 @@ export default async function Page({ params, searchParams }: {
 	const isNorth = !!searchParams && !!searchParams['north']
 
 	const queryClient = new QueryClient()
-	await queryClient.prefetchQuery({ queryKey: getTextsQueryKey() })
+	await Promise.all([
+		queryClient.prefetchQuery({ queryKey: getTextsQueryKey() }),
+		queryClient.prefetchQuery({ queryKey: getDisabledDatesQueryKey(isNorth) }),
+		queryClient.prefetchQuery({ queryKey: getReviewsQueryKey() })
+	])
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>

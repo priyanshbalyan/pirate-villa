@@ -93,8 +93,8 @@ const Header = () => {
         >
           <div className="flex w-full items-center justify-between md:w-auto">
             {pathname === '/' && <>
-              <a href="#northvilla" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
-              <a href="#southvilla" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
+              <a href="/villa?north=true" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
+              <a href="/villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
               <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }

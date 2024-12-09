@@ -181,8 +181,8 @@ export default function VillaPage({ north }: { north: boolean }) {
 					<p className="mt-4 text-[13px]">{t('contact_number')}</p>
 				</div>
 				<div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[750px] px-8 md:px-0" id="contactus">
-					<span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>{t('contact_us_title')}</span>
-					<p className="text-center">{t('contact_us_subtitle')}</p>
+					<span className={cn(PlayfairDisplay.className, 'uppercase text-4xl mb-4 text-center')}>{t('contact_us_title')}</span>
+					<p className="text-center text-[13px]">{t('contact_us_subtitle')}</p>
 					<GetInTouch className='flex w-full mt-8 max-w-lg' />
 				</div>
 			</div>
