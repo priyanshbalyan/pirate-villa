@@ -18,7 +18,7 @@ import {
 import Link from 'next/link';
 import BookingProperty from '~/components/widgets/BookingProperty';
 import GetInTouch from '~/components/widgets/GetInTouch';
-import { PlayfairDisplay } from '~/utils/utils';
+import { Nexa, PlayfairDisplay } from '~/utils/utils';
 import SafeImage from '../widgets/SafeImage';
 import useTranslation from '~/hooks/useTranslation';
 
@@ -27,6 +27,21 @@ export default function VillaPage({ north }: { north: boolean }) {
 	const villaText = north ? 'North' : 'South'
 
 	const key = !!north ? 'north_villa_page_' : 'south_villa_page_'
+
+	const customFixText = (text: string) => {
+		const regex = /(\d+)/g; // Regular expression to match numbers
+		const parts = text.split(regex);
+		return parts.map((part, index) => {
+			if (/\d+/.test(part)) {
+				return (
+					<span key={index} className='inline-block relative top-[-6px]'>
+						{part}
+					</span>
+				);
+			}
+			return part;
+		});
+	}
 
 	return (
 		<>
@@ -63,9 +78,9 @@ export default function VillaPage({ north }: { north: boolean }) {
 			</div>
 			<div className="flex flex-col md:flex-row min-h-[750px] lg:h-fit">
 				<div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
-					<span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8 uppercase')}>
-						{t(`${key}title_2`)}
-					</span>
+					<div className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8 uppercase')}>
+						{customFixText(t(`${key}title_2`))}
+					</div>
 					<div className="mt-4 flex flex-col justify-center items-center">
 						{tArray(`${key}subtitle_2_paragraph`).map(text =>
 							<p className='max-w-[90%] text-center text-primary text-[13px] mb-4' key={text}>
