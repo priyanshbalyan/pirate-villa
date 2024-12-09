@@ -19,9 +19,9 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
   const { t } = useTranslation()
 
   return (
-    <div className={cn(" mx-auto", className)}>
+    <div className={cn("text-[13px] mt-8 mx-auto", className)}>
       {t('book_now_price_breakdown_title')}
-      <p className="text-xs">{t('book_now_price_breakdown_subtitle')}</p>
+      <p className="text-xs mb-2 text-gray-700">{t('book_now_price_breakdown_subtitle')}</p>
       <div className="space-y-2">
         <div className="flex justify-between items-center">
           <div>

@@ -67,7 +67,7 @@ const Header = () => {
       )}
       id="header"
     >
-      <div className="mx-auto w-full max-w-7xl md:flex md:justify-between md:py-3.5 md:px-4">
+      <div className="mx-auto w-full max-w-7xl md:flex md:justify-between md:py-2 md:px-4">
         <div
           className={`flex justify-between py-3 px-3 md:py-0 md:px-0 ${isToggleMenuOpen
             ? 'md:bg-transparent md:dark:bg-transparent md:border-none  dark:bg-slate-900 border-b border-gray-200 dark:border-slate-600'
@@ -93,17 +93,17 @@ const Header = () => {
         >
           <div className="flex w-full items-center justify-between md:w-auto">
             {pathname === '/' && <>
-              <a href="#northvilla" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_north_villa')}</a>
-              <a href="#southvilla" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_south_villa')}</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_contact_us')}</a>
+              <a href="#northvilla" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
+              <a href="#southvilla" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
+              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }
             {pathname === '/villa' && <>
-              <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_book_this_villa')}</a>
-              <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_amenities')}</a>
-              <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_faqs')}</a>
-              <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_photos')}</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline">{t('header_contact_us')}</a>
+              <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_book_this_villa')}</a>
+              <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_amenities')}</a>
+              <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_faqs')}</a>
+              <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_photos')}</a>
+              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }
 

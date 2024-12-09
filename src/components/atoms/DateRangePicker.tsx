@@ -9,6 +9,7 @@ import { format, getDate, isBefore, startOfDay } from 'date-fns';
 import { cn } from '~/lib/utils';
 import { useCallback, useMemo } from 'react';
 import { DATE_FORMAT_STRING } from '~/utils/utils';
+import CollapseAnimate from '../widgets/CollapseAnimate';
 
 type Props = {
   handleSelect: (rangesByKey: RangeKeyDict) => void;
@@ -82,24 +83,26 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     )
   }, [disabledDatesSet, datePricingSet])
 
-  if (error) return <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
-
-  if (isLoading) {
-    return <div className="w-full h-[349px] flex items-center justify-center">
+  let component;
+  if (error) {
+    component = <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
+  } else if (isLoading) {
+    component = <div className="w-full h-[349px] flex items-center justify-center">
       <LoaderCircle className="animate-spin" />
     </div>
+  } else {
+    component = (
+      <DateRangePickerComp
+        ranges={[selectionRange]}
+        onChange={handleSelect}
+        minDate={new Date()}
+        disabledDates={disabledDates ?? []}
+        className={classNames}
+        dayContentRenderer={customDateRender}
+      />
+    )
   }
-
-  return (
-    <DateRangePickerComp
-      ranges={[selectionRange]}
-      onChange={handleSelect}
-      minDate={new Date()}
-      disabledDates={disabledDates ?? []}
-      className={classNames}
-      dayContentRenderer={customDateRender}
-    />
-  )
+  return <CollapseAnimate disableDebounce={true}>{component}</CollapseAnimate>
 }
 
 export default DateRangePicker

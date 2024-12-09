@@ -24,12 +24,12 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row h-fit md:h-[842px]" id="northvilla">
+      <div className="flex flex-col md:flex-row h-fit md:h-[750px]" id="northvilla">
         <SafeImage
           className="m-0 p-0 md:w-1/2 w-full shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
           src={t('main_page_north_villa_left_image')}
           width={828}
-          height={842}
+          height={750}
           alt="North villa"
           sizes="(max-width: 768px) 100vw, 432px"
           priority
@@ -39,10 +39,10 @@ export default function HomePage() {
         />
         <div className="md:w-1/2 w-full bg-site flex flex-col items-center justify-center ">
           <SafeImage
-            className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            className="shadow-lg -mt-16 md:mt-0 h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_north_villa_right_circle')}
-            width={350}
-            height={350}
+            width={300}
+            height={300}
             alt="Scenic mountain landscape with a lake in the foreground"
             sizes="(max-width: 768px) 100vw, 432px"
             priority
@@ -50,17 +50,17 @@ export default function HomePage() {
             blurDataURL={northInterior.src}
             placeholder="blur"
           />
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>{t('north_villa_title_1')}</span>
-          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t('north_villa_subtitle_1')}</span>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8')}>{t('north_villa_title_1')}</span>
+          <span className='max-w-[90%] text-center text-primary text-[13px] mt-4'>{t('north_villa_subtitle_1')}</span>
           <Link href="/villa?north=true">
             <Button className={cn("bg-primary rounded-full px-10 py-6 mt-4 mb-10")}>{t('north_villa_button_1')}</Button>
           </Link>
         </div>
       </div>
-      <div className='flex flex-col md:flex-row h-fit md:h-[842px]'>
+      <div className='flex flex-col md:flex-row h-fit md:h-[750px]'>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-r-[0.5px]'>
-          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8')}>{t('north_villa_title_2')}</div>
-          <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-site text-center mt-8')}>{t('north_villa_title_2')}</div>
+          <div className='mx-8 text-center text-site text-[13px] mt-4 mb-4'>
             {t('north_villa_subtitle_2')}
           </div>
           <div className='text-xs uppercase mb-4'>{t('check_availability')}</div>
@@ -79,10 +79,10 @@ export default function HomePage() {
         <CarouselWidget north={true} />
       </div>
 
-      <div className="flex flex-col-reverse md:flex-row h-fit md:h-[842px]" id="southvilla">
+      <div className="flex flex-col-reverse md:flex-row h-fit md:h-[750px]" id="southvilla">
         <div className="w-full md:w-1/2 bg-site flex flex-col items-center justify-center ">
           <SafeImage
-            className="z-10 -mt-16 md:mt-0 shadow-lg h-[150px] w-[150px] md:h-[350px] md:w-[350px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
+            className="z-10 -mt-16 md:mt-0 shadow-lg h-[150px] w-[150px] md:h-[300px] md:w-[300px] rounded-full bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 hover:scale-[1.01] object-cover"
             src={t('main_page_south_villa_left_circle')}
             width={350}
             height={350}
@@ -93,8 +93,8 @@ export default function HomePage() {
             blurDataURL={southPictures[7].image.src}
             placeholder="blur"
           />
-          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-primary max-w-[90%] text-center mt-8')}>{t('south_villa_title_1')}</span>
-          <span className='max-w-[90%] text-center text-primary text-sm mt-4'>{t('south_villa_subtitle_1')}</span>
+          <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8')}>{t('south_villa_title_1')}</span>
+          <span className='max-w-[90%] text-center text-primary text-[13px] mt-4'>{t('south_villa_subtitle_1')}</span>
           <Link href="/villa">
             <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">{t('south_villa_button_1')}</Button>
           </Link>
@@ -103,7 +103,7 @@ export default function HomePage() {
           className="m-0 p-0 w-full md:w-1/2 shadow-lg bg-gray-400 dark:bg-slate-700 transition-transform ease-in-out duration-300 object-cover"
           src={t('main_page_south_villa_right_image')}
           width={828}
-          height={842}
+          height={750}
           alt="South villa"
           sizes="(max-width: 768px) 100vw, 432px"
           priority
@@ -112,7 +112,7 @@ export default function HomePage() {
           blurDataURL={southExterior.src}
         />
       </div>
-      <div className='flex flex-col-reverse md:flex-row h-fit md:h-[842px]'>
+      <div className='flex flex-col-reverse md:flex-row h-fit md:h-[750px]'>
         <div className="md:w-1/2 w-full flex flex-col justify-center items-center border-r-[0.5px] mt-8">
           <div className='mb-4 md:hidden'>{t('pictures')}</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 md:mb-0">
@@ -120,10 +120,10 @@ export default function HomePage() {
           </div>
         </div>
         <div className='md:w-1/2 w-full flex flex-col items-center justify-center border-[#10100f] border-l-[0.5px]'>
-          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site text-center mt-8 md:mx-4')}>
+          <div className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-site text-center mt-8 md:mx-4')}>
             {t('south_villa_title_2')}
           </div>
-          <div className='mx-8 text-center text-site text-sm mt-4 mb-4'>
+          <div className='mx-8 text-center text-site text-[13px] mt-4 mb-4'>
             {t('south_villa_subtitle_2')}
           </div>
           <div className='text-xs uppercase mb-4'>{t('check_availability')}</div>
@@ -135,22 +135,22 @@ export default function HomePage() {
         <CarouselWidget north={false} />
       </div>
       <div className='flex flex-col justify-center items-center bg-primary border-[1px] border-line py-10'>
-        <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl max-w-lg text-center')}>
+        <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-4xl max-w-lg text-center')}>
           {t('attraction_title_1')}
         </div>
-        <p className={cn('text-site max-w-lg text-center mt-4')}>
+        <p className={cn('text-site max-w-lg text-center text-sm mt-4')}>
           {t('attraction_subtitle_1')}
         </p>
       </div>
       <div className={cn('border-b-[1px] border-line')}>
-        <div className="relative w-full h-[900px] overflow-hidden">
-          <img alt="" src={t('main_page_attraction_bg')} className="w-full h-[900px] absolute left-0 top-0 object-cover" />
+        <div className="relative w-full h-[700px] overflow-hidden">
+          <img alt="main attraction" src={t('main_page_attraction_bg')} className="w-full h-[700px] absolute left-0 top-0 object-cover" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-background rounded-3xl px-4 md:px-36 py-12 flex items-center justify-center flex-col w-full max-w-[1200px]">
-              <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-5xl text-center ')}>
+              <div className={cn(PlayfairDisplay.className, 'text-site uppercase text-4xl text-center ')}>
                 {t('attraction_title_2')}
               </div>
-              <p className={cn('text-site max-w-lg text-center mt-4')}>
+              <p className={cn('text-site max-w-lg text-center text-sm mt-4')}>
                 {t('attraction_subtitle_2')}
               </p>
               <BookingYourStayButton />
@@ -172,13 +172,13 @@ export default function HomePage() {
             blurDataURL={bgPic.src}
           />
           <p className={cn(PlayfairDisplay.className, 'text-3xl mt-8 mb-8')}>{t('contact_property_header')}</p>
-          <p>{t('contact_address')}</p>
-          <p className="mt-4">{t('contact_email')}</p>
-          <p className="mt-4">{t('contact_number')}</p>
+          <p className='text-[13px]'>{t('contact_address')}</p>
+          <p className="mt-4 text-[13px]">{t('contact_email')}</p>
+          <p className="mt-4 text-[13px]">{t('contact_number')}</p>
         </div>
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[842px] px-8 md:px-0" id="contactus">
-          <span className={cn(PlayfairDisplay.className, 'uppercase text-5xl mb-4 text-center')}>{t('contact_us_title')}</span>
-          <p className="text-center">{t('contact_us_subtitle')}</p>
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center h-[750px] px-8 md:px-0" id="contactus">
+          <span className={cn(PlayfairDisplay.className, 'uppercase text-4xl mb-4 text-center')}>{t('contact_us_title')}</span>
+          <p className="text-center text-[13px]">{t('contact_us_subtitle')}</p>
           <GetInTouch className='flex w-full mt-8 max-w-lg' />
         </div>
       </div>

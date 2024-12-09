@@ -38,8 +38,8 @@ const Testimonials = ({ north }: { north: boolean }) => {
 
   return (
     <WidgetWrapper id={''} containerClass="">
-      <Headline header={{ title: 'What our guests say about us' }} titleClass={cn(PlayfairDisplay.className, "uppercase text-3xl md:text-5xl text-background drop-shadow-2xl",
-        "drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+      <Headline header={{ title: 'What our guests say about us' }} titleClass={cn(PlayfairDisplay.className, "uppercase text-3xl md:text-4xl text-background drop-shadow-2xl",
+        // "drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
       )} />
       <div className="flex items-stretch justify-center w-full">
         {isLoading && <div><LoaderCircle className='animate-spin text-white' /></div>}

@@ -71,7 +71,7 @@ export function PaymentDialog({
       <div className="fixed inset-0 w-screen overflow-y-auto h-screen p-4 backdrop-blur-lg" style={{ top: scrollY }}>
         <div className="flex min-h-full items-center justify-center">
           <DialogPanel className="max-w-lg space-y-4">
-            <Card className='rounded-lg bg-primary text-site backdrop-blur-lg px-4'>
+            <Card className='rounded-lg  text-site backdrop-blur-lg px-4'>
               <CardContent className='mt-10'>
                 <CreditCardPaymentForm
                   creditCardData={creditCardData}

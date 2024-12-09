@@ -19,6 +19,7 @@ import addPrice from '~/hooks/useAddPrice'
 import { useQueryClient } from '@tanstack/react-query'
 import { getPricingQueryKey } from '~/hooks/useGetPricing'
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
+import CollapseAnimate from '../widgets/CollapseAnimate'
 
 export default function PricingAddForm({ setModalOpen }: { setModalOpen: Dispatch<SetStateAction<boolean>> }) {
   const [amount, setAmount] = useState('')

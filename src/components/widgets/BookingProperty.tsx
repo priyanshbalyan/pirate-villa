@@ -124,14 +124,14 @@ export default function BookingProperty({ north }: { north: boolean }) {
 
   return (
     <div className="w-full bg-background flex flex-col items-center justify-center px-4 md:px-20 text-site py-4 md:py-16  border-b-site border-[1px]">
-      <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-5xl text-site max-w-[90%] text-center mt-8 uppercase')}>
+      <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-site max-w-[90%] text-center mt-8 uppercase')}>
         {t('book_now')}
       </span>
       <div className="w-full mt-8">
         <div className='mb-4'>
           <div className="flex flex-col md:flex-row gap-0 md:gap-16">
             <div className="rounded-md w-full md:w-1/2">
-              <Label className='mt-0 px-8 md:px-0'>{t('book_now_select_date_label')}</Label>
+              <Label className='mt-0 px-8 md:px-0 text-[13px]'>{t('book_now_select_date_label')}</Label>
               <DateRangePicker
                 handleSelect={handleDateSelect}
                 startDate={startDate}
@@ -141,24 +141,24 @@ export default function BookingProperty({ north }: { north: boolean }) {
               {errors.date && <p className="text-xs text-red-500 px-8 md:px-0">{errors.date}</p>}
             </div>
             <div className="w-full md:w-1/2">
-              <Label className="mb-2 mt-4 ">{t('book_now_name_label')}</Label>
+              <Label className="mb-2 mt-4 text-[13px]">{t('book_now_name_label')}</Label>
               <div className="mb-4">
-                <Input name="name" id="name" className='w-full' placeholder={t('book_now_name_placeholder')} value={name} onChange={(e) => setName(e.target.value)} />
+                <Input name="name" id="name" className='w-full text-[13px]' placeholder={t('book_now_name_placeholder')} value={name} onChange={(e) => setName(e.target.value)} />
                 {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
               </div>
-              <Label className="mb-2 mt-4">{t('book_now_email_label')}</Label>
+              <Label className="mb-2 mt-4 text-[13px]">{t('book_now_email_label')}</Label>
               <div className="mb-4">
-                <Input name="email" id="email" className='' placeholder={t('book_now_email_placeholder')} value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input name="email" id="email" className='text-[13px]' placeholder={t('book_now_email_placeholder')} value={email} onChange={(e) => setEmail(e.target.value)} />
                 {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
               </div>
-              <Label className="mb-2 mt-4">{t('book_now_number_of_guests_label')}</Label>
+              <Label className="mb-2 mt-4 text-[13px]">{t('book_now_number_of_guests_label')}</Label>
               <div className="mb-4">
-                <Input name="guests" id="guests" className='' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
+                <Input name="guests" id="guests" className='text-[13px]' placeholder='Guests' type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value as unknown as number)} />
                 {errors.guests && <p className="text-xs text-red-500">{errors.guests}</p>}
               </div>
-              <div className="flex items-center gap-4 mb-2 mt-4" onClick={() => setModalOpen(true)}>
+              <div className="flex items-center gap-4 mb-2 mt-4 text-[13px]" onClick={() => setModalOpen(true)}>
                 <Checkbox checked={termsRead} />
-                <div className="hover:text-blue-400 cursor-pointer underline">{t('book_now_read_terms')}</div>
+                <div className="hover:text-blue-400 cursor-pointer underline text-[13px]">{t('book_now_read_terms')}</div>
               </div>
               <div className='mt-4'>
                 <PriceBreakdown

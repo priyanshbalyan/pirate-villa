@@ -20,7 +20,7 @@ const Logo = () => {
         width={100}
         height={50}
       />
-      <span className={cn(PlayfairDisplay.className, 'text-lg md:text-4xl ml-4 text-site leading-10 font-light')}>
+      <span className={cn(PlayfairDisplay.className, 'text-lg md:text-3xl ml-4 text-site leading-10 font-light')}>
         <Suspense><LogoText /></Suspense>
       </span>
     </div>

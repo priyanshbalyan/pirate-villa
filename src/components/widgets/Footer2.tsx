@@ -31,10 +31,10 @@ const Footer2 = async () => {
               key={`item-column-${index}`}
               className="col-span-4 sm:col-span-2 md:col-span-2 lg:col-span-1 xl:col-span-1"
             >
-              <div className="mb-2 font-semibold">{title}</div>
+              <div className="mb-2 font-semibold text-[13px]">{title}</div>
               {texts &&
                 texts.map((text, index2) => (
-                  <p key={`item-text-${index2}`} className="">
+                  <p key={`item-text-${index2}`} className="text-[13px]">
                     {text}
                   </p>
                 ))}
@@ -48,7 +48,7 @@ const Footer2 = async () => {
               links.map(({ label, href }, index) => (
                 <li key={`item-link-${index}`}>
                   <a
-                    className="text-site duration-150 ease-in-out placeholder:transition hover:text-gray-700 hover:underline"
+                    className="text-site duration-150 ease-in-out placeholder:transition hover:text-gray-700 hover:underline text-[13px]"
                     aria-label={label}
                     href={href}
                   >

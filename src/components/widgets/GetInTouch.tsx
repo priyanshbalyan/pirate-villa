@@ -75,10 +75,11 @@ export default function GetInTouch({ className }: { className?: string }) {
 
   return <div className={cn(className)}>
     <div className="grid w-full items-center gap-4">
-      <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="name">{t('contact_us_name_label')}</Label>
+      <div className="flex flex-col space-y-1.5 text-[13px]">
+        <Label htmlFor="name" className="text-[13px]">{t('contact_us_name_label')}</Label>
         <Input
           id="name"
+          className="text-[13px]"
           placeholder={t('contact_us_name_placeholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -86,20 +87,22 @@ export default function GetInTouch({ className }: { className?: string }) {
         {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="email">{t('contact_us_email_label')}</Label>
+        <Label htmlFor="email" className="text-[13px]">{t('contact_us_email_label')}</Label>
         <Input
           id="email"
           placeholder={t('contact_us_email_placeholder')}
           type="email"
+          className="text-[13px]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="subject">{t('contact_us_subject_label')}</Label>
+        <Label htmlFor="subject" className="text-[13px]">{t('contact_us_subject_label')}</Label>
         <Input
           id="subject"
+          className="text-[13px]"
           placeholder={t('contact_us_subject_placeholder')}
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
@@ -107,9 +110,10 @@ export default function GetInTouch({ className }: { className?: string }) {
         {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
       </div>
       <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="message">{t('contact_us_message_label')}</Label>
+        <Label htmlFor="message" className="text-[13px]">{t('contact_us_message_label')}</Label>
         <Textarea
           id="message"
+          className="text-[13px]"
           placeholder={t('contact_us_message_placeholder')}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -117,7 +121,7 @@ export default function GetInTouch({ className }: { className?: string }) {
         {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
       </div>
       <div className="flex justify-center">
-        <Button onClick={handleSubmit} className="w-fit py-6 backdrop-blur-lg uppercase  bg-primary border-[2px] rounded-full">
+        <Button onClick={handleSubmit} className="w-fit py-6 backdrop-blur-lg uppercase  bg-primary rounded-full">
           <Send className="mr-2 h-4 w-4" />{' '}{t('contact_us_send_button')}
         </Button>
       </div>
