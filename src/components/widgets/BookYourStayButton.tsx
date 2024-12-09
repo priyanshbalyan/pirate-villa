@@ -10,10 +10,10 @@ export default function BookingYourStayButton() {
 
   return show ? (
     <div className="gap-4 flex">
-      <Link href="/villa?north=true#booknow">
+      <Link href="/north-villa#booknow">
         <Button className='mt-4 rounded-full py-6 px-10'>{t('book_north_villa')}</Button>
       </Link>
-      <Link href="/villa#booknow">
+      <Link href="/south-villa#booknow">
         <Button className='mt-4 rounded-full py-6 px-10'>{t('book_south_villa')}</Button>
       </Link>
     </div>

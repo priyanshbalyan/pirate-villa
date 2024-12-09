@@ -34,7 +34,7 @@ export default function LoginPage() {
 
 			const { token } = await res.json();
 			localStorage.setItem('token', token); // Store token locally
-			router.push('/bookings'); // Redirect to protected page
+			router.push('/admin'); // Redirect to protected page
 		} catch (err: any) {
 			setError(err.message || 'An error occurred');
 		} finally {

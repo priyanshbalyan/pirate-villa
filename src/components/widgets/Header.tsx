@@ -93,12 +93,12 @@ const Header = () => {
         >
           <div className="flex w-full items-center justify-between md:w-auto">
             {pathname === '/' && <>
-              <a href="/villa?north=true" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
-              <a href="/villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
+              <a href="/north-villa" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
+              <a href="/south-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
               <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }
-            {pathname === '/villa' && <>
+            {pathname === '/south-villa' || pathname === '/north-villa' && <>
               <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_book_this_villa')}</a>
               <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_amenities')}</a>
               <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_faqs')}</a>

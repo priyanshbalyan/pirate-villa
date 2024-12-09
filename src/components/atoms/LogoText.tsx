@@ -9,17 +9,22 @@ export default function LogoText() {
   const searchParams = useSearchParams()
 
 
-  if (pathname === '/villa') return !!searchParams.get('north') ? (
-    <>
-      <div>{t('header_north_villa_title')}</div>
-      <div className="text-xs whitespace-pre-wrap">{t('header_north_villa_subtitle')}</div>
-    </>
-  ) : (
-    <>
-      <div>{t('header_south_villa_title')}</div>
-      <div className="text-xs whitespace-pre-wrap">{t('header_south_villa_subtitle')}</div>
-    </>
-  )
+  if (pathname === '/north-villa') {
+    return (
+      <>
+        <div>{t('header_north_villa_title')}</div>
+        <div className="text-xs whitespace-pre-wrap">{t('header_north_villa_subtitle')}</div>
+      </>
+    )
+  }
+  if (pathname === '/south-villa') {
+    return (
+      <>
+        <div>{t('header_south_villa_title')}</div>
+        <div className="text-xs whitespace-pre-wrap">{t('header_south_villa_subtitle')}</div>
+      </>
+    )
+  }
 
   return t('header_main_title')
 }

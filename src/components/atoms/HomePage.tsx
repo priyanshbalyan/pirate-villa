@@ -52,7 +52,7 @@ export default function HomePage() {
           />
           <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8')}>{t('north_villa_title_1')}</span>
           <span className='max-w-[90%] text-center text-primary text-[13px] mt-4'>{t('north_villa_subtitle_1')}</span>
-          <Link href="/villa?north=true">
+          <Link href="/north-villa">
             <Button className={cn("bg-primary rounded-full px-10 py-6 mt-4 mb-10")}>{t('north_villa_button_1')}</Button>
           </Link>
         </div>
@@ -95,7 +95,7 @@ export default function HomePage() {
           />
           <span className={cn(PlayfairDisplay.className, 'text-3xl md:text-4xl text-primary max-w-[90%] text-center mt-8')}>{t('south_villa_title_1')}</span>
           <span className='max-w-[90%] text-center text-primary text-[13px] mt-4'>{t('south_villa_subtitle_1')}</span>
-          <Link href="/villa">
+          <Link href="/south-villa">
             <Button className="bg-primary rounded-full px-10 py-6 mt-4 mb-8">{t('south_villa_button_1')}</Button>
           </Link>
         </div>
