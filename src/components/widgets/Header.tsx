@@ -98,14 +98,15 @@ const Header = () => {
               <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }
-            {pathname === '/south-villa' || pathname === '/north-villa' && <>
+            {(pathname === '/south-villa' || pathname === '/north-villa') && <>
               <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_book_this_villa')}</a>
-              <a href="#amenities" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_amenities')}</a>
               <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_faqs')}</a>
               <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_photos')}</a>
               <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
             </>
             }
+            {pathname === '/north-villa' && <a href="/south-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('view_south_villa')}</a>}
+            {pathname === '/south-villa' && <a href="/north-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('view_north_villa')}</a>}
 
             {/* <ToggleDarkMode /> */}
           </div>
