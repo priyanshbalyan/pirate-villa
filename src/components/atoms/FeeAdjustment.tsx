@@ -25,14 +25,18 @@ export function FeeAdjustment() {
     if (data) {
       setCleaningFee(data.cleaningFee.toString())
       setDefaultPricePerDay(data.defaultPricePerDay.toString())
-      setTaxRate(data.taxRate.toString())
-      setProcessingFeeRate(data.processingFeeRate.toString())
+      setTaxRate((data.taxRate * 100).toString())
+      setProcessingFeeRate((data.processingFeeRate * 100).toString())
       setExtraGuestsPerNightFee(data.extraGuestsPerNightFee.toString())
     }
   }, [data])
 
   const handleChange = (dispatchFn: Dispatch<SetStateAction<string>>) => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.value === '') {
+        dispatchFn(e.target.value)
+        return
+      }
       const num = parseFloat(e.target.value)
       if (Number.isNaN(num) || num < 0) return;
       dispatchFn(e.target.value)
@@ -41,16 +45,18 @@ export function FeeAdjustment() {
 
   const handleUpdate = async () => {
     try {
-      await updateFeeRate({
-        cleaningFee: parseFloat(cleaningFee),
-        defaultPricePerDay: parseFloat(defaultPricePerDay),
-        taxRate: parseFloat(taxRate),
-        processingFeeRate: parseFloat(processingFeeRate),
-        extraGuestsPerNightFee: parseFloat(extraGuestsPerNightFee)
-      })
+      if (cleaningFee && defaultPricePerDay && taxRate && processingFeeRate && extraGuestsPerNightFee) {
+        await updateFeeRate({
+          cleaningFee: parseFloat(cleaningFee),
+          defaultPricePerDay: parseFloat(defaultPricePerDay),
+          taxRate: parseFloat(taxRate) / 100,
+          processingFeeRate: parseFloat(processingFeeRate) / 100,
+          extraGuestsPerNightFee: parseFloat(extraGuestsPerNightFee)
+        })
 
-      queryClient.invalidateQueries({ queryKey: getFeeRatesQueryKey() })
-      toast({ title: 'Rates updated' })
+        queryClient.invalidateQueries({ queryKey: getFeeRatesQueryKey() })
+        toast({ title: 'Rates updated' })
+      }
     } catch (err) {
       toast({ title: 'An error occured' })
     }
