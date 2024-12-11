@@ -34,7 +34,15 @@ async function initializeDatabase() {
       checkOutDate TEXT NOT NULL,
       villaType TEXT NOT NULL,
       transactionId TEXT NOT NULL,
-      createdAt TEXT NOT NULL
+      createdAt TEXT NOT NULL,
+      baseRate NUMERIC NOT NULL,
+      tax NUMERIC NOT NULL,
+      cleaningFee NUMERIC NOT NULL,
+      processingFee NUMERIC NOT NULL,
+      extraGuestsFee NUMERIC NOT NULL,
+      total NUMERIC NOT NULL,
+      extraGuests INTEGER NOT NULL,
+      nights INTEGER NOT NULL
     )
   `);
 
@@ -78,6 +86,14 @@ async function initializeDatabase() {
     );
   `);
 
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS fee_rates (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT UNIQUE NOT NULL,
+      value NUMERIC NOT NULL
+    );
+  `);
+
   console.log('Database initialized');
 }
 
@@ -101,6 +117,21 @@ async function seed() {
       await db.run("UPDATE texts SET content = ? WHERE text_key = ?", [JSON.stringify(textContent), textKey]);
     } else {
       await db.run("INSERT INTO texts (text_key, content) VALUES (?, ?)", [textKey, JSON.stringify(textContent)]);
+    }
+  }
+
+
+  const rates = {
+    cleaningFee: 400,
+    defaultPricePerDay: 995,
+    taxRate: 0.125,
+    processingFeeRate: 0.03,
+    extraGuestsPerNightFee: 25
+  }
+  for (let [title, value] of Object.entries(rates)) {
+    const existingText = await db.get("SELECT title FROM fee_rates WHERE title = ?", [title]);
+    if (!existingText) {
+      await db.run("INSERT INTO fee_rates (title, value) VALUES (?, ?)", [title, value]);
     }
   }
 

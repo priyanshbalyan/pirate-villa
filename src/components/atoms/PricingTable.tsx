@@ -10,6 +10,8 @@ import { format } from 'date-fns'
 import { useQueryClient } from '@tanstack/react-query'
 import { deletePricing } from '~/hooks/useDeletePricing'
 
+import { FeeAdjustment } from './FeeAdjustment'
+
 
 export default function PricingTable() {
   const { data: pricingOptions, isLoading, error } = useGetPricing()
@@ -68,6 +70,7 @@ export default function PricingTable() {
           ))}
         </TableBody>
       </Table>
+      <FeeAdjustment />
       <PricingAddDialog modalOpen={pricingAddModalOpen} setModalOpen={setPricingAddModalOpen} />
     </div>
   )

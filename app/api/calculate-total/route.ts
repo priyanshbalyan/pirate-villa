@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { openDb } from '~/lib/db';
-import { ManualAdjustment, Pricing } from '~/types';
+import { FeeAdjustment, ManualAdjustment, Pricing } from '~/types';
 import { calculateTaxAndFees, getPricing } from '~/lib/price-calculations';
 
 export async function POST(request: NextRequest) {
@@ -14,13 +14,19 @@ export async function POST(request: NextRequest) {
   try {
     const db = await openDb();
 
-    const [pricing, manualAdjustment] = await Promise.all([
+    const [pricing, manualAdjustment, feeRatesData] = await Promise.all([
       db.all<Pricing[]>('SELECT * FROM pricing WHERE villaType = ?', [villaType]),
       db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE villaType = ?', [villaType]),
+      db.all<{ title: string, value: string }[]>('SELECT * FROM fee_rates')
     ])
 
-    const pricings = getPricing(startDate, endDate, pricing, manualAdjustment)
-    const total = calculateTaxAndFees(pricings, guests)
+    const feeAdjustments = feeRatesData.reduce((acc, cur) => {
+      (acc as any)[cur.title] = cur.value;
+      return acc
+    }, {}) as FeeAdjustment
+
+    const pricings = getPricing(startDate, endDate, pricing, manualAdjustment, feeAdjustments)
+    const total = calculateTaxAndFees(pricings, guests, feeAdjustments)
 
     return NextResponse.json(total);
   } catch (error) {

@@ -29,7 +29,15 @@ async function initializeDatabase(): Promise<void> {
       checkOutDate TEXT NOT NULL,
       villaType TEXT NOT NULL,
       transactionId TEXT NOT NULL,
-      createdAt TEXT NOT NULL
+      createdAt TEXT NOT NULL,
+      baseRate NUMERIC NOT NULL,
+      tax NUMERIC NOT NULL,
+      cleaningFee NUMERIC NOT NULL,
+      processingFee NUMERIC NOT NULL,
+      extraGuestsFee NUMERIC NOT NULL,
+      total NUMERIC NOT NULL,
+      extraGuests INTEGER NOT NULL,
+      nights INTEGER NOT NULL
     )
   `);
 
@@ -70,6 +78,14 @@ async function initializeDatabase(): Promise<void> {
       isApproved BOOLEAN NOT NULL,
       rating INTEGER NOT NULL,
       createdAt TEXT NOT NULL
+    );
+  `);
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS fee_rates (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT UNIQUE NOT NULL,
+      value NUMERIC NOT NULL
     );
   `);
 

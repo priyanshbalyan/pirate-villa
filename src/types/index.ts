@@ -24,6 +24,9 @@ export type TotalCalculation = {
   total: number;
   extraGuests: number;
   nights: number;
+  taxRate: number,
+  processingFeeRate: number;
+  extraGuestsPerNightFee: number;
 }
 
 export type Text = {
@@ -43,4 +46,12 @@ export type Review = {
   createdAt: string;
   rating: number;
   villaType: VillaType;
+}
+
+export type FeeAdjustment = {
+  cleaningFee: number;
+  defaultPricePerDay: number;
+  taxRate: number;
+  processingFeeRate: number;
+  extraGuestsPerNightFee: number;
 }

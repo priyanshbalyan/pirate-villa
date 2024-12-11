@@ -33,7 +33,7 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
         <div className="flex justify-between items-center">
           <div>
             <span>{t('book_now_tax')}</span>
-            <p className="text-xs text-muted-foreground">({SITE.TAX_RATE * 100}% on nightly rate)</p>
+            {totalCalculation && <p className="text-xs text-muted-foreground">({totalCalculation?.taxRate * 100}% on nightly rate)</p>}
           </div>
           <NumberFlow value={totalCalculation?.tax ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
@@ -44,7 +44,7 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
         <div className="flex justify-between items-center">
           <div>
             <span>{t('book_now_processing_fee')}</span>
-            <p className="text-xs text-muted-foreground">({SITE.PROCESSING_FEE_RATE * 100}% of subtotal)</p>
+            {totalCalculation && <p className="text-xs text-muted-foreground">({totalCalculation?.processingFeeRate * 100}% of subtotal)</p>}
           </div>
           <NumberFlow value={totalCalculation?.processingFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
@@ -52,7 +52,7 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
           {totalCalculation?.extraGuests ? totalCalculation.extraGuests > 0 && <div className="flex justify-between items-center">
             <div>
               <span>{t('book_now_extra_guests_fee')}</span>
-              <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation.extraGuests} /> guests @ ${SITE.EXTRA_GUEST_PER_NIGHT_FEE}/night)</p>
+              <p className="text-xs text-muted-foreground">(<NumberFlow value={totalCalculation.extraGuests} /> guests @ ${totalCalculation.extraGuestsPerNightFee}/night)</p>
             </div>
             <NumberFlow value={totalCalculation?.extraGuestsFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
           </div> : null}

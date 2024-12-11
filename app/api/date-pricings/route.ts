@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPricing } from '~/lib/price-calculations';
 import { openDb } from '~/lib/db';
-import { ManualAdjustment, Pricing } from '~/types';
+import { FeeAdjustment, ManualAdjustment, Pricing } from '~/types';
 
 export async function POST(request: NextRequest) {
   const { startDate, endDate, villaType } = await request.json();
@@ -11,11 +11,17 @@ export async function POST(request: NextRequest) {
 
   const db = await openDb();
 
-  const [pricing, manualAdjustment] = await Promise.all([
+  const [pricing, manualAdjustment, feeRatesData] = await Promise.all([
     db.all<Pricing[]>('SELECT * FROM pricing WHERE villaType = ?', [villaType]),
     db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE villaType = ?', [villaType]),
+    db.all<{ title: string, value: string }[]>('SELECT * FROM fee_rates')
   ])
 
-  const pricings = getPricing(startDate, endDate, pricing, manualAdjustment)
+  const feeAdjustments = feeRatesData.reduce((acc, cur) => {
+    (acc as any)[cur.title] = cur.value;
+    return acc
+  }, {}) as FeeAdjustment
+
+  const pricings = getPricing(startDate, endDate, pricing, manualAdjustment, feeAdjustments)
   return NextResponse.json(pricings);
 }

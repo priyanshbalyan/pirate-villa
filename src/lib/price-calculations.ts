@@ -1,6 +1,6 @@
 import { parse, eachDayOfInterval, isWithinInterval, format } from "date-fns";
 import { DATE_FORMAT_STRING } from '~/utils/utils';
-import { ManualAdjustment, Pricing, TotalCalculation } from '~/types';
+import { FeeAdjustment, ManualAdjustment, Pricing, TotalCalculation } from '~/types';
 import { SITE } from "~/config";
 
 type PricePerDate = { date: string, price: number }
@@ -9,7 +9,8 @@ export function getPricing(
   startDate: string,
   endDate: string,
   pricingTable: Pricing[],
-  manualAdjustments: ManualAdjustment[]
+  manualAdjustments: ManualAdjustment[],
+  feeRates: FeeAdjustment
 ): PricePerDate[] {
   // Parse start and end dates
   const start = parse(startDate, DATE_FORMAT_STRING, new Date());
@@ -36,7 +37,7 @@ export function getPricing(
         start: parse(range.startDate, DATE_FORMAT_STRING, new Date()),
         end: parse(range.endDate, DATE_FORMAT_STRING, new Date()),
       })
-    )?.nightlyRate ?? SITE.DEFAULT_PRICE_PER_DAY_IN_DOLLARS;
+    )?.nightlyRate ?? feeRates.defaultPricePerDay;
 
     datePrices.push({ date: dateString, price })
   }
@@ -45,20 +46,23 @@ export function getPricing(
 }
 
 // Helper to calculate additional fees
-export const calculateTaxAndFees = (pricesPerDate: PricePerDate[], guests: number): TotalCalculation => {
+export const calculateTaxAndFees = (pricesPerDate: PricePerDate[], guests: number, feeRates: FeeAdjustment): TotalCalculation => {
   const baseRate = pricesPerDate.reduce((acc, pricePerDate) => acc + pricePerDate.price, 0)
   const nights = pricesPerDate.length
 
-  const tax = baseRate * SITE.TAX_RATE; // 12.5% tax on nightly rate only
-  const cleaningFee = SITE.CLEANING_FEE; // flat cleaning fee
-  const processingFee = baseRate * SITE.PROCESSING_FEE_RATE; // 3% processing fee
-  const extraGuestsFee = guests > SITE.GUEST_LIMIT ? (guests - SITE.GUEST_LIMIT) * SITE.EXTRA_GUEST_PER_NIGHT_FEE * nights : 0;
+  const tax = baseRate * feeRates.taxRate
+  const cleaningFee = feeRates.cleaningFee; // flat cleaning fee
+  const processingFee = baseRate * feeRates.processingFeeRate; // 3% processing fee
+  const extraGuestsFee = guests > SITE.GUEST_LIMIT ? (guests - SITE.GUEST_LIMIT) * feeRates.extraGuestsPerNightFee * nights : 0;
 
   return {
     baseRate,
     nights,
     tax,
+    taxRate: feeRates.taxRate,
     cleaningFee,
+    processingFeeRate: feeRates.processingFeeRate,
+    extraGuestsPerNightFee: feeRates.extraGuestsPerNightFee,
     processingFee,
     extraGuestsFee,
     extraGuests: Math.max(0, guests - SITE.GUEST_LIMIT),

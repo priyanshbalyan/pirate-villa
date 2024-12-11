@@ -7,7 +7,7 @@ import { APIContracts, APIControllers } from 'authorizenet';
 import { isDevEnv, validateEmail } from '~/utils/utils';
 import { SITE } from '~/config';
 import { calculateTaxAndFees, getPricing } from '~/lib/price-calculations';
-import { ManualAdjustment, Pricing } from '~/types';
+import { FeeAdjustment, ManualAdjustment, Pricing } from '~/types';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -59,24 +59,54 @@ export async function POST(req: NextRequest) {
 
 
     const db = await openDb();
-    const [pricing, manualAdjustment] = await Promise.all([
+    const [pricing, manualAdjustment, feeRatesData] = await Promise.all([
       db.all<Pricing[]>('SELECT * FROM pricing WHERE villaType = ?', [villaType]),
       db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE villaType = ?', [villaType]),
+      db.all<{ title: string; value: number; }[]>('SELECT * FROM fee_rates')
     ])
 
-    const pricings = getPricing(checkInDate, checkOutDate, pricing, manualAdjustment)
-    const total = calculateTaxAndFees(pricings, guests)
+    const feeAdjustments = feeRatesData.reduce((acc, cur) => {
+      (acc as any)[cur.title] = cur.value;
+      return acc
+    }, {}) as FeeAdjustment
+
+    const pricings = getPricing(checkInDate, checkOutDate, pricing, manualAdjustment, feeAdjustments)
+    const total = calculateTaxAndFees(pricings, guests, feeAdjustments)
     const transactionId = await makePayment(data, total.total)
 
     await db.run(
-      'INSERT INTO bookings (name, email, checkInDate, checkOutDate, villaType, transactionId, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      `INSERT INTO bookings (
+        name, 
+        email, 
+        checkInDate, 
+        checkOutDate, 
+        villaType, 
+        transactionId, 
+        createdAt,
+        baseRate,
+        tax NUMERIC,
+        cleaningFee NUMERIC,
+        processingFee NUMERIC,
+        extraGuestsFee NUMERIC,
+        total NUMERIC,
+        extraGuests INTEGER,
+        nights INTEGER,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       name,
       email,
       checkInDate,
       checkOutDate,
       villaType,
       transactionId,
-      new Date().toISOString()
+      new Date().toISOString(),
+      total.baseRate,
+      total.tax,
+      total.cleaningFee,
+      total.processingFee,
+      total.extraGuestsFee,
+      total,
+      total.extraGuests,
+      total.nights
     );
 
     if (!isDevEnv) {
