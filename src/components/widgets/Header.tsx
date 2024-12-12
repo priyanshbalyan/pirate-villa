@@ -103,7 +103,7 @@ const Header = () => {
     >
       <div className="mx-auto w-full max-w-7xl md:flex md:justify-between md:py-2 md:px-4">
         <div
-          className={`flex justify-between py-3 px-3 md:py-0 md:px-0 ${isToggleMenuOpen
+          className={`md:min-w-[500px] flex justify-between py-3 px-3 md:py-0 md:px-0 ${isToggleMenuOpen
             ? 'md:bg-transparent md:dark:bg-transparent md:border-none  border-b  '
             : ''
             }`}
@@ -123,7 +123,7 @@ const Header = () => {
         </div>
         <nav
           className={`${isToggleMenuOpen ? 'block px-3' : 'hidden'} h-screen  ${position === 'right' ? 'justify-end' : position === 'left' ? 'justify-start' : 'justify-center'
-            } w-auto overflow-y-auto dark:text-slate-200 md:mx-5 md:flex md:h-auto md:items-center md:overflow-visible`}
+            } w-full overflow-y-auto dark:text-slate-200 md:mx-5 md:flex md:h-auto md:items-center md:overflow-visible`}
           aria-label="Main navigation"
         >
           <ul
