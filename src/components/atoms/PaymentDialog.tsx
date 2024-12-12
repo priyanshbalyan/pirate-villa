@@ -16,6 +16,7 @@ type Props = {
   amount: number;
   handleBook: () => void;
   loading: boolean;
+  bookingError: string;
 }
 
 export function PaymentDialog({
@@ -25,7 +26,8 @@ export function PaymentDialog({
   setCreditCardData,
   amount,
   handleBook,
-  loading
+  loading,
+  bookingError
 }: Props) {
   const [scrollY, setScrollY] = useState(0);
 
@@ -73,14 +75,17 @@ export function PaymentDialog({
           />
         </CardContent>
         <CardFooter>
-          <Button
-            onClick={handlePayClick}
-            className={cn("mt-2.5 mb-4 w-full bg-black text-white", Object.keys(errors).length > 0 && "border-red-500 border")}
-            disabled={loading}
-          >
-            {loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
-            {' '}Pay {amount > 0 ? `$${amount}` : ''}
-          </Button>
+          <div className='w-full'>
+            <Button
+              onClick={handlePayClick}
+              className={cn("mt-2.5 mb-4 bg-black text-white w-full", Object.keys(errors).length > 0 && "border-red-500 border")}
+              disabled={loading}
+            >
+              {loading ? <LoaderCircle className='animate-spin' /> : <Lock className="mr-2 h-4 w-4" />}
+              {' '}Pay {amount > 0 ? `$${amount}` : ''}
+            </Button>
+            {bookingError && <div className='text-xs text-red-500'>{bookingError}</div>}
+          </div>
         </CardFooter>
       </Card>
     </Dialog>

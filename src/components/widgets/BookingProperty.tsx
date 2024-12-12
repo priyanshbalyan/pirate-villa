@@ -46,6 +46,8 @@ export default function BookingProperty({ north }: { north: boolean }) {
   const [email, setEmail] = useState('')
   const [guests, setGuests] = useState(1)
 
+  const [bookingError, setBookingError] = useState('')
+
   const [touched, setTouched] = useState(false)
 
   const [creditCardData, setCreditCardData] = useState({
@@ -72,7 +74,7 @@ export default function BookingProperty({ north }: { north: boolean }) {
   const handleBook = async () => {
     if (startDate && endDate) {
       setLoading(true)
-
+      setBookingError('')
       createBooking(name, email, guests, startDate, endDate, north ? 'north' : 'south', creditCardData).then((data) => {
         const params = new URLSearchParams({
           guests: guests.toString(),
@@ -87,7 +89,7 @@ export default function BookingProperty({ north }: { north: boolean }) {
           queryKey: ['getICSData' + north.toString()]
         })
       }).catch(err => {
-        toast({ title: 'An unknown error occured.' })
+        setBookingError('An unknown error occured')
       })
         .finally(() => {
           setLoading(false)
@@ -102,13 +104,14 @@ export default function BookingProperty({ north }: { north: boolean }) {
     setErrors(errors)
 
     if (Object.keys(errors).length === 0) {
+      setBookingError('')
       setPaymentsModalOpen(true)
     }
   }
 
   useEffect(() => {
     if (endDate && startDate) {
-      if (differenceInDays(endDate, startDate) < SITE.MINIMUM_NIGHTS_STAY)
+      if ((differenceInDays(endDate, startDate) + 1) < SITE.MINIMUM_NIGHTS_STAY)
         setErrors({ ...errors, date: 'Minimum 3 night stays can be booked.' })
       else setErrors({})
     }
@@ -202,6 +205,7 @@ export default function BookingProperty({ north }: { north: boolean }) {
           loading={loading}
           handleBook={handleBook}
           amount={amount!}
+          bookingError={bookingError}
         />
       </div>
     </div>

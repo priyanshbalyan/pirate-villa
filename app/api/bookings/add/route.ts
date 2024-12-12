@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 import BookingCompleteEmail from 'emails/booking-complete-email';
 import { eachDayOfInterval, parseISO } from 'date-fns';
 import { APIContracts, APIControllers } from 'authorizenet';
-import { isDevEnv, validateEmail } from '~/utils/utils';
+import { isDateRangeOverlappingStrings, isDevEnv, validateEmail } from '~/utils/utils';
 import { SITE } from '~/config';
 import { calculateTaxAndFees, getPricing } from '~/lib/price-calculations';
 import { FeeAdjustment, ManualAdjustment, Pricing } from '~/types';
@@ -57,13 +57,17 @@ export async function POST(req: NextRequest) {
     const noOfDays = eachDayOfInterval({ start: parseISO(checkInDate), end: parseISO(checkOutDate) }).length
     if (noOfDays < SITE.MINIMUM_NIGHTS_STAY) return NextResponse.json({ error: 'No. of days is less than minimum night stays allowed' }, { status: 400 });
 
-
     const db = await openDb();
-    const [pricing, manualAdjustment, feeRatesData] = await Promise.all([
+    const [pricing, manualAdjustment, feeRatesData, bookingDates] = await Promise.all([
       db.all<Pricing[]>('SELECT * FROM pricing WHERE villaType = ?', [villaType]),
       db.all<ManualAdjustment[]>('SELECT * FROM manual_adjustment WHERE villaType = ?', [villaType]),
-      db.all<{ title: string; value: number; }[]>('SELECT * FROM fee_rates')
+      db.all<{ title: string; value: number; }[]>('SELECT * FROM fee_rates'),
+      db.all<{ checkInDate: string; checkOutDate: string }[]>('SELECT * FROM bookings')
     ])
+
+    if (isDateRangeOverlappingStrings(checkInDate, checkOutDate, bookingDates.map(date => ({ startDate: checkInDate, endDate: checkOutDate })))) {
+      return NextResponse.json({ error: 'Booking dates conflict with existing bookings ' }, { status: 400 })
+    }
 
     const feeAdjustments = feeRatesData.reduce((acc, cur) => {
       (acc as any)[cur.title] = cur.value;
@@ -72,7 +76,8 @@ export async function POST(req: NextRequest) {
 
     const pricings = getPricing(checkInDate, checkOutDate, pricing, manualAdjustment, feeAdjustments)
     const total = calculateTaxAndFees(pricings, guests, feeAdjustments)
-    const transactionId = await makePayment(data, total.total)
+    const transactionResponse = await makePayment(data, total.total)
+    const transId = transactionResponse.getTransactionResponse().transId
 
     await db.run(
       `INSERT INTO bookings (
@@ -84,20 +89,20 @@ export async function POST(req: NextRequest) {
         transactionId, 
         createdAt,
         baseRate,
-        tax NUMERIC,
-        cleaningFee NUMERIC,
-        processingFee NUMERIC,
-        extraGuestsFee NUMERIC,
-        total NUMERIC,
-        extraGuests INTEGER,
-        nights INTEGER,
+        tax,
+        cleaningFee,
+        processingFee,
+        extraGuestsFee,
+        total,
+        extraGuests,
+        nights
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       name,
       email,
       checkInDate,
       checkOutDate,
       villaType,
-      transactionId,
+      transId,
       new Date().toISOString(),
       total.baseRate,
       total.tax,
@@ -113,7 +118,7 @@ export async function POST(req: NextRequest) {
       await sendEmail(email, name, checkInDate, checkOutDate, villaType)
     }
 
-    return NextResponse.json({ message: 'Booking added successfully', transactionId });
+    return NextResponse.json({ message: 'Booking added successfully', transactionId: transId });
   } catch (error) {
     console.error('Booking error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -141,7 +146,7 @@ async function sendEmail(email: string, name: string, checkInDate: string, check
 
 }
 
-async function makePayment(data: RequestBody, amount: number) {
+async function makePayment(data: RequestBody, amount: number): Promise<APIContracts.CreateTransactionResponse> {
   try {
     const {
       name,
@@ -194,7 +199,7 @@ async function makePayment(data: RequestBody, amount: number) {
         const transactionResponse = new APIContracts.CreateTransactionResponse(apiResponse);
 
         if (transactionResponse && transactionResponse.getMessages().getResultCode() === APIContracts.MessageTypeEnum.OK) {
-          return resolve(NextResponse.json({ success: true, transactionResponse: transactionResponse }));
+          return resolve(transactionResponse);
         } else {
           let errorMessage = ''
           if (transactionResponse.getTransactionResponse() != null && transactionResponse.getTransactionResponse().getErrors() != null) {

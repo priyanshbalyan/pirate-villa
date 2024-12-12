@@ -41,7 +41,7 @@ export function validateBookingData(name: string, email: string, startDate: Date
   if (!startDate || !endDate || isSameDay(startDate, endDate)) {
     newErrors.date = 'Date range needs to be selected'
   }
-  if (endDate && startDate && differenceInDays(endDate, startDate) < SITE.MINIMUM_NIGHTS_STAY) {
+  if (endDate && startDate && (differenceInDays(endDate, startDate) + 1) < SITE.MINIMUM_NIGHTS_STAY) {
     newErrors.date = 'Minimum 3 night stays can be booked.'
   }
 

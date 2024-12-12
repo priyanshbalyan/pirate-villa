@@ -33,7 +33,7 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
         <div className="flex justify-between items-center">
           <div>
             <span>{t('book_now_tax')}</span>
-            {totalCalculation && <p className="text-xs text-muted-foreground">({totalCalculation?.taxRate * 100}% on nightly rate)</p>}
+            <p className="text-xs text-muted-foreground">({totalCalculation ? totalCalculation?.taxRate * 100 : 0}% on nightly rate)</p>
           </div>
           <NumberFlow value={totalCalculation?.tax ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
@@ -44,7 +44,7 @@ export default function PriceBreakdown({ startDate, endDate, guests, villaType, 
         <div className="flex justify-between items-center">
           <div>
             <span>{t('book_now_processing_fee')}</span>
-            {totalCalculation && <p className="text-xs text-muted-foreground">({totalCalculation?.processingFeeRate * 100}% of subtotal)</p>}
+            <p className="text-xs text-muted-foreground">({totalCalculation ? totalCalculation?.processingFeeRate * 100 : 0}% of subtotal)</p>
           </div>
           <NumberFlow value={totalCalculation?.processingFee ?? 0} format={{ style: 'currency', currency: 'USD' }}></NumberFlow>
         </div>
