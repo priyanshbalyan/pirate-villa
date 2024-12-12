@@ -13,7 +13,7 @@ export default function LogoText() {
     return (
       <>
         <div>{t('header_north_villa_title')}</div>
-        <div className="text-xs whitespace-pre-wrap">{t('header_north_villa_subtitle')}</div>
+        <div className="text-xs whitespace-pre-wrap hidden md:block">{t('header_north_villa_subtitle')}</div>
       </>
     )
   }
@@ -21,7 +21,7 @@ export default function LogoText() {
     return (
       <>
         <div>{t('header_south_villa_title')}</div>
-        <div className="text-xs whitespace-pre-wrap">{t('header_south_villa_subtitle')}</div>
+        <div className="text-xs whitespace-pre-wrap hidden md:block">{t('header_south_villa_subtitle')}</div>
       </>
     )
   }

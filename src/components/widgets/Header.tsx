@@ -1,22 +1,59 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { IconRss } from '@tabler/icons-react';
 import { useOnClickOutside } from '~/hooks/useOnClickOutside';
 // import ToggleDarkMode from '~/components/atoms/ToggleDarkMode';
 import Link from 'next/link';
 import Logo from '~/components/atoms/Logo';
+import ToggleMenu from '../atoms/ToggleMenu';
 import { headerData } from '~/shared/data/global.data';
-import { cn } from '~/lib/utils';
+import CTA from '../common/CTA';
+import { CallToActionType, HeaderProps } from '~/shared/types';
 import { usePathname } from 'next/navigation';
+import { cn } from '~/lib/utils';
 import useTranslation from '~/hooks/useTranslation';
 import { Toaster } from '~/components/ui/toaster';
 
+
 const Header = () => {
   const { t } = useTranslation()
-  const { links, actions, isSticky, showToggleTheme, showRssFeed, position } = headerData;
+
+  const { actions, isSticky, showToggleTheme, showRssFeed, position } = headerData;
+  const pathname = usePathname()
+
+  const links: HeaderProps['links'] = [
+    pathname === '/' && [
+      {
+        label: t('header_north_villa'),
+        href: '/north-villa'
+      },
+      {
+        label: t('header_south_villa'),
+        href: '/south-villa'
+      },
+      {
+        label: t('header_contact_us'),
+        href: '#contactus'
+      },
+
+    ],
+    (pathname === '/south-villa' || pathname === '/north-villa') && [
+      { href: "#booknow", label: t('header_book_this_villa') },
+      { href: "#faqs", label: t('header_faqs') },
+      { href: "#photos", label: t('header_photos') },
+      { href: "#contactus", label: t('header_contact_us') }
+    ],
+    pathname === '/north-villa' && [
+      { href: "/south-villa", label: t('view_south_villa') }
+    ],
+    pathname === '/south-villa' && [
+      { href: "/north-villa", label: t('view_north_villa') }
+    ]
+  ].flat().filter(x => !!x)
 
   const ref = useRef(null);
-  const pathname = usePathname()
+
 
   const updatedIsDropdownOpen =
     links &&
@@ -59,18 +96,15 @@ const Header = () => {
 
   return (
     <header
-      className={cn(
-        "top-0 z-40 mx-auto w-full flex-none transition-all duration-100 ease-in backdrop-blur-lg",
-        isSticky ? 'sticky' : 'relative',
-        isToggleMenuOpen ? 'h-screen md:h-auto' : 'h-auto',
-        'bg-primary'
-      )}
+      className={cn(`top-0 z-40 mx-auto w-full flex-none  transition-all duration-100 ease-in  m  ${isSticky ? 'sticky' : 'relative'
+        } ${isToggleMenuOpen ? 'h-screen md:h-auto' : 'h-auto'}`,
+        'bg-primary')}
       id="header"
     >
       <div className="mx-auto w-full max-w-7xl md:flex md:justify-between md:py-2 md:px-4">
         <div
           className={`flex justify-between py-3 px-3 md:py-0 md:px-0 ${isToggleMenuOpen
-            ? 'md:bg-transparent md:dark:bg-transparent md:border-none  dark:bg-slate-900 border-b border-gray-200 dark:border-slate-600'
+            ? 'md:bg-transparent md:dark:bg-transparent md:border-none  border-b  '
             : ''
             }`}
         >
@@ -84,36 +118,87 @@ const Header = () => {
             <Logo />
           </Link>
           <div className="flex items-center md:hidden">
-            {/* <ToggleDarkMode /> */}
+            <ToggleMenu handleToggleMenuOnClick={handleToggleMenuOnClick} isToggleMenuOpen={isToggleMenuOpen} />
           </div>
         </div>
+        <nav
+          className={`${isToggleMenuOpen ? 'block px-3' : 'hidden'} h-screen  ${position === 'right' ? 'justify-end' : position === 'left' ? 'justify-start' : 'justify-center'
+            } w-auto overflow-y-auto dark:text-slate-200 md:mx-5 md:flex md:h-auto md:items-center md:overflow-visible`}
+          aria-label="Main navigation"
+        >
+          <ul
+            ref={ref}
+            className="flex w-full flex-col mt-2 mb-36 md:m-0 text-xl md:w-auto md:flex-row md:self-center md:pt-0 md:text-base"
+          >
+            {links &&
+              links.map(({ label, href, icon: Icon, links }, index) => (
+                <li key={`item-link-${index}`} className={links?.length ? 'dropdown' : ''}>
+                  {links && links.length ? (
+                    <>
+                      <button
+                        className="flex items-center px-4 py-3 font-medium transition duration-150 ease-in-out hover:text-gray-900 dark:hover:text-white"
+                        onClick={() => handleDropdownOnClick(index)}
+                      >
+                        {label}{' '}
+                        {Icon && (
+                          <Icon
+                            className={`${isDropdownOpen[index] ? 'rotate-180' : ''
+                              } ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden h-3.5 w-3.5 md:inline`}
+                          />
+                        )}
+                      </button>
+                      <ul
+                        className={`${isDropdownOpen[index] ? 'block' : 'md:hidden'
+                          } rounded pl-4 font-medium drop-shadow-xl md:absolute md:min-w-[200px] md:bg-white/90 md:pl-0 md:backdrop-blur-md dark:md:bg-slate-900/90 md:border md:border-gray-200 md:dark:border-slate-700`}
+                      >
+                        {links.map(({ label: label2, href: href2 }, index2) => (
+                          <li key={`item-link-${index2}`}>
+                            <Link
+                              className="whitespace-no-wrap block py-2 px-5 first:rounded-t last:rounded-b dark:hover:bg-gray-700 md:hover:bg-gray-200"
+                              href={href2 as string}
+                              onClick={() =>
+                                isToggleMenuOpen ? handleToggleMenuOnClick() : handleCloseDropdownOnClick(index)
+                              }
+                            >
+                              {label2}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : (
+                    <Link
+                      className="whitespace-nowrap cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline leading-10 md:leading-0 text-lg md:text-[13px]"
+                      href={href as string}
+                      onClick={() => (isToggleMenuOpen ? handleToggleMenuOnClick() : handleDropdownOnClick(index))}
+                    >
+                      {label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </nav>
         <div
           className={`${isToggleMenuOpen ? 'block' : 'hidden'
             } fixed bottom-0 left-0 w-full justify-end p-3 md:static md:mb-0 md:flex md:w-auto md:self-center md:p-0 md:bg-transparent md:dark:bg-transparent md:border-none bg-transparent dark:bg-slate-900 border-t border-gray-200 dark:border-slate-600`}
         >
           <div className="flex w-full items-center justify-between md:w-auto">
-            {pathname === '/' && <>
-              <a href="/north-villa" className="cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_north_villa')}</a>
-              <a href="/south-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_south_villa')}</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
-            </>
-            }
-            {(pathname === '/south-villa' || pathname === '/north-villa') && <>
-              <a href="#booknow" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_book_this_villa')}</a>
-              <a href="#faqs" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_faqs')}</a>
-              <a href="#photos" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_photos')}</a>
-              <a href="#contactus" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('header_contact_us')}</a>
-            </>
-            }
-            {pathname === '/north-villa' && <a href="/south-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('view_south_villa')}</a>}
-            {pathname === '/south-villa' && <a href="/north-villa" className=" cursor-pointer bg-primary rounded-full px-4 py-2 text-site underline text-[13px]">{t('view_north_villa')}</a>}
-
-            {/* <ToggleDarkMode /> */}
+            {/* {showToggleTheme && <ToggleDarkMode />} */}
+            {showRssFeed && (
+              <Link
+                className="text-muted inline-flex items-center rounded-lg p-2.5 text-sm hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                aria-label="RSS Feed"
+                href=""
+              >
+                <IconRss className="h-5 w-5" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
       <Toaster />
-    </header >
+    </header>
   );
 };
 
