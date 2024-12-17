@@ -19,6 +19,8 @@ import {
 } from "~/components/ui/resizable"
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { deleteImage } from "~/hooks/useDeleteImage";
+import { Tabs } from "@radix-ui/react-tabs";
+import { TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 
 type TextMap = { [key: string]: string | string[]; }
@@ -115,6 +117,7 @@ export default function SiteText() {
 
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string>('');
+  const [filterText, setFilterText] = useState('main_page')
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -174,6 +177,65 @@ export default function SiteText() {
 
   const updateButton = detectKeyChanges && <Button onClick={handleUpdateClick} className="">UPDATE</Button>
 
+  const filterTextList = textList.filter(text => {
+    if (filterText)
+      return text.textKey.startsWith(filterText)
+    return !text.textKey.startsWith('main_page') && !text.textKey.startsWith('north_villa') && !text.textKey.startsWith('south_villa')
+  })
+
+  const renderFields = (
+    <Tabs defaultValue="main_page" className="">
+      <div className=' '>
+        <TabsList className='max-w-[800px] mb-4 bg-transparent'>
+          <TabsTrigger onClick={() => setFilterText('main_page')} value="main_page" className='w-4/12 active:bg-primary'>Main Page</TabsTrigger>
+          <TabsTrigger onClick={() => setFilterText('north_villa')} value="north_villa" className='w-4/12'>North Villa Page</TabsTrigger>
+          <TabsTrigger onClick={() => setFilterText('south_villa')} value="south_villa" className='w-4/12'>South Villa Page</TabsTrigger>
+          <TabsTrigger onClick={() => setFilterText('')} value="Others" className='w-4/12'>Other</TabsTrigger>
+        </TabsList>
+      </div>
+      {filterTextList.map(text => {
+        return (
+          <div className="flex mb-1 gap-2 text-sm" key={text.textKey}>
+            <div className="w-3/12 break-all">{text.textKey}:</div>
+            <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-7/12" : "w-9/12")}>
+              {Array.isArray(text.content)
+                ? (
+                  <div className="mb-4">
+                    {text.content.map((cnt, index) => (
+                      <Input
+                        value={cnt}
+                        key={`${text.textKey}`}
+                        onChange={handleValueChange(text.textKey, index)}
+                        className="mb-1 border-[1px] border-primary"
+                        placeholder="Empty field"
+                      />
+                    ))}
+                    <div className="flex gap-2">
+                      <Button onClick={handleAddField(text.textKey)}>Add Item</Button>
+                      <Button onClick={handleRemoveField(text.textKey)}>Remove Item</Button>
+                    </div>
+                  </div>
+                ) : (
+                  <Input
+                    className="border-[1px] border-primary"
+                    value={text.content}
+                    name={text.textKey}
+                    onChange={handleValueChange(text.textKey)}
+                    placeholder="Empty field"
+                    key={text.textKey}
+                  />
+                )
+              }
+            </div>
+            <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-2/12" : "w-0/12")}>
+              {currentlyEditing === text.textKey && updateButton}
+            </div>
+          </div>
+        )
+      })}
+    </Tabs>
+  )
+
   return (
     <div className="m-4">
       <ResizablePanelGroup direction="horizontal" className="px-4 rounded-lg text-site border-box border-[1px] border-primary">
@@ -182,46 +244,7 @@ export default function SiteText() {
             <div className="h-full my-4">
               <h1 className="mb-4 text-2xl font-bold">Modify the site text here </h1>
               <p className="text-red-500">{errors}</p>
-              {textList.map(text => {
-                return (
-                  <div className="flex mb-1 gap-2 text-sm" key={text.textKey}>
-                    <div className="w-3/12 break-all">{text.textKey}:</div>
-                    <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-7/12" : "w-9/12")}>
-                      {Array.isArray(text.content)
-                        ? (
-                          <div className="mb-4">
-                            {text.content.map((cnt, index) => (
-                              <Input
-                                value={cnt}
-                                key={`${text.textKey}`}
-                                onChange={handleValueChange(text.textKey, index)}
-                                className="mb-1 border-[1px] border-primary"
-                                placeholder="Empty field"
-                              />
-                            ))}
-                            <div className="flex gap-2">
-                              <Button onClick={handleAddField(text.textKey)}>Add Item</Button>
-                              <Button onClick={handleRemoveField(text.textKey)}>Remove Item</Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <Input
-                            className="border-[1px] border-primary"
-                            value={text.content}
-                            name={text.textKey}
-                            onChange={handleValueChange(text.textKey)}
-                            placeholder="Empty field"
-                            key={text.textKey}
-                          />
-                        )
-                      }
-                    </div>
-                    <div className={cn(currentlyEditing === text.textKey && detectKeyChanges ? "w-2/12" : "w-0/12")}>
-                      {currentlyEditing === text.textKey && updateButton}
-                    </div>
-                  </div>
-                )
-              })}
+              {renderFields}
             </div>
             <ScrollBar className="bg-primary" />
           </ScrollArea>
