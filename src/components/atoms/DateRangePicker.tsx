@@ -5,7 +5,7 @@ import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range
 import useGetDisabledDates from '~/hooks/useGetDisabledDates';
 import { LoaderCircle } from 'lucide-react';
 import useGetDatePricing from '~/hooks/useGetDatePricing';
-import { format, getDate, isBefore, isWithinInterval, startOfDay } from 'date-fns';
+import { format, getDate, isBefore, isSameDay, isWithinInterval, startOfDay } from 'date-fns';
 import { cn } from '~/lib/utils';
 import { useCallback, useMemo } from 'react';
 import { DATE_FORMAT_STRING } from '~/utils/utils';
@@ -71,6 +71,9 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     const disabled = disabledDatesSet?.has(dateString) || isBefore(date, startOfDay(new Date()))
     const price = datePricingSet?.get(dateString)
 
+    const dateClass = startDate && endDate && isWithinInterval(date, { start: startDate, end: endDate })
+      ? ''
+      : (isSameDay(date, new Date()) ? '' : 'text-primary')
     return (
       <div
         className={cn(
@@ -79,24 +82,30 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
         )}
       >
         <div className={cn(
-          startDate && endDate && isWithinInterval(date, { start: startDate, end: endDate }) ? '' : 'text-primary',
+          dateClass,
           disabled && 'text-gray-400',
         )}>
           {getDate(date)}
         </div>
         {price && <div className='font-semibold text-xs'>${price}</div>}
-      </div>
+      </div >
     )
   }, [disabledDatesSet, datePricingSet, startDate, endDate])
 
   let component;
+
   if (error) {
+
     component = <div className='w-full h-[349px] flex items-center justify-center'>An error occured. Please try again after some time.</div>
+
   } else if (isLoading) {
+
     component = <div className="w-full h-[349px] flex items-center justify-center">
       <LoaderCircle className="animate-spin" />
     </div>
+
   } else {
+
     component = (
       <DateRangePickerComp
         ranges={[selectionRange]}
@@ -107,6 +116,7 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
         dayContentRenderer={customDateRender}
       />
     )
+
   }
   return <CollapseAnimate disableDebounce={true}>{component}</CollapseAnimate>
 }
