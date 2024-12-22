@@ -5,7 +5,7 @@ import { DateRange as DateRangePickerComp, RangeKeyDict } from 'react-date-range
 import useGetDisabledDates from '~/hooks/useGetDisabledDates';
 import { LoaderCircle } from 'lucide-react';
 import useGetDatePricing from '~/hooks/useGetDatePricing';
-import { format, getDate, isBefore, startOfDay } from 'date-fns';
+import { format, getDate, isBefore, isWithinInterval, startOfDay } from 'date-fns';
 import { cn } from '~/lib/utils';
 import { useCallback, useMemo } from 'react';
 import { DATE_FORMAT_STRING } from '~/utils/utils';
@@ -70,18 +70,24 @@ const DateRangePicker = ({ handleSelect, startDate = null, endDate = null, north
     const dateString = format(date, DATE_FORMAT_STRING)
     const disabled = disabledDatesSet?.has(dateString) || isBefore(date, startOfDay(new Date()))
     const price = datePricingSet?.get(dateString)
+
     return (
       <div
         className={cn(
           'text-white text-lg font-bold block cursor-pointer w-full',
-          disabled && 'cursor-not-allowed disabled text-gray-500 text-center'
+          disabled && 'cursor-not-allowed disabled text-gray-400 text-center'
         )}
       >
-        <div className="">{getDate(date)}</div>
+        <div className={cn(
+          startDate && endDate && isWithinInterval(date, { start: startDate, end: endDate }) ? '' : 'text-primary',
+          disabled && 'text-gray-400',
+        )}>
+          {getDate(date)}
+        </div>
         {price && <div className='font-semibold text-xs'>${price}</div>}
       </div>
     )
-  }, [disabledDatesSet, datePricingSet])
+  }, [disabledDatesSet, datePricingSet, startDate, endDate])
 
   let component;
   if (error) {

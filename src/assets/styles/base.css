@@ -58,3 +58,7 @@
 .rdrDateDisplayItemActive {
   border: 1px solid #d4aa7d !important;
 }
+
+.rdrDayPassive > span > div > div {
+  color: rgb(188, 188, 188) !important;
+}

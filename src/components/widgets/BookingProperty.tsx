@@ -141,7 +141,11 @@ export default function BookingProperty({ north }: { north: boolean }) {
                 endDate={endDate}
                 northVilla={north}
               />
-              {errors.date && <p className="text-xs text-red-500 px-8 md:px-0">{errors.date}</p>}
+              <div className='flex items-center gap-2 w-full justify-center'>
+                <div className='w-4 h-4 bg-gray-400'></div><span className='text-xs'>Unavailable</span>
+                <div className='w-4 h-4 bg-primary'></div><span className='text-xs'>Available</span>
+              </div>
+              {errors.date && <p className="mt-4 text-xs text-red-500 px-8 md:px-0">{errors.date}</p>}
             </div>
             <div className="w-full md:w-1/2">
               <Label className="mb-2 mt-4 text-[13px]">{t('book_now_name_label')}</Label>
