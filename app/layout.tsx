@@ -1,17 +1,18 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { SITE } from '~/config.js';
+import { SITE } from "~/config.js";
 
-import Providers from '~/components/atoms/Providers';
-import Header from '~/components/widgets/Header';
-import Footer2 from '~/components/widgets/Footer2';
+import Providers from "~/components/atoms/Providers";
+import Header from "~/components/widgets/Header";
+import Footer2 from "~/components/widgets/Footer2";
 
-import { Inter as CustomFont } from 'next/font/google';
-import '~/assets/styles/base.css';
-import { cn } from '~/lib/utils';
-import { Nexa } from '~/utils/utils';
+import { Inter as CustomFont } from "next/font/google";
+import "~/assets/styles/base.css";
+import { cn } from "~/lib/utils";
+import { Nexa } from "~/utils/utils";
+import Script from "next/script";
 
-const customFont = CustomFont({ subsets: ['latin'], variable: '--font-custom' });
+const customFont = CustomFont({ subsets: ["latin"], variable: "--font-custom" });
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -31,15 +32,19 @@ export default function RootLayout({ children }: LayoutProps) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Script id="google-tag-1" async src="https://www.googletagmanager.com/gtag/js?id=AW-16862351626"></Script>
+        <Script id="google-tag-2">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'AW-16862351626');`}
+        </Script>
       </head>
-      <body className={cn(
-        "tracking-tight antialiased backdrop-blur-lg bg-background text-secondary text-sm"
-      )}>
+      <body className={cn("tracking-tight antialiased backdrop-blur-lg bg-background text-secondary text-sm")}>
         <Providers>
           <Header />
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
           <Footer2 />
         </Providers>
         <div id="headlessui-portal-root"></div>
